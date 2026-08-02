@@ -40,6 +40,11 @@
   "jobTitle": "AI Automation Engineer",
   "description": "AI Automation Engineer specializing in CRM and RevOps automation, HubSpot workflow design, and full-stack development.",
   "url": "https://peashdasrudra.github.io/portfolio-ai/",
+  "sameAs": [
+    "https://www.linkedin.com/in/peashrudra/",
+    "https://github.com/peashdasrudra",
+    "https://www.fiverr.com/peash_rudra"
+  ],
   "address": {
     "@type": "PostalAddress",
     "addressLocality": "Khulna",
@@ -134,7 +139,18 @@
   .nav-cta{ font-family:var(--mono); font-size:12px; font-weight:600; background:var(--green); color:#031f0d; padding:10px 20px;
     border-radius:9999px; white-space:nowrap; transition:transform .18s ease, box-shadow .18s ease; border:none; cursor:pointer; }
   .nav-cta:hover{transform:translateY(-1px); box-shadow:0 6px 20px var(--green-glow);}
-  @media (max-width:780px){ .navlinks{display:none;} }
+  .navtoggle{ display:none; background:transparent; border:none; color:var(--white); cursor:pointer; padding:8px; align-items:center; justify-content:center; }
+  .navtoggle svg{width:20px; height:20px;}
+  .mobile-menu{
+    display:none; position:fixed; top:78px; left:50%; transform:translateX(-50%);
+    width:min(90%, 360px); background:rgba(20,20,20,0.97); backdrop-filter:blur(16px);
+    border:1px solid var(--border); border-radius:var(--radius-m); box-shadow:var(--shadow-heavy);
+    z-index:99; padding:10px; flex-direction:column; gap:2px;
+  }
+  .mobile-menu.open{display:flex;}
+  .mobile-menu a{ font-family:var(--mono); font-size:14px; color:var(--silver); padding:14px 16px; border-radius:8px; transition:all .2s ease; }
+  .mobile-menu a:hover, .mobile-menu a:focus-visible{color:var(--white); background:var(--surface-2);}
+  @media (max-width:780px){ .navlinks{display:none;} .navtoggle{display:flex;} }
 
   /* ---------- HERO ---------- */
   .hero{ padding:172px 0 90px; }
@@ -285,278 +301,8 @@
     padding:12px 20px; border-radius:9999px; transition:top .2s ease;
   }
   .skip-link:focus{top:16px;}
-</style>
-</head>
-<body>
 
-<a href="#main" class="skip-link">Skip to content</a>
-
-<div class="grain" aria-hidden="true"></div>
-<div class="dotgrid" aria-hidden="true"></div>
-<div class="glow-drift" aria-hidden="true"></div>
-
-<header>
-  <nav class="navbar" aria-label="Primary">
-    <div class="logo"><span class="dot" aria-hidden="true"></span> peash.das</div>
-    <div class="navlinks">
-      <a href="#work">work</a>
-      <a href="#projects">projects</a>
-      <a href="#skills">skills</a>
-      <a href="#research">research</a>
-    </div>
-    <a href="#contact" class="nav-cta">let's talk</a>
-  </nav>
-</header>
-
-<main class="wrap" id="main">
-
-  <!-- HERO -->
-  <section class="hero">
-    <div class="hero-grid">
-      <div>
-        <div class="eyebrow"><span class="pulse"></span> open to freelance &amp; remote roles</div>
-        <h1>I build AI systems that <span class="accent">run your CRM</span> so your team doesn't have to.</h1>
-        <p class="sub">AI Automation Engineer specializing in CRM &amp; RevOps — architecting agents and workflows that score leads, route tickets, and manage pipelines automatically, backed by live production work for UK B2B clients.</p>
-        <div class="hero-ctas">
-          <a href="#contact" class="btn-primary">start a project →</a>
-          <a href="#work" class="btn-outline">see the work</a>
-        </div>
-        <div class="hero-proof">
-          <div><div class="n">20+</div><div class="l">automations shipped</div></div>
-          <div><div class="n">3+</div><div class="l">client accounts</div></div>
-          <div><div class="n">6</div><div class="l">platforms, 1 codebase</div></div>
-        </div>
-      </div>
-
-      <div class="terminal reveal" id="terminal">
-        <div class="term-bar">
-          <span class="tl r" aria-hidden="true"></span><span class="tl y" aria-hidden="true"></span><span class="tl g" aria-hidden="true"></span>
-          <span class="term-title">automation.log — live</span>
-        </div>
-        <p class="sr-only">Simulated live log of a typical automation: a missed call syncs from Aircall into a HubSpot ticket, the lead is scored and routed, a Slack alert and follow-up email are triggered, and the deal pipeline and dashboards update automatically.</p>
-        <div class="term-body" id="termBody" aria-hidden="true"></div>
-      </div>
-    </div>
-  </section>
-
-  <!-- STATS -->
-  <section class="reveal">
-    <div class="stats">
-      <div class="stat stat-big spot"><div class="num">20+</div><div class="lbl">Production automations built and shipped for live UK B2B client accounts — lead creation, ticketing, lead scoring.</div></div>
-      <div class="stat spot"><div class="num">5</div><div class="lbl">Reporting dashboards, 10+ reports</div></div>
-      <div class="stat spot"><div class="num">3+</div><div class="lbl">Concurrent client accounts</div></div>
-      <div class="stat spot"><div class="num">76%</div><div class="lbl">Shared codebase across 6 platforms</div></div>
-      <div class="stat spot"><div class="num">17+</div><div class="lbl">AI tools shipped in Genius AI</div></div>
-    </div>
-  </section>
-
-  <!-- WORK -->
-  <section id="work">
-    <div class="section-head reveal">
-      <div class="kicker">./experience --live</div>
-      <h2 class="section-title">Real systems, live clients.</h2>
-      <p class="section-desc">Not tutorials — production automation and engineering work shipped for real teams.</p>
-    </div>
-    <div class="exp-list">
-      <div class="exp-card reveal">
-        <div class="exp-meta">
-          <div class="role">Software &amp; Automation Engineer</div>
-          <div class="org">Clickless — UK, Remote</div>
-          <div class="date">FEB 2026 – JUL 2026</div>
-        </div>
-        <div class="exp-body">
-          <ul>
-            <li>Eliminated support ticket routing delays by architecting a native Aircall–Slack–HubSpot integration, syncing missed calls into tracked HubSpot tickets in real time.</li>
-            <li>Improved sales pipeline visibility by designing automated HubSpot Deal Pipelines across 3+ concurrent client accounts.</li>
-            <li>Built CRM and marketing automation infrastructure from scratch for e-commerce and healthcare client portals.</li>
-            <li>Scaled marketing operations by building 20+ production automations spanning lead creation, ticketing, and lead scoring.</li>
-            <li>Delivered full CRM visibility with 5 reporting dashboards (10+ reports) and SOP documentation, across a remote team of 9.</li>
-          </ul>
-        </div>
-      </div>
-      <div class="exp-card reveal">
-        <div class="exp-meta">
-          <div class="role">Flutter Developer</div>
-          <div class="org">Appstick</div>
-          <div class="date">OCT 2025 – DEC 2025</div>
-        </div>
-        <div class="exp-body">
-          <ul>
-            <li>Shipped features for a client-facing Flutter app using BLoC state management and cross-platform, platform-specific UI handling in a production team environment.</li>
-            <li>Debugged and resolved issues across the mobile codebase, maintaining team code-quality and testing standards.</li>
-          </ul>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- PROJECTS -->
-  <section id="projects">
-    <div class="section-head reveal">
-      <div class="kicker">./projects --shipped</div>
-      <h2 class="section-title">Built end-to-end, solo.</h2>
-      <p class="section-desc">Independent projects showing range across mobile, AI product, and system design.</p>
-    </div>
-    <div class="proj-grid">
-      <div class="proj-card spot reveal">
-        <div class="proj-top"><div class="proj-icon">🧵</div><div class="proj-tag">2024–2025</div></div>
-        <h3>Loom</h3>
-        <p>A production-ready, real-time social media app deployed on Android, iOS, Web, and Desktop from a single Dart codebase (76% shared code), with a serverless offline-first backend and sub-second sync.</p>
-        <div class="pill-row"><span class="pill">Flutter</span><span class="pill">Dart 3</span><span class="pill">Firebase</span><span class="pill">BLoC</span></div>
-      </div>
-      <div class="proj-card spot reveal">
-        <div class="proj-top"><div class="proj-icon">✨</div><div class="proj-tag">2023–2024</div></div>
-        <h3>Genius AI</h3>
-        <p>A multi-tool AI SaaS platform designed and shipped from zero — 17+ content-generation tools, per-user API quota tracking, and tiered subscription billing, owned solo end-to-end.</p>
-        <div class="pill-row"><span class="pill">Next.js</span><span class="pill">TypeScript</span><span class="pill">LLM Integration</span></div>
-      </div>
-    </div>
-  </section>
-
-  <!-- SKILLS -->
-  <section id="skills">
-    <div class="section-head reveal">
-      <div class="kicker">./skills --stack</div>
-      <h2 class="section-title">What I actually build with.</h2>
-    </div>
-    <div class="skill-groups reveal">
-      <div class="skill-group">
-        <div class="g-title">AI &amp; Automation</div>
-        <div class="pill-row"><span class="pill">LLM Integration</span><span class="pill">Prompt Engineering</span><span class="pill">AI Agent Development</span><span class="pill">HubSpot Workflow Automation</span><span class="pill">n8n</span><span class="pill">Make</span><span class="pill">SHAP</span><span class="pill">Metaheuristics</span></div>
-      </div>
-      <div class="skill-group">
-        <div class="g-title">CRM &amp; RevOps</div>
-        <div class="pill-row"><span class="pill">HubSpot CRM</span><span class="pill">Deal Pipeline Design</span><span class="pill">Marketing Automation</span><span class="pill">Lead Scoring</span><span class="pill">System Integrations</span><span class="pill">SOP Documentation</span></div>
-      </div>
-      <div class="skill-group">
-        <div class="g-title">Frontend &amp; Backend</div>
-        <div class="pill-row"><span class="pill">React.js</span><span class="pill">Next.js</span><span class="pill">TypeScript</span><span class="pill">Node.js</span><span class="pill">Express.js</span><span class="pill">REST</span><span class="pill">GraphQL</span><span class="pill">Tailwind CSS</span></div>
-      </div>
-      <div class="skill-group">
-        <div class="g-title">Mobile &amp; Cloud</div>
-        <div class="pill-row"><span class="pill">Flutter</span><span class="pill">Dart 3</span><span class="pill">Firebase</span><span class="pill">Docker</span><span class="pill">AWS</span><span class="pill">Google Cloud</span><span class="pill">PostgreSQL</span><span class="pill">MongoDB</span></div>
-      </div>
-    </div>
-  </section>
-
-  <!-- RESEARCH / EDU -->
-  <section id="research">
-    <h2 class="sr-only">Research &amp; Education</h2>
-    <div class="strip reveal">
-      <div class="strip-card">
-        <div class="g-title">./research --active</div>
-        <h3>Explainable AI for Cancer Classification</h3>
-        <p>Applying SHAP for interpretable ML and Chemical Reaction Optimization (CRO) for feature selection on high-dimensional bioinformatics data.</p>
-      </div>
-      <div class="strip-card">
-        <div class="g-title">./education</div>
-        <h3>B.Sc. Computer Science &amp; Engineering</h3>
-        <p>Northern University of Business &amp; Technology, Khulna · 2022–2026 · CGPA 3.95/4.00. National Gold Medalist, School Debate Competition. Former General Secretary, CISC.</p>
-      </div>
-    </div>
-  </section>
-
-  <!-- CONTACT -->
-  <section id="contact">
-    <div class="contact reveal">
-      <h2>Need your CRM to run itself?</h2>
-      <p>Open to freelance automation projects and full-time remote or Bangladesh-based roles. Let's build the system.</p>
-      <div class="contact-links">
-        <a href="#" class="link-chip">✉ email</a>
-        <a href="#" class="link-chip">in linkedin</a>
-        <a href="#" class="link-chip">⌥ github</a>
-        <a href="#" class="link-chip">$ fiverr</a>
-      </div>
-    </div>
-  </section>
-
-  <footer>© 2026 peash das rudra · khulna, bangladesh · open to remote worldwide</footer>
-</main>
-
-<div class="statusbar">
-  <div class="statusbar-inner">
-    <div class="status-live"><span class="pulse"></span> now automating</div>
-    <div class="ticker-mask" aria-hidden="true">
-      <div class="ticker-track">
-        <span><b>20+</b> automations shipped for live clients</span>
-        <span>aircall → slack → hubspot integration, built from scratch</span>
-        <span><b>5</b> reporting dashboards · <b>10+</b> reports</span>
-        <span>currently open for freelance &amp; remote work</span>
-        <span><b>20+</b> automations shipped for live clients</span>
-        <span>aircall → slack → hubspot integration, built from scratch</span>
-        <span><b>5</b> reporting dashboards · <b>10+</b> reports</span>
-        <span>currently open for freelance &amp; remote work</span>
-      </div>
-    </div>
-    <a href="#contact" class="status-cta">hire me</a>
-  </div>
-</div>
-
-<script>
-  // scroll reveal
-  const els = document.querySelectorAll('.reveal');
-  const io = new IntersectionObserver((entries)=>{
-    entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
-  }, {threshold:0.12});
-  els.forEach(el=>io.observe(el));
-
-  // spotlight cursor-follow on cards
-  document.querySelectorAll('.spot').forEach(card=>{
-    card.addEventListener('mousemove', (e)=>{
-      const r = card.getBoundingClientRect();
-      card.style.setProperty('--mx', (e.clientX - r.left) + 'px');
-      card.style.setProperty('--my', (e.clientY - r.top) + 'px');
-    });
-  });
-
-  // typing terminal log
-  const lines = [
-    {p:'▶', t:'watching hubspot.deals for stage change...', c:'meta'},
-    {p:'✓', t:'aircall → missed call detected → hubspot ticket #4821 created', c:'ok'},
-    {p:'✓', t:'lead scored: 87/100 → routed to sales queue', c:'ok'},
-    {p:'▶', t:'triggering slack alert to #sales-urgent...', c:'meta'},
-    {p:'✓', t:'workflow complete: follow-up email queued (2hr delay)', c:'ok'},
-    {p:'✓', t:'deal pipeline updated: "discovery" → "qualified"', c:'ok'},
-    {p:'▶', t:'syncing dashboard: 5 reports refreshed', c:'meta'},
-    {p:'✓', t:'20+ automations running — 0 errors', c:'ok'},
-  ];
-  const body = document.getElementById('termBody');
-  let li = 0;
-
-  function typeLine(){
-    if(li >= lines.length){
-      setTimeout(()=>{ body.innerHTML=''; li=0; typeLine(); }, 2200);
-      return;
-    }
-    const row = lines[li];
-    const div = document.createElement('div');
-    div.className = 'term-line';
-    div.style.opacity = 1;
-    const promptSpan = document.createElement('span');
-    promptSpan.className = 'prompt';
-    promptSpan.textContent = row.p;
-    const txtSpan = document.createElement('span');
-    txtSpan.className = row.c === 'ok' ? 'ok' : 'meta';
-    div.appendChild(promptSpan);
-    div.appendChild(txtSpan);
-    body.appendChild(div);
-
-    let i = 0;
-    const full = row.t;
-    const iv = setInterval(()=>{
-      txtSpan.textContent = full.slice(0, i);
-      i++;
-      if(i > full.length){
-        clearInterval(iv);
-        li++;
-        setTimeout(typeLine, 420);
-      }
-    }, 16);
-  }
-  typeLine();
-
-  // active nav-node style highlight removed (v1 flow diagram not in v2 hero)
-</script>
-
-</body>
-</html>
+  .toast{
+    position:fixed; bottom:78px; left:50%; transform:translateX(-50%) translateY(12px);
+    background:var(--green); color:#031f0d; font-family:var(--mono); font-size:12.5px; font-weight:600;
+    padding:12px 22px; borde
