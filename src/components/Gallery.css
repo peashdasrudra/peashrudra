@@ -149,14 +149,19 @@
   }
   
   .gallery-marquee-container {
-    -webkit-mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
-    mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
-    overflow-x: hidden;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    mask-image: none;
+    -webkit-mask-image: none;
+    padding-bottom: 20px; /* Space for native scrollbar */
   }
 
   .gallery-marquee-track {
-    padding: 20px 24px;
+    animation: none !important; /* Disable auto-scroll in favor of native touch swipe */
+    padding: 10px 20px;
     gap: 16px;
+    width: max-content;
   }
 
   .gallery-card {

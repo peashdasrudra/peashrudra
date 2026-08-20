@@ -595,14 +595,26 @@ html[data-theme="light"] .hubspot-text-path {
 }
 
 .term-body {
-  height: 220px; /* Fixed height to prevent layout shifts while typing */
   font-family: var(--font-mono);
   font-size: 13px;
   color: var(--silver);
   padding: 24px 20px;
   line-height: 1.6;
-  overflow-y: hidden;
+  overflow: hidden;
   position: relative;
+}
+
+.term-ghost {
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.term-active {
+  position: absolute;
+  top: 24px;
+  left: 20px;
+  right: 20px;
+  bottom: 24px;
 }
 
 .term-line {
@@ -827,11 +839,17 @@ html[data-theme="light"] .hubspot-text-path {
   }
 
   .term-body {
-    height: 220px; /* Fixed height to prevent layout shifts */
     font-size: 12px;
     padding: 20px 16px;
     overflow-x: auto;
     overflow-y: hidden;
+  }
+
+  .term-active {
+    top: 20px;
+    left: 16px;
+    right: 16px;
+    bottom: 20px;
   }
 
   .hero-top-row {

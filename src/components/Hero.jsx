@@ -114,15 +114,29 @@ function Terminal() {
           <span className="term-title">automation.log — live</span>
         </div>
         <div className="term-body" ref={bodyRef} aria-hidden="true">
-          {lines.map((line, i) => (
-            <div key={i} className="term-line">
-              <span className="prompt">{line.prompt}</span>
-              <span className={line.type === "ok" ? "ok" : "meta"}>
-                {line.text}
-              </span>
-              {i === lines.length - 1 && <span className="cursor-blink" />}
-            </div>
-          ))}
+          {/* Ghost layer: renders all lines invisibly to pre-allocate exact height without CLS */}
+          <div className="term-ghost">
+            {TERMINAL_LINES.map((line, i) => (
+              <div key={i} className="term-line">
+                <span className="prompt">{line.prompt}</span>
+                <span className={line.type === "ok" ? "ok" : "meta"}>
+                  {line.text}
+                </span>
+              </div>
+            ))}
+          </div>
+          {/* Active typing layer: overlaps the ghost layer exactly */}
+          <div className="term-active">
+            {lines.map((line, i) => (
+              <div key={i} className="term-line">
+                <span className="prompt">{line.prompt}</span>
+                <span className={line.type === "ok" ? "ok" : "meta"}>
+                  {line.text}
+                </span>
+                {i === lines.length - 1 && <span className="cursor-blink" />}
+              </div>
+            ))}
+          </div>
         </div>
       </div>
       <div className="terminal-glow" />
