@@ -1,0 +1,36 @@
+.skill-groups {
+  display: flex;
+  flex-direction: column;
+}
+
+.skill-group {
+  display: grid;
+  grid-template-columns: 200px 1fr;
+  gap: 20px;
+  align-items: start;
+  padding: 24px 0;
+  border-top: 1px solid var(--border-soft);
+}
+
+.skill-group:last-child {
+  border-bottom: 1px solid var(--border-soft);
+}
+
+.skill-category {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--green);
+}
+
+.skill-pill {
+  color: var(--white-dim) !important;
+  cursor: default;
+}
+
+@media (max-width: 700px) {
+  .skill-group {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+}

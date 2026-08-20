@@ -1,0 +1,105 @@
+.contact-card {
+  text-align: center;
+  background: radial-gradient(
+    circle at 50% 0%,
+    rgba(30, 215, 96, 0.08),
+    transparent 60%
+  );
+  border-radius: var(--radius-xl);
+  border: 1px solid var(--border-soft);
+  padding: 80px 40px;
+  position: relative;
+  overflow: hidden;
+}
+
+.contact-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--green);
+  background: var(--green-subtle);
+  border: 1px solid var(--green-border);
+  padding: 7px 16px;
+  border-radius: var(--radius-full);
+  margin-bottom: 28px;
+}
+
+.contact-badge .pulse {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--green);
+  animation: contactPulse 1.8s infinite;
+}
+
+@keyframes contactPulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.25; }
+}
+
+.contact-card h2 {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: clamp(28px, 4.4vw, 44px);
+  letter-spacing: -1px;
+  max-width: 640px;
+  margin: 0 auto 18px;
+  line-height: 1.15;
+}
+
+.contact-card > p {
+  color: var(--silver);
+  max-width: 500px;
+  margin: 0 auto 34px;
+  font-size: 15px;
+  line-height: 1.7;
+}
+
+.contact-actions {
+  display: flex;
+  gap: 14px;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-bottom: 32px;
+}
+
+.contact-btn {
+  font-size: 13px !important;
+}
+
+.contact-links {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.link-chip {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-mono);
+  font-size: 12.5px;
+  font-weight: 500;
+  color: var(--white);
+  background: var(--surface-2);
+  border: 1px solid var(--border-soft);
+  padding: 12px 20px;
+  border-radius: var(--radius-full);
+  transition: all 0.2s ease;
+}
+
+.link-chip:hover {
+  border-color: var(--green);
+  color: var(--green);
+  transform: translateY(-2px);
+}
+
+@media (max-width: 600px) {
+  .contact-card {
+    padding: 56px 24px;
+  }
+}

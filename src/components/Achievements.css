@@ -1,0 +1,138 @@
+.achievements-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+}
+
+.achievement-card {
+  background: var(--card);
+  border: 1px solid var(--border-soft);
+  border-radius: var(--radius-m);
+  padding: 24px;
+  display: flex;
+  gap: 16px;
+  align-items: flex-start;
+  transition: transform 0.3s var(--ease-out), border-color 0.3s ease, box-shadow 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.achievement-card:hover {
+  transform: translateY(-4px);
+  border-color: var(--border-hover);
+  box-shadow: var(--shadow-subtle);
+}
+
+/* ─── Featured (Gold Medal) ─── */
+.achievement-featured {
+  grid-column: 1 / -1;
+  border-color: rgba(234, 179, 8, 0.3);
+  background: linear-gradient(135deg, var(--card) 0%, rgba(234, 179, 8, 0.04) 100%);
+}
+
+.achievement-featured::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, #eab308, #f97316, #ef4444);
+}
+
+.achievement-featured .achievement-content h3 {
+  font-size: 17px;
+}
+
+/* ─── Icon Types ─── */
+.achievement-icon {
+  width: 42px;
+  height: 42px;
+  border-radius: var(--radius-s);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: transform 0.3s var(--ease-spring);
+}
+
+.achievement-card:hover .achievement-icon {
+  transform: scale(1.1) rotate(-3deg);
+}
+
+.achievement-icon.type-award {
+  background: rgba(234, 179, 8, 0.12);
+  border: 1px solid rgba(234, 179, 8, 0.25);
+  color: #eab308;
+}
+
+.achievement-icon.type-academic {
+  background: rgba(59, 130, 246, 0.1);
+  border: 1px solid rgba(59, 130, 246, 0.2);
+  color: #3b82f6;
+}
+
+.achievement-icon.type-leadership {
+  background: rgba(168, 85, 247, 0.1);
+  border: 1px solid rgba(168, 85, 247, 0.2);
+  color: #a855f7;
+}
+
+.achievement-icon.type-research {
+  background: rgba(236, 72, 153, 0.1);
+  border: 1px solid rgba(236, 72, 153, 0.2);
+  color: #ec4899;
+}
+
+.achievement-icon.type-professional {
+  background: var(--green-subtle);
+  border: 1px solid var(--green-border);
+  color: var(--green);
+}
+
+.achievement-icon.type-entrepreneurship {
+  background: rgba(249, 115, 22, 0.1);
+  border: 1px solid rgba(249, 115, 22, 0.2);
+  color: #f97316;
+}
+
+.achievement-icon.type-certification {
+  background: rgba(20, 184, 166, 0.1);
+  border: 1px solid rgba(20, 184, 166, 0.2);
+  color: #14b8a6;
+}
+
+.achievement-icon.type-language {
+  background: rgba(56, 189, 248, 0.1);
+  border: 1px solid rgba(56, 189, 248, 0.2);
+  color: #38bdf8;
+}
+
+.achievement-content h3 {
+  font-family: var(--font-display);
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--white);
+  margin-bottom: 4px;
+}
+
+.achievement-content p {
+  font-size: 13px;
+  color: var(--silver);
+  line-height: 1.5;
+}
+
+@media (max-width: 800px) {
+  .achievements-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .achievement-featured {
+    grid-column: 1 / -1;
+  }
+}
+
+@media (max-width: 520px) {
+  .achievements-grid {
+    grid-template-columns: 1fr;
+  }
+}

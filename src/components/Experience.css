@@ -1,0 +1,152 @@
+.exp-timeline {
+  position: relative;
+  padding-left: 40px;
+}
+
+.timeline-line {
+  position: absolute;
+  left: 15px;
+  top: 8px;
+  bottom: 8px;
+  width: 2px;
+  background: linear-gradient(
+    to bottom,
+    var(--green) 0%,
+    var(--border) 30%,
+    var(--border) 70%,
+    transparent 100%
+  );
+  border-radius: 2px;
+}
+
+.exp-card {
+  position: relative;
+  margin-bottom: 24px;
+}
+
+.exp-card:last-child {
+  margin-bottom: 0;
+}
+
+.exp-dot {
+  position: absolute;
+  left: -40px;
+  top: 28px;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: var(--surface);
+  border: 2px solid var(--green);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--green);
+  z-index: 2;
+  box-shadow: 0 0 16px var(--green-glow);
+}
+
+.exp-card-inner {
+  background: var(--card);
+  border: 1px solid var(--border-soft);
+  border-radius: var(--radius-l);
+  padding: 32px;
+  transition: border-color 0.3s ease, transform 0.3s var(--ease-out);
+}
+
+.exp-card-inner:hover {
+  border-color: var(--border-hover);
+  transform: translateY(-2px);
+}
+
+.exp-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.exp-role {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 18px;
+  color: var(--white);
+}
+
+.exp-company {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 8px;
+  font-size: 13px;
+}
+
+.exp-org {
+  font-family: var(--font-mono);
+  color: var(--green);
+  font-weight: 500;
+}
+
+.exp-sep {
+  color: var(--dim);
+}
+
+.exp-location {
+  color: var(--dim);
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-family: var(--font-mono);
+  font-size: 12px;
+}
+
+.exp-date {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--dim);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  white-space: nowrap;
+  padding: 6px 12px;
+  background: var(--surface-2);
+  border-radius: var(--radius-full);
+  border: 1px solid var(--border-soft);
+}
+
+.exp-bullets {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.exp-bullets li {
+  font-size: 14.5px;
+  color: #d6d6d6;
+  padding-left: 22px;
+  position: relative;
+  line-height: 1.65;
+}
+
+.exp-bullets li::before {
+  content: "▸";
+  color: var(--green);
+  position: absolute;
+  left: 0;
+  top: 0;
+  font-size: 13px;
+}
+
+@media (max-width: 700px) {
+  .exp-timeline {
+    padding-left: 0;
+  }
+  .timeline-line,
+  .exp-dot {
+    display: none;
+  }
+  .exp-header {
+    flex-direction: column;
+  }
+}
