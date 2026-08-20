@@ -495,3 +495,29 @@ section {
   flex-wrap: wrap;
   gap: 6px;
 }
+
+/* ==========================================================================
+   GLOBAL MOBILE GPU PERFORMANCE OVERRIDES
+   These rules optimize heavy backdrop-filters, blurs, and drop-shadows
+   exclusively on mobile devices (<768px) to guarantee smooth scrolling UX,
+   without removing the premium animations or aesthetics.
+   ========================================================================== */
+@media (max-width: 768px) {
+  /* Reduce transparent blurs (Massively improves GPU framerate while keeping glass look) */
+  .navbar,
+  .mobile-menu,
+  .proj-card,
+  .gallery-card,
+  .terminal,
+  .hero-custom-badge {
+    backdrop-filter: blur(8px) !important;
+    -webkit-backdrop-filter: blur(8px) !important;
+    will-change: transform;
+  }
+
+  /* Optimize heavy glowing box-shadows */
+  .terminal-glow {
+    filter: blur(20px) !important; /* Reduced from 40px */
+    opacity: 0.7 !important;
+  }
+}

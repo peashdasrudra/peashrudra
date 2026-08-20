@@ -768,11 +768,11 @@ html[data-theme="light"] .hubspot-text-path {
     box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
   }
 
-  /* Disable heavy animations on mobile for smooth performance */
+  /* Optimize heavy animations on mobile for smooth performance instead of disabling */
   .hero-cb-border-glow {
-    animation: none !important;
-    opacity: 1 !important;
-    background: conic-gradient(from 0deg, transparent 40%, rgba(255, 122, 89, 0.4) 100%) !important;
+    /* Kept animation running, but optimized */
+    will-change: transform;
+    opacity: 0.8 !important; /* Slightly reduce opacity to lessen composite cost */
   }
 
   /* Restore original premium widths before scaling */
