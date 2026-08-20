@@ -7,18 +7,8 @@ import "./Projects.css";
 function ProjectCard({ project, index }) {
   const [expanded, setExpanded] = useState(false);
 
-  // Dynamic sticky top offset based on index
-  // First card sticks at 120px, next at 160px, next at 200px etc.
-  const stickyTop = `calc(120px + ${index * 30}px)`;
-
   return (
-    <div 
-      className="proj-sticky-wrapper" 
-      style={{ 
-        top: stickyTop, 
-        ...(expanded && { position: "relative", zIndex: 100 }) 
-      }}
-    >
+    <div className="proj-wrapper">
       <motion.div
         className={`proj-card spot ${project.featured ? "proj-featured" : ""}`}
         initial={{ opacity: 0, y: 50, scale: 0.95 }}
@@ -198,7 +188,7 @@ function ProjectCard({ project, index }) {
         {(project.caseStudyUrl || project.githubUrl) && (
           <div className="proj-links">
             {project.caseStudyUrl && (
-              <a
+               <a
                 href={project.caseStudyUrl}
                 className="proj-link-btn proj-link-case"
                 target="_blank"
@@ -242,8 +232,8 @@ export default function Projects() {
           </p>
         </motion.div>
 
-        {/* Sticky Stacking Container */}
-        <div className="proj-stack-container">
+        {/* Normal Flow Container */}
+        <div className="proj-list-container">
           {PROJECTS.map((project, i) => (
             <ProjectCard key={i} project={project} index={i} />
           ))}

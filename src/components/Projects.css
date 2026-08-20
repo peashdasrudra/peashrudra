@@ -1,17 +1,9 @@
 /* ─── Layout ─── */
-.proj-stack-container {
+.proj-list-container {
   display: flex;
   flex-direction: column;
   position: relative;
-  /* Extra bottom padding so you can scroll past the last sticky card */
-  padding-bottom: 20vh;
-}
-
-.proj-sticky-wrapper {
-  position: sticky;
-  height: max-content;
-  /* Margin determines space between the stacked cards before they overlap */
-  margin-bottom: 80px;
+  gap: 32px;
 }
 
 .proj-card {
@@ -414,12 +406,8 @@
 }
 
 @media (max-width: 760px) {
-  .proj-sticky-wrapper {
-    position: static;
-    margin-bottom: 24px;
-  }
-  .proj-stack-container {
-    padding-bottom: 0;
+  .proj-list-container {
+    gap: 24px;
   }
   .proj-card {
     padding: 20px;

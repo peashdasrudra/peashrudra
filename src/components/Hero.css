@@ -595,11 +595,14 @@ html[data-theme="light"] .hubspot-text-path {
 }
 
 .term-body {
-  padding: 22px 20px;
+  height: 220px; /* Fixed height to prevent layout shifts while typing */
   font-family: var(--font-mono);
   font-size: 13px;
-  line-height: 2;
-  min-height: 340px;
+  color: var(--silver);
+  padding: 24px 20px;
+  line-height: 1.6;
+  overflow-y: hidden;
+  position: relative;
 }
 
 .term-line {
@@ -660,6 +663,15 @@ html[data-theme="light"] .hubspot-text-path {
     /* Increased to fix navbar collision */
   }
 
+  .hero-grid {
+    gap: 16px; /* CRITICAL: Overrides the 32px gap to pull badges tight against buttons */
+  }
+
+  .eyebrow {
+    white-space: normal; /* Allow wrap to prevent breaking screen width on small phones */
+    text-align: center;
+  }
+
   .hero-title {
     font-size: 28px;
     line-height: 1.05;
@@ -704,8 +716,8 @@ html[data-theme="light"] .hubspot-text-path {
   }
 
   .hero-badges {
-    margin-top: 4px; /* Reduced from 32px to bring closer to buttons */
-    margin-bottom: 24px; /* Shift badges slightly lower if needed, away from buttons */
+    margin-top: -4px; /* Pull it slightly into the grid gap to make it super tight */
+    margin-bottom: 24px;
     padding: 0;
     transform: scale(0.85) !important;
     /* Scale down the exact PC layout */
@@ -739,9 +751,16 @@ html[data-theme="light"] .hubspot-text-path {
   }
 
   /* Reset hover states for touch */
-  .hero-badges>.hero-custom-badge:hover,
-  .hero-badges>.hero-custom-badge:active {
+  .hero-badges > .hero-custom-badge:hover,
+  .hero-badges > .hero-custom-badge:active {
     box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+  }
+
+  /* Disable heavy animations on mobile for smooth performance */
+  .hero-cb-border-glow {
+    animation: none !important;
+    opacity: 1 !important;
+    background: conic-gradient(from 0deg, transparent 40%, rgba(255, 122, 89, 0.4) 100%) !important;
   }
 
   /* Restore original premium widths before scaling */
@@ -808,10 +827,11 @@ html[data-theme="light"] .hubspot-text-path {
   }
 
   .term-body {
-    min-height: 240px;
+    height: 220px; /* Fixed height to prevent layout shifts */
     font-size: 12px;
     padding: 20px 16px;
     overflow-x: auto;
+    overflow-y: hidden;
   }
 
   .hero-top-row {
