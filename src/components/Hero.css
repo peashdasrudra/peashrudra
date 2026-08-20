@@ -671,7 +671,7 @@ html[data-theme="light"] .hubspot-text-path {
 
 @media (max-width: 600px) {
   .hero {
-    padding: 60px 0 24px;
+    padding: 56px 0 24px;
     /* Reduced gap to navbar */
   }
 
@@ -680,14 +680,12 @@ html[data-theme="light"] .hubspot-text-path {
   }
 
   .hero-top-row {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 12px;
+    margin-bottom: 20px;
+    justify-content: flex-start;
   }
 
   .eyebrow {
-    white-space: normal; /* Allow wrap to prevent breaking screen width on small phones */
-    text-align: center;
+    display: none !important; /* Removed from phone per user request */
   }
 
   .hero-title {
