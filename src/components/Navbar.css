@@ -233,12 +233,12 @@
 
 @media (max-width: 820px) {
   .nav-header { 
-    padding: 8px 12px 0; 
+    padding: 16px 32px 0; 
     width: 100%;
     box-sizing: border-box;
   }
   .nav-scrolled {
-    padding: 6px 12px 0;
+    padding: 10px 32px 0;
   }
   .navlinks { display: none; }
   .nav-cta { display: none; }
@@ -293,6 +293,15 @@
     border: 1px solid var(--border);
     border-radius: var(--radius-m);
     box-sizing: border-box;
+  }
+}
+
+@media (max-width: 600px) {
+  .nav-header {
+    padding: 16px 20px 0;
+  }
+  .nav-scrolled {
+    padding: 10px 20px 0;
   }
 }
 

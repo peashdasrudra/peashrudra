@@ -661,7 +661,7 @@ html[data-theme="light"] .hubspot-text-path {
   }
 
   .hero {
-    padding: 140px 0 72px;
+    padding: 120px 0 72px;
   }
 
   .terminal {
@@ -671,8 +671,8 @@ html[data-theme="light"] .hubspot-text-path {
 
 @media (max-width: 600px) {
   .hero {
-    padding: 56px 0 24px;
-    /* Reduced gap to navbar */
+    padding: 96px 0 24px;
+    /* Increased gap between navbar and HubSpot certified badge */
   }
 
   .hero-grid {
