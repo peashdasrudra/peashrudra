@@ -17,7 +17,7 @@ function ServiceRow({ service, index, isActive, onHover }) {
       initial={{ opacity: 0, y: 20 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-50px" }}
-      transition={{ duration: 0.5, delay: index * 0.1 }}
+      transition={{ duration: 0.3, delay: index * 0.05 }}
     >
       <div className="service-row-header">
         <div className="service-row-left">
@@ -38,7 +38,7 @@ function ServiceRow({ service, index, isActive, onHover }) {
             initial={{ height: 0, opacity: 0 }}
             animate={{ height: "auto", opacity: 1 }}
             exit={{ height: 0, opacity: 0 }}
-            transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
+            transition={{ duration: 0.2, ease: [0.16, 1, 0.3, 1] }}
           >
             <div className="service-deliverables-grid">
               {service.deliverables.map((item, i) => (
@@ -47,7 +47,7 @@ function ServiceRow({ service, index, isActive, onHover }) {
                   className="deliverable-item"
                   initial={{ opacity: 0, x: -10 }}
                   animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: 0.1 + (i * 0.05) }}
+                  transition={{ delay: 0.05 + (i * 0.03) }}
                 >
                   <CheckCircle2 size={16} className="deliverable-check" />
                   <span>{item}</span>
@@ -72,7 +72,7 @@ export default function Services() {
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+          transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
         >
           <div className="kicker">./services --offerings</div>
           <h2 className="section-title">What I bring to the table.</h2>

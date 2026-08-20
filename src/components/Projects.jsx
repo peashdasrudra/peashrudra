@@ -87,13 +87,13 @@ function ProjectCard({ project, index }) {
                 animate="show"
                 variants={{
                   hidden: { opacity: 0 },
-                  show: { opacity: 1, transition: { staggerChildren: 0.15, delayChildren: 0.1 } },
+                  show: { opacity: 1, transition: { staggerChildren: 0.05, delayChildren: 0.05 } },
                 }}
               >
                 {/* ─── Problem ─── */}
                 <motion.div
                   className="case-card case-problem"
-                  variants={{ hidden: { opacity: 0, y: 20 }, show: { opacity: 1, y: 0, transition: { duration: 0.5, ease: [0.16, 1, 0.3, 1] } } }}
+                  variants={{ hidden: { opacity: 0, y: 15 }, show: { opacity: 1, y: 0, transition: { duration: 0.3, ease: [0.16, 1, 0.3, 1] } } }}
                 >
                   <div className="case-card-accent problem" />
                   <div className="case-card-header">
@@ -109,12 +109,12 @@ function ProjectCard({ project, index }) {
                 </motion.div>
 
                 {/* ─── Connector ─── */}
-                <motion.div className="case-connector" variants={{ hidden: { scaleY: 0 }, show: { scaleY: 1, transition: { duration: 0.3 } } }} />
+                <motion.div className="case-connector" variants={{ hidden: { scaleY: 0 }, show: { scaleY: 1, transition: { duration: 0.15 } } }} />
 
                 {/* ─── Solution ─── */}
                 <motion.div
                   className="case-card case-solution"
-                  variants={{ hidden: { opacity: 0, y: 20 }, show: { opacity: 1, y: 0, transition: { duration: 0.5, ease: [0.16, 1, 0.3, 1] } } }}
+                  variants={{ hidden: { opacity: 0, y: 15 }, show: { opacity: 1, y: 0, transition: { duration: 0.3, ease: [0.16, 1, 0.3, 1] } } }}
                 >
                   <div className="case-card-accent solution" />
                   <div className="case-card-header">
@@ -130,12 +130,12 @@ function ProjectCard({ project, index }) {
                 </motion.div>
 
                 {/* ─── Connector ─── */}
-                <motion.div className="case-connector" variants={{ hidden: { scaleY: 0 }, show: { scaleY: 1, transition: { duration: 0.3 } } }} />
+                <motion.div className="case-connector" variants={{ hidden: { scaleY: 0 }, show: { scaleY: 1, transition: { duration: 0.15 } } }} />
 
                 {/* ─── Impact ─── */}
                 <motion.div
                   className="case-card case-impact"
-                  variants={{ hidden: { opacity: 0, y: 20 }, show: { opacity: 1, y: 0, transition: { duration: 0.5, ease: [0.16, 1, 0.3, 1] } } }}
+                  variants={{ hidden: { opacity: 0, y: 15 }, show: { opacity: 1, y: 0, transition: { duration: 0.3, ease: [0.16, 1, 0.3, 1] } } }}
                 >
                   <div className="case-card-accent impact" />
                   <div className="case-card-header">
@@ -153,7 +153,7 @@ function ProjectCard({ project, index }) {
                     animate="show"
                     variants={{
                       hidden: { opacity: 0 },
-                      show: { opacity: 1, transition: { staggerChildren: 0.1, delayChildren: 0.3 } },
+                      show: { opacity: 1, transition: { staggerChildren: 0.05, delayChildren: 0.1 } },
                     }}
                   >
                     {project.impact.map((item, j) => (
@@ -161,7 +161,7 @@ function ProjectCard({ project, index }) {
                         key={j}
                         variants={{
                           hidden: { opacity: 0, x: -10 },
-                          show: { opacity: 1, x: 0, transition: { duration: 0.4, ease: [0.16, 1, 0.3, 1] } },
+                          show: { opacity: 1, x: 0, transition: { duration: 0.25, ease: [0.16, 1, 0.3, 1] } },
                         }}
                       >
                         <CheckCircle2 size={14} className="impact-check" />
