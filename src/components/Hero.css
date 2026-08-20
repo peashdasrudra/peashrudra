@@ -679,6 +679,12 @@ html[data-theme="light"] .hubspot-text-path {
     gap: 16px; /* CRITICAL: Overrides the 32px gap to pull badges tight against buttons */
   }
 
+  .hero-top-row {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+
   .eyebrow {
     white-space: normal; /* Allow wrap to prevent breaking screen width on small phones */
     text-align: center;

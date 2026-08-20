@@ -17,10 +17,10 @@
 }
 
 .navbar {
-  pointer-events: auto;
   display: flex;
   align-items: center;
   gap: 6px;
+  box-sizing: border-box;
   background: rgba(20, 20, 20, 0.82);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
@@ -194,6 +194,7 @@
   pointer-events: auto;
   margin-top: 10px;
   width: min(90%, 360px);
+  box-sizing: border-box;
   background: rgba(18, 18, 18, 0.97);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
