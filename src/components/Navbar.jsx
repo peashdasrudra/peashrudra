@@ -61,25 +61,27 @@ export default function Navbar() {
         </a>
 
         <div className="nav-controls">
-          <button
+          <motion.button
             className={`theme-toggle ${theme === "light" ? "light-mode" : ""}`}
             onClick={toggleTheme}
             aria-label="Toggle theme"
+            whileTap={{ scale: 0.9 }}
           >
             <div className="theme-toggle-slider" />
             <Sun size={12} className="theme-icon sun" />
             <Moon size={12} className="theme-icon moon" />
-          </button>
+          </motion.button>
           
-          <button
+          <motion.button
             className="nav-toggle"
             onClick={() => setIsOpen(!isOpen)}
             aria-label={isOpen ? "Close menu" : "Open menu"}
             aria-expanded={isOpen}
             aria-controls="mobile-menu"
+            whileTap={{ scale: 0.9 }}
           >
             {isOpen ? <X size={20} /> : <Menu size={20} />}
-          </button>
+          </motion.button>
         </div>
       </nav>
 

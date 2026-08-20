@@ -3,12 +3,13 @@
   bottom: 0;
   left: 0;
   right: 0;
-  z-index: var(--z-nav);
+  z-index: 999;
   background: rgba(12, 12, 12, 0.94);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
   border-top: 1px solid var(--border-soft);
-  height: 54px;
+  height: max(54px, calc(54px + env(safe-area-inset-bottom, 0px)));
+  padding-bottom: env(safe-area-inset-bottom, 0px);
   display: flex;
   align-items: center;
 }

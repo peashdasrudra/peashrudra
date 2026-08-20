@@ -83,7 +83,7 @@ function TimelineRow({ edu, index }) {
   // Create a scroll-linked effect for the active state
   const { scrollYProgress } = useScroll({
     target: ref,
-    offset: ["start center", "end center"],
+    offset: ["start 85%", "end 85%"],
   });
 
   const iconScale = useTransform(scrollYProgress, [0, 0.5, 1], [0.8, 1.2, 0.8]);
@@ -148,7 +148,7 @@ export default function Education() {
   const containerRef = useRef(null);
   const { scrollYProgress } = useScroll({
     target: containerRef,
-    offset: ["start center", "end center"],
+    offset: ["start 85%", "end 85%"],
   });
 
   const lineHeight = useTransform(scrollYProgress, [0, 1], ["0%", "100%"]);

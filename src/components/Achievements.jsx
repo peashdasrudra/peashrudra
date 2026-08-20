@@ -45,7 +45,8 @@ export default function Achievements() {
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: "-20px" }}
-                transition={{ duration: 0.3, delay: isMobile ? Math.min(i * 0.02, 0.1) : i * 0.03 }}
+                transition={{ duration: isMobile ? 0.2 : 0.3, delay: isMobile ? 0 : i * 0.03 }}
+                whileTap={{ scale: isMobile ? 0.98 : 1 }}
               >
                 <div className="achievement-row-content">
                   <h3 className="achievement-title">{achievement.title}</h3>

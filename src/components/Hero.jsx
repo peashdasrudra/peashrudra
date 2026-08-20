@@ -220,17 +220,18 @@ export default function Hero() {
           </motion.p>
 
           <motion.div className="hero-ctas" variants={item}>
-            <a href="#contact" className="btn-primary">
+            <motion.a href="#contact" className="btn-primary" whileTap={{ scale: 0.95 }}>
               start a project <ArrowRight size={14} />
-            </a>
-            <a
+            </motion.a>
+            <motion.a
               href={PROFILE.resumeUrl}
               className="btn-outline"
               target="_blank"
               rel="noopener noreferrer"
+              whileTap={{ scale: 0.95 }}
             >
               <Download size={14} /> download resume
-            </a>
+            </motion.a>
           </motion.div>
 
         </motion.div>

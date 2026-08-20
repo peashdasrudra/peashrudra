@@ -28,7 +28,16 @@ function StatCard({ stat, index }) {
         {count}
         {stat.suffix}
       </div>
-      <div className="stat-label">{stat.label}</div>
+      <div className="stat-label">
+        {stat.label.split("UK").map((part, index, arr) => (
+          <span key={index}>
+            {part}
+            {index < arr.length - 1 && (
+              <span style={{ color: "var(--hubspot)", fontWeight: 700 }}>UK</span>
+            )}
+          </span>
+        ))}
+      </div>
     </motion.div>
   );
 }

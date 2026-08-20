@@ -57,10 +57,11 @@ function ProjectCard({ project, index, isMobile }) {
         <p className="proj-desc">{project.description}</p>
 
         {/* Expandable Case Study */}
-        <button
+        <motion.button
           className={`proj-expand-btn ${expanded ? 'proj-expand-active' : ''}`}
           onClick={() => setExpanded(!expanded)}
           aria-expanded={expanded}
+          whileTap={{ scale: 0.95 }}
         >
           {expanded ? (
             <>
@@ -71,7 +72,7 @@ function ProjectCard({ project, index, isMobile }) {
               View Case Study <ChevronDown size={14} />
             </>
           )}
-        </button>
+        </motion.button>
 
         <AnimatePresence>
           {expanded && (
@@ -80,7 +81,7 @@ function ProjectCard({ project, index, isMobile }) {
               initial={{ height: 0, opacity: 0 }}
               animate={{ height: "auto", opacity: 1 }}
               exit={{ height: 0, opacity: 0 }}
-              transition={{ duration: isMobile ? 0.3 : 0.5, ease: [0.16, 1, 0.3, 1] }}
+              transition={{ duration: isMobile ? 0.2 : 0.5, ease: [0.16, 1, 0.3, 1] }}
             >
               <motion.div
                 className="case-study-inner"
@@ -88,13 +89,13 @@ function ProjectCard({ project, index, isMobile }) {
                 animate="show"
                 variants={{
                   hidden: { opacity: 0 },
-                  show: { opacity: 1, transition: { staggerChildren: isMobile ? 0.02 : 0.05, delayChildren: isMobile ? 0.02 : 0.05 } },
+                  show: { opacity: 1, transition: { staggerChildren: isMobile ? 0.01 : 0.05, delayChildren: isMobile ? 0.01 : 0.05 } },
                 }}
               >
                 {/* ─── Problem ─── */}
                 <motion.div
                   className="case-card case-problem"
-                  variants={{ hidden: { opacity: 0, y: 15 }, show: { opacity: 1, y: 0, transition: { duration: 0.3, ease: [0.16, 1, 0.3, 1] } } }}
+                  variants={{ hidden: { opacity: 0, y: 15 }, show: { opacity: 1, y: 0, transition: { duration: isMobile ? 0.15 : 0.3, ease: [0.16, 1, 0.3, 1] } } }}
                 >
                   <div className="case-card-accent problem" />
                   <div className="case-card-header">
@@ -110,12 +111,12 @@ function ProjectCard({ project, index, isMobile }) {
                 </motion.div>
 
                 {/* ─── Connector ─── */}
-                <motion.div className="case-connector" variants={{ hidden: { scaleY: 0 }, show: { scaleY: 1, transition: { duration: 0.15 } } }} />
+                <motion.div className="case-connector" variants={{ hidden: { scaleY: 0 }, show: { scaleY: 1, transition: { duration: isMobile ? 0.05 : 0.15 } } }} />
 
                 {/* ─── Solution ─── */}
                 <motion.div
                   className="case-card case-solution"
-                  variants={{ hidden: { opacity: 0, y: 15 }, show: { opacity: 1, y: 0, transition: { duration: 0.3, ease: [0.16, 1, 0.3, 1] } } }}
+                  variants={{ hidden: { opacity: 0, y: 15 }, show: { opacity: 1, y: 0, transition: { duration: isMobile ? 0.15 : 0.3, ease: [0.16, 1, 0.3, 1] } } }}
                 >
                   <div className="case-card-accent solution" />
                   <div className="case-card-header">
@@ -131,12 +132,12 @@ function ProjectCard({ project, index, isMobile }) {
                 </motion.div>
 
                 {/* ─── Connector ─── */}
-                <motion.div className="case-connector" variants={{ hidden: { scaleY: 0 }, show: { scaleY: 1, transition: { duration: 0.15 } } }} />
+                <motion.div className="case-connector" variants={{ hidden: { scaleY: 0 }, show: { scaleY: 1, transition: { duration: isMobile ? 0.05 : 0.15 } } }} />
 
                 {/* ─── Impact ─── */}
                 <motion.div
                   className="case-card case-impact"
-                  variants={{ hidden: { opacity: 0, y: 15 }, show: { opacity: 1, y: 0, transition: { duration: 0.3, ease: [0.16, 1, 0.3, 1] } } }}
+                  variants={{ hidden: { opacity: 0, y: 15 }, show: { opacity: 1, y: 0, transition: { duration: isMobile ? 0.15 : 0.3, ease: [0.16, 1, 0.3, 1] } } }}
                 >
                   <div className="case-card-accent impact" />
                   <div className="case-card-header">
@@ -154,7 +155,7 @@ function ProjectCard({ project, index, isMobile }) {
                     animate="show"
                     variants={{
                       hidden: { opacity: 0 },
-                      show: { opacity: 1, transition: { staggerChildren: 0.05, delayChildren: 0.1 } },
+                      show: { opacity: 1, transition: { staggerChildren: isMobile ? 0.01 : 0.05, delayChildren: isMobile ? 0.02 : 0.1 } },
                     }}
                   >
                     {project.impact.map((item, j) => (
@@ -162,7 +163,7 @@ function ProjectCard({ project, index, isMobile }) {
                         key={j}
                         variants={{
                           hidden: { opacity: 0, x: -10 },
-                          show: { opacity: 1, x: 0, transition: { duration: 0.25, ease: [0.16, 1, 0.3, 1] } },
+                          show: { opacity: 1, x: 0, transition: { duration: isMobile ? 0.15 : 0.25, ease: [0.16, 1, 0.3, 1] } },
                         }}
                       >
                         <CheckCircle2 size={14} className="impact-check" />

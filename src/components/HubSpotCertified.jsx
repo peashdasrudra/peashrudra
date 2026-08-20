@@ -76,6 +76,8 @@ function CertCard3D({ cert, index }) {
       <motion.div 
         className="hs-badge-wrap"
         style={{ translateZ: "40px" }}
+        animate={{ y: [0, -6, 0] }}
+        transition={{ repeat: Infinity, duration: 4, ease: "easeInOut", delay: index * 0.5 }}
       >
         {cert.badgeImageUrl ? (
           <a

@@ -41,32 +41,35 @@ export default function Contact() {
           </p>
 
           <div className="contact-actions">
-            <a
+            <motion.a
               href={PROFILE.calendlyUrl}
               target="_blank"
               rel="noopener noreferrer"
               className="btn-primary contact-btn"
+              whileTap={{ scale: 0.95 }}
             >
               <Calendar size={15} />
               Book a meeting
               <ArrowRight size={14} />
-            </a>
+            </motion.a>
 
-            <a
+            <motion.a
               href={`mailto:${PROFILE.email}`}
               className="btn-outline contact-btn"
+              whileTap={{ scale: 0.95 }}
             >
               <Mail size={15} />
               Send me an email
-            </a>
+            </motion.a>
 
-            <button
+            <motion.button
               className="btn-outline contact-btn"
               onClick={handleCopyEmail}
+              whileTap={{ scale: 0.95 }}
             >
               {copied ? <Check size={15} /> : <Copy size={15} />}
               {copied ? "Email copied!" : "Copy email"}
-            </button>
+            </motion.button>
           </div>
 
           <div className="contact-links">
