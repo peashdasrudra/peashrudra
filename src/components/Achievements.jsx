@@ -2,12 +2,14 @@ import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Trophy, Award, Users, FlaskConical, Zap, Rocket, Star, BadgeCheck, Brain, Globe, Target } from "lucide-react";
 import { ACHIEVEMENTS } from "../data/portfolio";
+import { useIsMobile } from "../hooks/useIsMobile";
 import "./Achievements.css";
 
 const ICONS = { Trophy, Award, Users, FlaskConical, Zap, Rocket, Star, BadgeCheck, Brain, Globe, Target };
 
 export default function Achievements() {
   const [hoveredIndex, setHoveredIndex] = useState(null);
+  const isMobile = useIsMobile();
 
   return (
     <section id="achievements">
@@ -43,7 +45,7 @@ export default function Achievements() {
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: "-20px" }}
-                transition={{ duration: 0.3, delay: i * 0.03 }}
+                transition={{ duration: 0.3, delay: isMobile ? Math.min(i * 0.02, 0.1) : i * 0.03 }}
               >
                 <div className="achievement-row-content">
                   <h3 className="achievement-title">{achievement.title}</h3>

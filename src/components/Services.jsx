@@ -2,11 +2,12 @@ import { motion, AnimatePresence } from "framer-motion";
 import { useState } from "react";
 import { Brain, BarChart3, Zap, MessageSquare, Code2, Smartphone, CheckCircle2 } from "lucide-react";
 import { SERVICES } from "../data/portfolio";
+import { useIsMobile } from "../hooks/useIsMobile";
 import "./Services.css";
 
 const ICONS = { Brain, BarChart3, Zap, MessageSquare, Code2, Smartphone };
 
-function ServiceRow({ service, index, isActive, onHover }) {
+function ServiceRow({ service, index, isActive, onHover, isMobile }) {
   const Icon = ICONS[service.icon] || Brain;
   
   return (
@@ -17,7 +18,7 @@ function ServiceRow({ service, index, isActive, onHover }) {
       initial={{ opacity: 0, y: 20 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-50px" }}
-      transition={{ duration: 0.3, delay: index * 0.05 }}
+      transition={{ duration: 0.3, delay: isMobile ? Math.min(index * 0.02, 0.1) : index * 0.05 }}
     >
       <div className="service-row-header">
         <div className="service-row-left">
@@ -47,7 +48,7 @@ function ServiceRow({ service, index, isActive, onHover }) {
                   className="deliverable-item"
                   initial={{ opacity: 0, x: -10 }}
                   animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: 0.05 + (i * 0.03) }}
+                  transition={{ delay: isMobile ? 0.02 : 0.05 + (i * 0.03) }}
                 >
                   <CheckCircle2 size={16} className="deliverable-check" />
                   <span>{item}</span>
@@ -63,6 +64,7 @@ function ServiceRow({ service, index, isActive, onHover }) {
 
 export default function Services() {
   const [activeIndex, setActiveIndex] = useState(0);
+  const isMobile = useIsMobile();
 
   return (
     <section id="services">
@@ -89,6 +91,7 @@ export default function Services() {
               index={i} 
               isActive={activeIndex === i}
               onHover={() => setActiveIndex(i)}
+              isMobile={isMobile}
             />
           ))}
         </div>

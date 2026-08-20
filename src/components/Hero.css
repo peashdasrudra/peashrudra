@@ -671,7 +671,7 @@ html[data-theme="light"] .hubspot-text-path {
 
 @media (max-width: 600px) {
   .hero {
-    padding: 100px 0 24px;
+    padding: 120px 0 24px;
     /* Increased to fix navbar collision */
   }
 

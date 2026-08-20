@@ -2,9 +2,10 @@ import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ExternalLink, ChevronDown, ChevronUp, AlertTriangle, Cpu, Zap, CheckCircle2, GitBranch, FileText, Eye } from "lucide-react";
 import { PROJECTS } from "../data/portfolio";
+import { useIsMobile } from "../hooks/useIsMobile";
 import "./Projects.css";
 
-function ProjectCard({ project, index }) {
+function ProjectCard({ project, index, isMobile }) {
   const [expanded, setExpanded] = useState(false);
 
   return (
@@ -79,7 +80,7 @@ function ProjectCard({ project, index }) {
               initial={{ height: 0, opacity: 0 }}
               animate={{ height: "auto", opacity: 1 }}
               exit={{ height: 0, opacity: 0 }}
-              transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+              transition={{ duration: isMobile ? 0.3 : 0.5, ease: [0.16, 1, 0.3, 1] }}
             >
               <motion.div
                 className="case-study-inner"
@@ -87,7 +88,7 @@ function ProjectCard({ project, index }) {
                 animate="show"
                 variants={{
                   hidden: { opacity: 0 },
-                  show: { opacity: 1, transition: { staggerChildren: 0.05, delayChildren: 0.05 } },
+                  show: { opacity: 1, transition: { staggerChildren: isMobile ? 0.02 : 0.05, delayChildren: isMobile ? 0.02 : 0.05 } },
                 }}
               >
                 {/* ─── Problem ─── */}
@@ -215,6 +216,8 @@ function ProjectCard({ project, index }) {
 }
 
 export default function Projects() {
+  const isMobile = useIsMobile();
+
   return (
     <section id="projects">
       <div className="wrap" style={{ position: "relative" }}>
@@ -235,7 +238,7 @@ export default function Projects() {
         {/* Normal Flow Container */}
         <div className="proj-list-container">
           {PROJECTS.map((project, i) => (
-            <ProjectCard key={i} project={project} index={i} />
+            <ProjectCard key={i} project={project} index={i} isMobile={isMobile} />
           ))}
         </div>
       </div>
