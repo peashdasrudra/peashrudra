@@ -65,6 +65,6 @@
 }
 
 .loading-percent {
-  color: var(--green);
+  color: var(--green-text);
   font-weight: 600;
 }

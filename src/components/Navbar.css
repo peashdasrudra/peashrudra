@@ -50,7 +50,7 @@
 }
 
 .logo:hover {
-  color: var(--green);
+  color: var(--green-text);
 }
 
 .logo-dot {
@@ -106,20 +106,88 @@
   box-shadow: var(--shadow-green);
 }
 
+.nav-controls {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.theme-toggle {
+  position: relative;
+  width: 52px;
+  height: 28px;
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-full);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 6px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.theme-toggle:hover {
+  border-color: var(--green-border);
+}
+
+.theme-toggle-slider {
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  width: 20px;
+  height: 20px;
+  background: var(--white);
+  border-radius: 50%;
+  transition: transform 0.4s var(--ease-spring), background 0.3s ease;
+  z-index: 1;
+}
+
+.theme-toggle.light-mode .theme-toggle-slider {
+  transform: translateX(24px);
+}
+
+.theme-icon {
+  position: relative;
+  z-index: 2;
+  transition: color 0.3s ease;
+}
+
+/* Dark Mode Defaults */
+.theme-toggle .sun {
+  color: var(--bg); /* Sun is over the white slider, so it's black */
+}
+.theme-toggle .moon {
+  color: var(--dim); /* Moon is exposed, so it's gray */
+}
+
+/* Light Mode Overrides */
+.theme-toggle.light-mode .sun {
+  color: var(--dim); /* Sun is exposed, so it's gray */
+}
+.theme-toggle.light-mode .moon {
+  color: var(--bg); /* Moon is over the black slider, so it's white */
+}
+
 .nav-toggle {
-  display: none;
   background: transparent;
   border: none;
-  color: var(--white);
+  color: var(--silver);
   padding: 8px;
+  display: flex;
   align-items: center;
   justify-content: center;
-  border-radius: var(--radius-s);
-  transition: color 0.2s ease;
+  border-radius: var(--radius-full);
+  transition: all 0.2s ease;
 }
 
 .nav-toggle:hover {
-  color: var(--green);
+  color: var(--white);
+  background: var(--surface-2);
+}
+
+.nav-toggle {
+  display: none;
 }
 
 .mobile-menu {

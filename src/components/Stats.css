@@ -44,7 +44,7 @@
 
 .stat-big .stat-num {
   font-size: 56px;
-  color: var(--green);
+  color: var(--green-text);
   text-shadow: 0 0 40px var(--green-glow);
 }
 

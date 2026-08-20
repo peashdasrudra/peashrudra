@@ -1,5 +1,27 @@
 // ─── All portfolio content centralized here ───
 
+// ─── HUBSPOT BADGES ───
+// Template: copy a badge block from HubSpot Academy and add here.
+// Each entry needs: title, badgeUrl (verification link), imageUrl (badge image)
+export const HUBSPOT_BADGES = [
+  {
+    title: "HubSpot Marketing Hub Software Certified",
+    badgeUrl: "#",
+    imageUrl: "#",
+  },
+  {
+    title: "HubSpot Revenue Operations Certified",
+    badgeUrl: "https://app-na2.hubspot.com/academy/achievements/fc5k6d45/en/1/peash-das-rudra/hubspot-revenue-operations-certified",
+    imageUrl: "https://hubspot-credentials-na1.s3.amazonaws.com/prod/badges/user/73a67e7711fb43dfbf108ab9050e6f56.png",
+  },
+  {
+    title: "HubSpot Reporting Certified",
+    badgeUrl: "https://app-na2.hubspot.com/academy/achievements/b543gs3k/en/1/peash-das-rudra/hubspot-reporting-certified",
+    imageUrl: "https://hubspot-credentials-na1.s3.amazonaws.com/prod/badges/user/f7c4226c1ee44f3cae2cb426ce30ca89.png",
+  },
+  // ↓ Add more badges here — just copy the pattern above ↓
+];
+
 export const PROFILE = {
   name: "Peash Das Rudra",
   title: "RevOps & AI Automation Engineer",
@@ -10,7 +32,7 @@ export const PROFILE = {
   availability: "Open to Freelance & Remote Worldwide",
   tagline: "I build AI systems that run your CRM so your team doesn't have to.",
   description:
-    "AI Automation Engineer and HubSpot RevOps Certified specialist architecting Agentic AI systems within production CRM environments. Built DealSense — a LangGraph multi-agent RAG copilot — and 20+ production automations for live UK B2B accounts. From missed-call ticket pipelines to AI chatbots — I ship real automation.",
+    "I architect Agentic AI systems and automated CRM workflows that eliminate manual tasks and scale revenue. As a HubSpot RevOps Certified specialist, I've shipped 20+ production automations for live B2B accounts—turning operational bottlenecks into automated growth engines.",
   resumeUrl: "https://drive.google.com/file/d/1TE_kF9RsfHjgstnWgpoGGFIBkE5usESq/view?usp=sharing",
   calendlyUrl: "https://calendly.com/pdrpeash/30min",
   languages: ["English", "Italian", "French", "German", "Spanish"],
@@ -58,6 +80,7 @@ export const STATS = [
   { value: 7, suffix: "", label: "Certifications & credentials" },
   { value: 5, suffix: "", label: "Languages spoken fluently" },
   { value: 70, suffix: "+", label: "Skills across LinkedIn profile" },
+  { value: 10, suffix: "k+", label: "Hours of manual work eliminated" },
 ];
 
 export const EXPERIENCE = [
@@ -65,7 +88,7 @@ export const EXPERIENCE = [
     role: "CRM & Business Automation Specialist",
     company: "Clickless",
     location: "UK, Remote",
-    period: "Feb 2026 – May 2026",
+    period: "Feb 2026 – May 2026 (Internship)",
     type: "Full-time · Remote",
     bullets: [
       "Engineered a native Aircall–HubSpot integration, syncing missed calls into tracked tickets in real-time to eliminate third-party (Slack) dependencies and manual routing delays for a UK AutoTech Company.",
@@ -119,6 +142,10 @@ export const PROJECTS = [
       { value: "41%", label: "Less Triage" },
       { value: "Multi", label: "Agent System" },
     ],
+    // ↓ Add links when available — buttons auto-render
+    url: "#",
+    caseStudyUrl: "",
+    githubUrl: "",
   },
   {
     title: "Clickless Automation Suite",
@@ -145,6 +172,9 @@ export const PROJECTS = [
       { value: "3+", label: "Clients" },
       { value: "5", label: "Dashboards" },
     ],
+    url: "#",
+    caseStudyUrl: "",
+    githubUrl: "",
   },
   {
     title: "LeakStop",
@@ -171,6 +201,9 @@ export const PROJECTS = [
       { value: "Live", label: "Agents" },
       { value: "<1s", label: "Sync Time" },
     ],
+    url: "#",
+    caseStudyUrl: "",
+    githubUrl: "",
   },
   {
     title: "SalePilot",
@@ -197,6 +230,9 @@ export const PROJECTS = [
       { value: "4", label: "Platforms" },
       { value: "24/7", label: "Availability" },
     ],
+    url: "#",
+    caseStudyUrl: "",
+    githubUrl: "",
   },
   {
     title: "Loom",
@@ -223,6 +259,9 @@ export const PROJECTS = [
       { value: "6", label: "Platforms" },
       { value: "<1s", label: "Sync Time" },
     ],
+    url: "#",
+    caseStudyUrl: "",
+    githubUrl: "",
   },
   {
     title: "Genius AI",
@@ -249,6 +288,9 @@ export const PROJECTS = [
       { value: "3", label: "Billing Tiers" },
       { value: "1", label: "Solo Dev" },
     ],
+    url: "#",
+    caseStudyUrl: "",
+    githubUrl: "",
   },
 ];
 
@@ -442,20 +484,28 @@ export const CERTIFICATIONS = [
     credentialId: "73a67e7711fb43dfbf108ab9050e6f56",
     skills: ["RevOps", "CRM"],
     type: "crm",
+    verifyUrl: "https://app-na2.hubspot.com/academy/achievements/fc5k6d45/en/1/peash-das-rudra/hubspot-revenue-operations-certified",
+    badgeImageUrl: "https://hubspot-credentials-na1.s3.amazonaws.com/prod/badges/user/73a67e7711fb43dfbf108ab9050e6f56.png",
   },
   {
     title: "HubSpot Marketing Hub Software Certification",
     issuer: "HubSpot Academy",
-    date: "2026",
+    date: "Aug 2026",
+    expiry: "Sep 2027",
     skills: ["Marketing Automation", "Email Marketing"],
     type: "crm",
+    verifyUrl: "https://app-na2.hubspot.com/academy/achievements/fc5k6d45/en/1/peash-das-rudra/hubspot-revenue-operations-certified",
+    badgeImageUrl: "https://hubspot-credentials-na1.s3.amazonaws.com/prod/badges/user/73a67e7711fb43dfbf108ab9050e6f56.png",
   },
   {
     title: "HubSpot Reporting Certification",
     issuer: "HubSpot Academy",
-    date: "2026",
+    date: "Aug 2026",
+    expiry: "Sep 2027",
     skills: ["Analytics", "Reporting Dashboards"],
     type: "crm",
+    verifyUrl: "https://app-na2.hubspot.com/academy/achievements/b543gs3k/en/1/peash-das-rudra/hubspot-reporting-certified",
+    badgeImageUrl: "https://hubspot-credentials-na1.s3.amazonaws.com/prod/badges/user/f7c4226c1ee44f3cae2cb426ce30ca89.png",
   },
   {
     title: "AI Literacy Certification",
@@ -463,6 +513,7 @@ export const CERTIFICATIONS = [
     date: "May 2026",
     skills: ["Artificial Intelligence Foundations"],
     type: "ai",
+    verifyUrl: "",
   },
   {
     title: "Prompt Engineering with GitHub Copilot",
@@ -471,6 +522,7 @@ export const CERTIFICATIONS = [
     credentialId: "8648936",
     skills: ["Prompt Engineering", "GitHub Copilot"],
     type: "ai",
+    verifyUrl: "",
   },
   {
     title: "Introduction to Generative AI Studio",
@@ -479,6 +531,7 @@ export const CERTIFICATIONS = [
     credentialId: "8627144",
     skills: ["Generative AI", "Google Cloud AI"],
     type: "ai",
+    verifyUrl: "",
   },
   {
     title: "Python Programming & Data Science Basics",
@@ -486,6 +539,7 @@ export const CERTIFICATIONS = [
     date: "Aug 2025",
     skills: ["Python", "Pandas", "Data Analysis"],
     type: "dev",
+    verifyUrl: "",
   },
 ];
 
@@ -567,6 +621,7 @@ export const RESEARCH = {
     { value: "0.92", label: "F1-Macro" },
     { value: "0.98", label: "AUC-ROC" },
     { value: "705", label: "Patients" },
+    { value: "1,837", label: "Features" },
   ],
 };
 
@@ -728,4 +783,31 @@ export const TICKER_ITEMS = [
   { text: "response rate improvement with SalePilot chatbot", highlight: "32%" },
   { text: "languages spoken: EN, IT, FR, DE, ES", highlight: "5" },
   { text: "currently open for freelance & remote work worldwide", highlight: null },
+];
+
+export const GALLERY = [
+  {
+    src: "https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=600&h=400&fit=crop",
+    caption: "Deep Work Sessions",
+  },
+  {
+    src: "https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=600&h=400&fit=crop",
+    caption: "Code & Architecture",
+  },
+  {
+    src: "https://images.unsplash.com/photo-1517694712202-14dd9538aa97?w=600&h=400&fit=crop",
+    caption: "Building in Production",
+  },
+  {
+    src: "https://images.unsplash.com/photo-1504639725590-34d0984388bd?w=600&h=400&fit=crop",
+    caption: "Problem Solving",
+  },
+  {
+    src: "https://images.unsplash.com/photo-1461749280684-dccba630e2f6?w=600&h=400&fit=crop",
+    caption: "Engineering Focus",
+  },
+  {
+    src: "https://images.unsplash.com/photo-1550439062-609e1531270e?w=600&h=400&fit=crop",
+    caption: "System Design",
+  },
 ];

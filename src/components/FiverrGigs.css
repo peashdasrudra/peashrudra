@@ -1,162 +1,181 @@
-.gigs-grid {
+/* ═══════════════════════════════════════════════
+   FIVERR GIGS — Premium Grid
+   ═══════════════════════════════════════════════ */
+
+.fiverr-premium-grid {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 18px;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 32px;
 }
 
-.gig-card {
-  background: var(--card);
-  border: 1px solid var(--border-soft);
-  border-radius: var(--radius-l);
-  padding: 32px;
+.fiverr-premium-card {
+  display: block;
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-xl);
+  position: relative;
+  overflow: hidden;
+  box-shadow: var(--shadow-med);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  transition: transform 0.4s var(--ease-spring), box-shadow 0.4s ease, border-color 0.4s ease;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.fiverr-card-glow {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: radial-gradient(
+    circle at top right,
+    rgba(30, 215, 96, 0.15),
+    transparent 50%
+  );
+  opacity: 0;
+  transition: opacity 0.5s ease;
+}
+
+.fiverr-premium-card:hover {
+  transform: translateY(-8px);
+  border-color: var(--green-border);
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.4), 0 0 30px rgba(30, 215, 96, 0.1);
+}
+
+.fiverr-premium-card:hover .fiverr-card-glow {
+  opacity: 1;
+}
+
+.fiverr-card-inner {
+  padding: 40px;
+  position: relative;
+  z-index: 2;
   display: flex;
   flex-direction: column;
-  gap: 16px;
-  transition: transform 0.3s var(--ease-out), border-color 0.3s ease;
-  overflow: hidden;
-  cursor: pointer;
-  text-decoration: none;
-  color: inherit;
+  height: 100%;
 }
 
-.gig-card:hover {
-  transform: translateY(-4px);
-  border-color: var(--green-border);
-}
-
-.gig-header {
+.fiverr-card-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  position: relative;
-  z-index: 2;
+  margin-bottom: 24px;
 }
 
-.gig-fiverr-badge {
-  display: flex;
+.fiverr-badge {
+  display: inline-flex;
   align-items: center;
   gap: 6px;
+  background: rgba(30, 215, 96, 0.15);
+  color: var(--green-text);
+  padding: 6px 14px;
+  border-radius: var(--radius-full);
   font-family: var(--font-mono);
   font-size: 11px;
-  font-weight: 600;
-  color: #1dbf73;
-  background: rgba(29, 191, 115, 0.08);
-  border: 1px solid rgba(29, 191, 115, 0.2);
-  padding: 5px 12px;
-  border-radius: var(--radius-full);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
 }
 
-.gig-external {
+.fiverr-link-icon {
   color: var(--dim);
-  transition: color 0.2s ease;
+  transition: color 0.3s ease, transform 0.3s ease;
 }
 
-.gig-card:hover .gig-external {
-  color: var(--green);
+.fiverr-premium-card:hover .fiverr-link-icon {
+  color: var(--green-text);
+  transform: translate(2px, -2px);
 }
 
-.gig-title {
+.fiverr-gig-title {
   font-family: var(--font-display);
-  font-size: 19px;
+  font-size: 26px;
   font-weight: 700;
   color: var(--white);
-  line-height: 1.3;
-  position: relative;
-  z-index: 2;
+  line-height: 1.25;
+  margin-bottom: 16px;
 }
 
-.gig-desc {
-  font-size: 14px;
+.fiverr-gig-desc {
+  font-size: 15px;
   color: var(--silver);
-  line-height: 1.65;
-  position: relative;
-  z-index: 2;
+  line-height: 1.6;
+  margin-bottom: 32px;
+  flex-grow: 1;
 }
 
-/* ─── Pricing ─── */
-.gig-pricing {
+.fiverr-pricing-row {
   display: flex;
-  gap: 10px;
-  position: relative;
-  z-index: 2;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  background: var(--surface-2);
+  padding: 16px;
+  border-radius: var(--radius-m);
+  border: 1px solid var(--border);
+  margin-bottom: 24px;
 }
 
-.gig-price {
-  flex: 1;
+.fiverr-price-block {
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 4px;
-  padding: 12px 8px;
-  background: var(--surface);
-  border: 1px solid var(--border-soft);
-  border-radius: var(--radius-s);
-  transition: all 0.2s ease;
 }
 
-.gig-price-premium {
-  border-color: var(--green-border);
-  background: var(--green-subtle);
-}
-
-.price-label {
+.fiverr-price-block span {
   font-family: var(--font-mono);
-  font-size: 9px;
+  font-size: 11px;
   color: var(--dim);
   text-transform: uppercase;
-  letter-spacing: 0.5px;
 }
 
-.price-value {
+.fiverr-price-block strong {
   font-family: var(--font-display);
   font-size: 18px;
-  font-weight: 700;
+  color: var(--silver);
+}
+
+.fiverr-price-block.highlight strong {
+  color: var(--green-text);
+}
+
+.fiverr-tools {
+  padding-top: 24px;
+  border-top: 1px solid var(--border);
+}
+
+/* ─── Light Mode Overrides ─── */
+[data-theme="light"] .fiverr-premium-card {
+  background: var(--surface);
+  border-color: var(--border);
+}
+[data-theme="light"] .fiverr-pricing-row {
+  background: var(--surface-2);
+}
+[data-theme="light"] .fiverr-price-block strong {
   color: var(--white);
 }
-
-.gig-price-premium .price-value {
-  color: var(--green);
+[data-theme="light"] .fiverr-price-block.highlight strong {
+  color: var(--green-dim);
 }
 
-/* ─── Tools ─── */
-.gig-tools {
-  position: relative;
-  z-index: 2;
-}
-
-.gig-tools-label {
-  font-family: var(--font-mono);
-  font-size: 10px;
-  color: var(--dim);
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-  margin-bottom: 8px;
-  display: block;
-}
-
-/* ─── CTA ─── */
-.gig-cta {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  font-family: var(--font-mono);
-  font-size: 12px;
-  font-weight: 600;
-  color: var(--green);
-  margin-top: auto;
-  padding-top: 16px;
-  border-top: 1px solid var(--border-soft);
-  position: relative;
-  z-index: 2;
-  transition: gap 0.2s ease;
-}
-
-.gig-card:hover .gig-cta {
-  gap: 12px;
-}
-
-@media (max-width: 700px) {
-  .gigs-grid {
+/* ─── Responsive ─── */
+@media (max-width: 900px) {
+  .fiverr-premium-grid {
     grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 600px) {
+  .fiverr-card-inner {
+    padding: 24px;
+  }
+  .fiverr-gig-title {
+    font-size: 22px;
+  }
+  .fiverr-pricing-row {
+    padding: 12px;
+    gap: 8px;
   }
 }

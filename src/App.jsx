@@ -1,4 +1,5 @@
-import { useState, useCallback } from "react";
+import { useState, useCallback, useEffect } from "react";
+import { motion, useMotionValue, useSpring } from "framer-motion";
 import "./App.css";
 import LoadingScreen from "./components/LoadingScreen";
 import ScrollProgress from "./components/ScrollProgress";
@@ -11,11 +12,46 @@ import FiverrGigs from "./components/FiverrGigs";
 import Services from "./components/Services";
 import Skills from "./components/Skills";
 import Certifications from "./components/Certifications";
+import HubSpotCertified from "./components/HubSpotCertified";
 import Education from "./components/Education";
 import Achievements from "./components/Achievements";
+import Gallery from "./components/Gallery";
 import Contact from "./components/Contact";
 import Footer from "./components/Footer";
 import StatusBar from "./components/StatusBar";
+
+function DynamicGlowOrb() {
+  const mouseX = useMotionValue(typeof window !== "undefined" ? window.innerWidth / 2 : 0);
+  const mouseY = useMotionValue(0);
+
+  const springConfig = { damping: 40, stiffness: 100, mass: 1 };
+  const smoothX = useSpring(mouseX, springConfig);
+  const smoothY = useSpring(mouseY, springConfig);
+
+  useEffect(() => {
+    const handleMouseMove = (e) => {
+      // Account for scroll position so the orb tracks absolute document position
+      mouseX.set(e.clientX);
+      mouseY.set(e.clientY + window.scrollY);
+    };
+
+    window.addEventListener("mousemove", handleMouseMove);
+    return () => window.removeEventListener("mousemove", handleMouseMove);
+  }, [mouseX, mouseY]);
+
+  return (
+    <motion.div 
+      className="dynamic-glow-orb"
+      style={{
+        x: smoothX,
+        y: smoothY,
+        translateX: "-50%",
+        translateY: "-50%"
+      }}
+      aria-hidden="true"
+    />
+  );
+}
 
 export default function App() {
   const [loaded, setLoaded] = useState(false);
@@ -34,7 +70,7 @@ export default function App() {
           {/* Background effects */}
           <div className="grain" aria-hidden="true" />
           <div className="dotgrid" aria-hidden="true" />
-          <div className="glow-orb" aria-hidden="true" />
+          <DynamicGlowOrb />
 
           {/* Scroll progress */}
           <ScrollProgress />
@@ -49,15 +85,17 @@ export default function App() {
               <Stats />
             </div>
             <Experience />
+            <HubSpotCertified />
             <Projects />
-            <FiverrGigs />
+            <Education />
             <Services />
             <div className="wrap">
               <Skills />
             </div>
+            <FiverrGigs />
             <Certifications />
-            <Education />
             <Achievements />
+            <Gallery />
             <Contact />
             <Footer />
           </main>

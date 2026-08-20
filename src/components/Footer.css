@@ -5,6 +5,16 @@
   z-index: 3;
 }
 
+.footer::before {
+  content: "";
+  position: absolute;
+  top: 0; left: 50%;
+  transform: translateX(-50%);
+  width: min(80%, 600px);
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(30, 215, 96, 0.3), transparent);
+}
+
 .footer-content {
   display: flex;
   flex-direction: column;
@@ -25,7 +35,7 @@
 }
 
 .footer-heart {
-  color: var(--green);
+  color: var(--green-text);
   fill: var(--green);
   display: inline-block;
   animation: heartbeat 2s infinite;

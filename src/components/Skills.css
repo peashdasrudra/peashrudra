@@ -1,36 +1,90 @@
-.skill-groups {
+.skills-magnetic-container {
   display: flex;
   flex-direction: column;
+  gap: 60px;
+  margin-top: 40px;
 }
 
-.skill-group {
-  display: grid;
-  grid-template-columns: 200px 1fr;
-  gap: 20px;
-  align-items: start;
-  padding: 24px 0;
-  border-top: 1px solid var(--border-soft);
+.skill-magnetic-group {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
 }
 
-.skill-group:last-child {
-  border-bottom: 1px solid var(--border-soft);
+.skill-magnetic-category {
+  font-family: var(--font-display);
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--white);
+  margin-bottom: 24px;
+  position: relative;
+  display: inline-block;
 }
 
-.skill-category {
+.skill-magnetic-category::after {
+  content: "";
+  position: absolute;
+  bottom: -8px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 40px;
+  height: 2px;
+  background: var(--green);
+  border-radius: 2px;
+}
+
+.skill-magnetic-cluster {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 16px;
+  max-width: 900px;
+}
+
+.magnetic-pill-wrap {
+  display: inline-block;
+  padding: 12px; /* padding around the pill to catch the mouse early */
+  margin: -12px; /* offset the padding visually */
+  cursor: grab;
+  position: relative;
+  z-index: 1;
+}
+
+.magnetic-pill-wrap:active {
+  cursor: grabbing;
+}
+
+.magnetic-pill-wrap.active {
+  z-index: 10;
+}
+
+.magnetic-pill {
+  display: inline-block;
   font-family: var(--font-mono);
-  font-size: 13px;
-  font-weight: 600;
-  color: var(--green);
+  font-size: 14px;
+  color: var(--silver);
+  padding: 12px 24px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: var(--radius-full);
+  transition: all 0.3s ease;
+  pointer-events: none; /* Let the wrapper handle mouse events */
 }
 
-.skill-pill {
-  color: var(--white-dim) !important;
-  cursor: default;
+.magnetic-pill-wrap.active .magnetic-pill {
+  background: rgba(30, 215, 96, 0.1);
+  border-color: var(--green-text);
+  color: var(--white);
+  box-shadow: 0 0 20px rgba(30, 215, 96, 0.4);
 }
 
-@media (max-width: 700px) {
-  .skill-group {
-    grid-template-columns: 1fr;
-    gap: 12px;
+@media (max-width: 600px) {
+  .skill-magnetic-cluster {
+    gap: 8px;
+  }
+  .magnetic-pill {
+    font-size: 13px;
+    padding: 10px 18px;
   }
 }
