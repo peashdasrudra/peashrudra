@@ -504,8 +504,6 @@ section {
    ========================================================================== */
 @media (max-width: 768px) {
   /* Reduce transparent blurs (Massively improves GPU framerate while keeping glass look) */
-  .navbar,
-  .mobile-menu,
   .proj-card,
   .gallery-card,
   .terminal,
