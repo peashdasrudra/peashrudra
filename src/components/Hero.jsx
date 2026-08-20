@@ -104,7 +104,7 @@ function Terminal() {
       onMouseLeave={handleMouseLeave}
       initial={{ opacity: 0, y: 30, scale: 0.96 }}
       animate={{ opacity: 1, y: 0, scale: 1 }}
-      transition={{ duration: 0.8, delay: 0.4, ease: [0.16, 1, 0.3, 1] }}
+      transition={{ duration: 0.6, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
     >
       <div className="terminal">
         <div className="term-bar">
@@ -145,6 +145,8 @@ function Terminal() {
 }
 
 export default function Hero() {
+  const isMobile = typeof window !== "undefined" && window.innerWidth <= 768;
+
   const typedRole = useTypingEffect(PROFILE.roles, {
     typeSpeed: 70,
     deleteSpeed: 35,
@@ -155,16 +157,19 @@ export default function Hero() {
     hidden: { opacity: 0 },
     show: {
       opacity: 1,
-      transition: { staggerChildren: 0.12, delayChildren: 0.1 },
+      transition: { 
+        staggerChildren: isMobile ? 0.04 : 0.12, 
+        delayChildren: isMobile ? 0.05 : 0.1 
+      },
     },
   };
 
   const item = {
-    hidden: { opacity: 0, y: 20 },
+    hidden: { opacity: 0, y: isMobile ? 10 : 20 },
     show: {
       opacity: 1,
       y: 0,
-      transition: { duration: 0.6, ease: [0.16, 1, 0.3, 1] },
+      transition: { duration: isMobile ? 0.3 : 0.6, ease: [0.16, 1, 0.3, 1] },
     },
   };
 
@@ -172,9 +177,9 @@ export default function Hero() {
     <section className="hero">
       <motion.div
         className="hero-top-row"
-        initial={{ opacity: 0, y: 20 }}
+        initial={{ opacity: 0, y: isMobile ? 10 : 20 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
+        transition={{ duration: isMobile ? 0.3 : 0.6, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
       >
         <div className="eyebrow">
           <span className="pulse" />
