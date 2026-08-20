@@ -17,7 +17,7 @@ export default function Achievements() {
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+          transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
         >
           <div className="kicker">./achievements --unlocked</div>
           <h2 className="section-title">Recognition & milestones.</h2>
@@ -43,7 +43,7 @@ export default function Achievements() {
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: "-20px" }}
-                transition={{ duration: 0.5, delay: i * 0.05 }}
+                transition={{ duration: 0.3, delay: i * 0.03 }}
               >
                 <div className="achievement-row-content">
                   <h3 className="achievement-title">{achievement.title}</h3>
