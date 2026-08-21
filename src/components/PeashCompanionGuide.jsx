@@ -4,7 +4,7 @@ import {
   Volume2, VolumeX, Sparkles, X, MessageSquare, Bot, 
   Send, Compass, Zap, Award, Calendar, CheckCircle2, 
   ChevronRight, ArrowRight, Play, Pause, SkipForward, Disc3, ExternalLink,
-  Copy, Check, HelpCircle, ArrowUpRight, ShieldCheck, Clock, Flame, Terminal, Cpu, Square, Eye, EyeOff
+  Copy, Check, HelpCircle, ArrowUpRight, ShieldCheck, Clock, Flame, Terminal, Cpu, Square
 } from "lucide-react";
 import { PROFILE } from "../data/portfolio";
 import { useIsMobile } from "../hooks/useIsMobile";
@@ -110,28 +110,45 @@ const POPULAR_FAQS = [
   "How to book a discovery call?",
 ];
 
-// Web Audio API Sound Generator
-function playTechBlip(isMuted, freq = 580) {
-  if (isMuted || typeof window === "undefined") return;
+// ─── SINGLETON AUDIO CONTEXT (ZERO MEMORY LEAK ON RAPID TAPS) ───
+let sharedAudioCtx = null;
+
+function getSharedAudioContext() {
+  if (typeof window === "undefined") return null;
   try {
-    const AudioContext = window.AudioContext || window.webkitAudioContext;
-    if (!AudioContext) return;
-    const ctx = new AudioContext();
+    if (!sharedAudioCtx) {
+      const AudioCtx = window.AudioContext || window.webkitAudioContext;
+      if (AudioCtx) sharedAudioCtx = new AudioCtx();
+    }
+    if (sharedAudioCtx && sharedAudioCtx.state === "suspended") {
+      sharedAudioCtx.resume().catch(() => {});
+    }
+    return sharedAudioCtx;
+  } catch (e) {
+    return null;
+  }
+}
+
+function playTechBlip(isMuted, freq = 580) {
+  if (isMuted) return;
+  try {
+    const ctx = getSharedAudioContext();
+    if (!ctx) return;
     const osc = ctx.createOscillator();
     const gain = ctx.createGain();
 
     osc.type = "sine";
     osc.frequency.setValueAtTime(freq, ctx.currentTime);
-    osc.frequency.exponentialRampToValueAtTime(freq * 1.5, ctx.currentTime + 0.08);
+    osc.frequency.exponentialRampToValueAtTime(freq * 1.4, ctx.currentTime + 0.06);
 
-    gain.gain.setValueAtTime(0.03, ctx.currentTime);
-    gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.08);
+    gain.gain.setValueAtTime(0.025, ctx.currentTime);
+    gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.06);
 
     osc.connect(gain);
     gain.connect(ctx.destination);
 
     osc.start();
-    osc.stop(ctx.currentTime + 0.09);
+    osc.stop(ctx.currentTime + 0.07);
   } catch (e) {}
 }
 
@@ -151,7 +168,9 @@ function playSpeechText(text, onEnd) {
 
 function stopSpeechText() {
   if (typeof window !== "undefined" && "speechSynthesis" in window) {
-    window.speechSynthesis.cancel();
+    try {
+      window.speechSynthesis.cancel();
+    } catch (e) {}
   }
 }
 
@@ -220,7 +239,7 @@ function SpiderManCyberIcon({ isSpeaking, isSinging }) {
 }
 
 /* ═══════════════════════════════════════════════════════════════
-   MAIN MOBILE-NATIVE SPIDER-MAN COPILOT
+   MAIN MOBILE-NATIVE SPIDER-MAN COPILOT (60/120Hz SENSITIVE)
    ═══════════════════════════════════════════════════════════════ */
 export default function PeashCompanionGuide() {
   const isMobile = useIsMobile();
@@ -252,6 +271,7 @@ export default function PeashCompanionGuide() {
   const [isThinking, setIsThinking] = useState(false);
   const [thinkingStep, setThinkingStep] = useState("");
   const chatScrollRef = useRef(null);
+  const isTappingRef = useRef(false);
 
   // ─── 5-Second Introduction Balloon ───
   useEffect(() => {
@@ -318,9 +338,15 @@ export default function PeashCompanionGuide() {
     }
   }, [isCopilotOpen]);
 
-  // Handle Opening Copilot & Starting Song (Native Instant Tap)
+  // ─── HYPER-SENSITIVE INSTANT TAP HANDLER (60Hz / 120Hz OPTIMIZED) ───
   const handleOpenCopilot = (e) => {
-    if (e && e.stopPropagation) e.stopPropagation();
+    if (e) {
+      if (e.stopPropagation) e.stopPropagation();
+    }
+    if (isTappingRef.current) return;
+    isTappingRef.current = true;
+    setTimeout(() => { isTappingRef.current = false; }, 180);
+
     setIsCopilotOpen(true);
     setIsNeonHighlighted(false);
     setIsOpen(false);
@@ -338,6 +364,13 @@ export default function PeashCompanionGuide() {
     if (isWebShooterEnabled) {
       setTriggerWebShot({ x: 200, y: 150, ts: Date.now() });
     }
+  };
+
+  const handleCloseCopilot = (e) => {
+    if (e && e.stopPropagation) e.stopPropagation();
+    setIsCopilotOpen(false);
+    stopSpeechText();
+    setSpeakingMsgIndex(null);
   };
 
   const handleAskQuestion = async (userQuery) => {
@@ -410,7 +443,7 @@ export default function PeashCompanionGuide() {
               initial={{ opacity: 0, y: 15, scale: 0.92 }}
               animate={{ opacity: 1, y: 0, scale: 1 }}
               exit={{ opacity: 0, y: 15, scale: 0.92 }}
-              transition={{ duration: 0.22, ease: [0.16, 1, 0.3, 1] }}
+              transition={{ duration: 0.18, ease: [0.16, 1, 0.3, 1] }}
               onClick={handleOpenCopilot}
               onTouchEnd={handleOpenCopilot}
               style={{ cursor: "pointer", pointerEvents: "auto", touchAction: "manipulation" }}
@@ -480,21 +513,22 @@ export default function PeashCompanionGuide() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            onClick={() => setIsCopilotOpen(false)}
+            transition={{ duration: 0.2 }}
+            onClick={handleCloseCopilot}
           >
             <motion.div 
               className="copilot-modal-spiderman"
               initial={isMobile ? { y: "100%" } : { opacity: 0, scale: 0.95, y: 16 }}
               animate={isMobile ? { y: 0 } : { opacity: 1, scale: 1, y: 0 }}
               exit={isMobile ? { y: "100%" } : { opacity: 0, scale: 0.95, y: 16 }}
-              transition={{ duration: 0.28, ease: [0.16, 1, 0.3, 1] }}
+              transition={{ duration: 0.22, ease: [0.16, 1, 0.3, 1] }}
               onClick={(e) => e.stopPropagation()}
             >
               {/* Optional Spider-Man Web Scene Simulation */}
               {isWebShooterEnabled && <SpiderManWebScene triggerWebShot={triggerWebShot} />}
 
               {/* Native Mobile Sheet Drag Handle */}
-              {isMobile && <div className="mobile-sheet-drag-handle" />}
+              {isMobile && <div className="mobile-sheet-drag-handle" onClick={handleCloseCopilot} />}
 
               {/* ─── 1. TOP HEADER (BRAND, SOUNDTRACK, WEB TOGGLE & CLOSE) ─── */}
               <div className="copilot-spider-header">
@@ -548,7 +582,7 @@ export default function PeashCompanionGuide() {
 
                   <button 
                     className="spider-close-btn"
-                    onClick={() => setIsCopilotOpen(false)}
+                    onClick={handleCloseCopilot}
                     title="Close"
                   >
                     <X size={18} />
@@ -755,7 +789,7 @@ export default function PeashCompanionGuide() {
                 
                 <input
                   type="text"
-                  placeholder="Ask anything about Peash's stack, rates, or case studies..."
+                  placeholder="Ask about Peash's stack, rates, or case studies..."
                   value={inputQuery}
                   onChange={(e) => setInputQuery(e.target.value)}
                   onKeyDown={(e) => {
