@@ -9,14 +9,15 @@ function ProjectCard({ project, index, isMobile }) {
   const [expanded, setExpanded] = useState(false);
 
   return (
-    <div className="proj-wrapper">
+    <div className="proj-wrapper" style={{ "--stack-index": index }}>
       <motion.div
         className={`proj-card spot ${project.featured ? "proj-featured" : ""}`}
-        initial={{ opacity: 0, y: 50, scale: 0.95 }}
+        initial={{ opacity: 0, y: isMobile ? 0 : 40, scale: isMobile ? 1 : 0.97 }}
         whileInView={{ opacity: 1, y: 0, scale: 1 }}
-        viewport={{ once: true, margin: "-100px" }}
+        viewport={{ once: true, margin: "-60px" }}
         transition={{
-          duration: 0.8,
+          duration: isMobile ? 0.2 : 0.6,
+          delay: isMobile ? 0 : index * 0.1,
           ease: [0.16, 1, 0.3, 1],
         }}
         onMouseMove={(e) => {

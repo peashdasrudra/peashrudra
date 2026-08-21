@@ -405,28 +405,72 @@
   border-color: var(--glass-border);
 }
 
-@media (max-width: 760px) {
+/* ─── Desktop Sticky Stacking Animation ─── */
+@media (min-width: 901px) {
+  .proj-list-container {
+    position: relative;
+    padding-bottom: 60px;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .proj-wrapper {
+    position: sticky;
+    top: calc(88px + var(--stack-index, 0) * 36px);
+    margin-bottom: 56px;
+    z-index: calc(var(--stack-index, 0) + 1);
+  }
+
+  .proj-card {
+    background: rgba(18, 18, 20, 0.94);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    box-shadow: 0 16px 48px rgba(0, 0, 0, 0.45), inset 0 1px 0 var(--glass-border);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  [data-theme="light"] .proj-card {
+    background: rgba(255, 255, 255, 0.98);
+    box-shadow: 0 16px 48px rgba(15, 23, 42, 0.1), 0 1px 3px rgba(15, 23, 42, 0.04);
+  }
+}
+
+@media (max-width: 900px) {
+  .proj-wrapper {
+    position: static;
+    margin-bottom: 0;
+  }
+
   .proj-list-container {
     gap: 24px;
+    padding-bottom: 0;
   }
+
   .proj-card {
-    padding: 20px;
+    padding: 24px 20px;
   }
+
   .proj-title {
     font-size: 24px;
   }
+
   .case-study-inner {
     padding: 16px;
   }
+
   .case-card {
     padding: 16px;
   }
+
   .metric-value {
     font-size: 26px;
   }
+
   .proj-metrics {
     gap: 8px;
   }
+
   .proj-metric {
     padding: 10px 12px;
   }
