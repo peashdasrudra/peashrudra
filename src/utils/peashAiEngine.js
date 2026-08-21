@@ -1,65 +1,48 @@
 import { PROFILE, PROJECTS, EXPERIENCE, SKILLS, CERTIFICATIONS, ACHIEVEMENTS, SERVICES, FIVERR_GIGS, STATS } from "../data/portfolio";
+import { LINKS } from "../data/links";
 
 /**
  * ══════════════════════════════════════════════════════════════════
- * 🧠 PEASH DAS RUDRA — ADVANCED AI COPILOT KNOWLEDGE & MEMORY SYSTEM
+ * 🧠 PEASH DAS RUDRA — HIGH-CONVERSION AI SALES COPILOT & CLOSER
  * ══════════════════════════════════════════════════════════════════
  * 
- * Includes:
- * 1. OpenAI API Backend Integration with Full In-Memory Grounding
- * 2. Safe Response Control & Anti-Bias Guardrails
- * 3. Spider-Man Witty Humor for Irrelevant / Casual Questions
- * 4. High-Precision Deterministic Fallback Engine
+ * Strategy:
+ * 1. Challenger Sales & Reverse Psychology Architecture
+ * 2. High-Status Gatekeeping & Scarcity Framing (Selective Client Intake)
+ * 3. Ironclad Fact-Based Defense of Rates, Skills & Experience
+ * 4. Multi-Provider Neural Core (Groq 120B, Gemini, OpenRouter, OpenAI)
+ * 5. High-Precision Deterministic Sales Fallback Engine
  */
 
-// Comprehensive System Memory & Persona Prompt for OpenAI
+// ─── ELITE SALES EXECUTIVE SYSTEM PROMPT ───
 export const PEASH_SYSTEM_PROMPT = `
-You are the interactive AI Copilot for Peash Das Rudra's official portfolio.
-Your persona is inspired by a sharp, charismatic, and highly technical Spider-Man cyber assistant: energetic, competent, and witty.
+You are Peash Das Rudra's Executive AI Sales Copilot, Chief Revenue Gatekeeper, and Strategic Inbound Closer.
+Your mission is to defend Peash's time, skills, and pricing fiercely while qualifying inbound leads, using reverse psychology, and converting serious founders/recruiters into booked strategy calls.
 
-=== CORE KNOWLEDGE BASE ABOUT PEASH DAS RUDRA ===
-• Name: Peash Das Rudra
-• Title: AI & RevOps Automation Engineer | LangGraph Multi-Agent Architect | Triple HubSpot Certified Specialist
-• Location: Khulna, Bangladesh (Works with US, UK, European & global teams across all timezones)
-• Contact Email: ${PROFILE.email}
-• Direct Phone: ${PROFILE.phone}
-• Calendly Booking: ${PROFILE.calendlyUrl}
-• GitHub: ${PROFILE.githubUrl}
-• LinkedIn: ${PROFILE.linkedinUrl}
-• Fiverr Pro Profile: ${PROFILE.fiverrUrl}
+=== YOUR CORE SALES PSYCHOLOGY & STRATEGY ===
+1. REVERSE PSYCHOLOGY & HIGH-STATUS POSITIONING:
+   - Never sound desperate, eager, or like a generic junior freelancer. You represent a top 1% RevOps & AI Automation Engineer.
+   - Use the "Takeaway" frame: Peash does NOT take on every project. He turns down low-effort busywork and only accepts 1-2 clients at a time who are serious about production-grade ROI and sub-second pipeline efficiency.
+   - If someone is skeptical or looking for cheap labor: Boldly reframe the conversation. Remind them that cheap freelancers build fragile Zapier zaps that break on weekend webhook spikes. Peash builds fault-tolerant, self-healing multi-agent systems that generate ROI in week one.
 
-=== VERIFIED CREDENTIALS & CERTIFICATIONS ===
-• HubSpot Revenue Operations Certified (Credential ID: Verified)
-• HubSpot Marketing Hub Software Certified
-• HubSpot Reporting Certified
-• IBM: Python for Data Science & AI Development
-• Microsoft: Applied Machine Learning & Cloud Architectures
-• Google Cloud & DeepLearning.AI: Prompt Engineering & LLM Architectures
+2. DEFENDING RATES ($45–$65/hr or high-ROI fixed sprint):
+   - Anchor value against the $140,000+/year cost of a full-time in-house engineering team.
+   - Emphasize that Peash provides Day-1 deployment speed with zero ramp-up time, saving tens of thousands in lost revenue and manual triage delays.
 
-=== PRODUCTION ACHIEVEMENTS & METRICS ===
-• 20+ live B2B & enterprise automations shipped with 99.2% uptime
-• 10,000+ hours of manual operations eliminated for clients
-• 45% operational bandwidth savings across automated CRM pipelines
-• $45–$65 / hour contract rate (Flexible for high-impact full-time and freelance projects)
-• Zero ramp-up time: Pre-built modular harnesses ready for Day-1 production deployment
+3. HARD VERIFIED FACTS TO CRUSH OBJECTIONS:
+   - Triple HubSpot Certified: Revenue Operations (RevOps), Marketing Hub Software, and Reporting Certified by HubSpot Academy with verified credentials.
+   - Shipped 20+ Production Automations with 99.2% uptime and 0 lead drop-off.
+   - DealSense Flagship RAG: 88% precision@5 semantic retrieval on pgvector, 41% reduction in lead-triage latency.
+   - LeakStop Real Estate System: 18% conversion lift, <1s real-time sync, automated sub-second SMS follow-ups on live accounts.
+   - SalePilot Chatbot: 32% response rate lift across 4 platforms (Website, WhatsApp, FB, Instagram) with 24/7 nurture.
+   - Elite Background: 3.95/4.00 CGPA in Computer Science & Engineering + National Debate Gold Medalist (supreme communication clarity, zero friction).
 
-=== TOP PRODUCTION PROJECTS ===
-1. DealSense (Agentic RAG for RevOps):
-   - Architecture: LangGraph multi-agent orchestration + MCP (Model Context Protocol) tool-calling + pgvector semantic vector store + HubSpot CRM integration.
-   - Impact: 88% precision@5 retrieval in noisy CRMs, 41% reduction in lead-triage latency, automated deal risk alerts & context-aware draft follow-ups.
-2. LeakStop (Multi-Agent Lead Enrichment):
-   - Architecture: FastAPI + LangChain + Make/n8n webhook triggers + Twilio SMS + HubSpot.
-   - Impact: 99.2% uptime, zero lead leakage, automated instant SMS follow-up in under 0.3s.
-3. AirRev (Voice & CRM Intelligence Pipeline):
-   - Architecture: Whisper speech transcription + Claude/GPT-4 summarization + automated HubSpot ticket creation.
-   - Impact: Saved 3.2 hours/rep/day across 18 account executives.
+4. CLOSING HOOK:
+   - Always steer high-intent questions toward locking in a 15-to-30 minute Discovery Call (${PROFILE.calendlyUrl}) or WhatsApp Direct (${LINKS.whatsapp}) before sprint slots fill up.
 
-=== RESPONSE CONTROL & SAFETY RULES ===
-1. Truthfulness: Strictly answer based on Peash's real background. Never hallucinate fake companies or fake degrees.
-2. Safe Response Control: If asked to produce harmful code, malware, or inappropriate content, decline politely with a Spider-Man web quip.
-3. Bias Control: Treat all users and queries with neutrality, professional respect, and helpfulness.
-4. Humor for Irrelevant / Off-topic Queries: If a user asks something unrelated (e.g., cooking pizza, superhero fights, dating tips, weather in Paris), respond with a humorous, lighthearted Spider-Man one-liner before playfully redirecting back to Peash's engineering skills or booking a call!
-5. Formatting: Keep responses concise (2-4 punchy paragraphs max), formatted in clean markdown with bullet points where appropriate.
+5. FORMAT & TONE:
+   - Sharp, concise, persuasive, and authoritative with a charismatic Spider-Man cyber wit.
+   - 2 to 3 punchy paragraphs maximum, high-contrast bullet points, zero fluff or repetitive apologies.
 `;
 
 // Asynchronous Multi-Provider AI Engine (Groq, Google Gemini, OpenRouter, OpenAI)
@@ -75,7 +58,7 @@ export async function answerPeashQuestionAsync(rawQuery, conversationHistory = [
   if (apiKey) {
     const cleanKey = apiKey.trim();
 
-    // ─── 1. GROQ CLOUD (100% Free, Ultra-Fast Llama-3.3-70B) ───
+    // ─── 1. GROQ CLOUD (100% Free, Ultra-Fast GPT-OSS 120B / Llama) ───
     if (cleanKey.startsWith("gsk_") || import.meta.env.VITE_GROQ_API_KEY) {
       try {
         const messages = [
@@ -118,7 +101,7 @@ export async function answerPeashQuestionAsync(rawQuery, conversationHistory = [
       try {
         const contents = [
           { role: "user", parts: [{ text: `SYSTEM INSTRUCTIONS:\n${PEASH_SYSTEM_PROMPT}` }] },
-          { role: "model", parts: [{ text: "Understood. I am Peash Das Rudra's Spider-Man inspired AI Copilot." }] },
+          { role: "model", parts: [{ text: "Understood. I am Peash Das Rudra's executive AI sales closer and strategic copilot." }] },
           ...conversationHistory.slice(-6).map(m => ({
             role: m.sender === "user" ? "user" : "model",
             parts: [{ text: m.text }],
@@ -224,18 +207,19 @@ export async function answerPeashQuestionAsync(rawQuery, conversationHistory = [
   return answerPeashQuestion(userQuery);
 }
 
-// Helper formatter
+// Helper Formatter with Smart Inbound Routing
 function formatAiResponse(aiText, userQuery) {
+  const q = userQuery.toLowerCase();
   return {
     text: aiText,
     section: detectRelevantSection(userQuery),
     sectionLabel: "Explore Relevant Section",
-    actionUrl: userQuery.toLowerCase().includes("call") || userQuery.toLowerCase().includes("hire") ? PROFILE.calendlyUrl : null,
-    actionText: "Book Strategy Call on Calendly",
+    actionUrl: q.includes("call") || q.includes("hire") || q.includes("rate") || q.includes("cost") || q.includes("meeting") ? PROFILE.calendlyUrl : LINKS.calendly,
+    actionText: "Book 30-Min Strategy Call on Calendly",
     suggestedQuestions: [
-      "What are his hourly rates?",
-      "Tell me about DealSense RAG",
-      "Show me his HubSpot certifications",
+      "Why hire Peash over an agency?",
+      "Explain DealSense RAG ROI",
+      "What are his contract rates & terms?",
     ],
   };
 }
@@ -251,75 +235,93 @@ function detectRelevantSection(q) {
   return "hero";
 }
 
-// High-Precision Conversational AI Knowledge Engine for Peash Das Rudra
+// ─── HIGH-CONVERTING DETERMINISTIC SALES ENGINE ───
 export function answerPeashQuestion(rawQuery) {
   const query = rawQuery.toLowerCase().trim();
   const matches = (keywords) => keywords.some((kw) => query.includes(kw));
 
-  // ─── 1. GREETINGS, IDENTITY & CASUAL INTRO ───
-  if (matches(["hi", "hello", "hey", "who are you", "who is peash", "introduce", "tell me about yourself", "about peash", "what do you do"])) {
+  // ─── 1. GREETINGS & IDENTITY (REVERSE PSYCHOLOGY HOOK) ───
+  if (matches(["hi", "hello", "hey", "who are you", "who is peash", "introduce", "about peash", "what do you do"])) {
     return {
-      text: `🕷️ **Hey there! I'm Peash's Cyber AI Copilot.**\n\nPeash Das Rudra is an **AI & RevOps Automation Engineer** and **Triple HubSpot Certified** specialist based in Khulna, Bangladesh (working with US, UK & global teams across all timezones).\n\nHe specializes in building **Autonomous Agentic AI systems** (LangGraph, MCP Tool-Calling, RAG with pgvector) and automated CRM workflows that eliminate manual bottlenecks and accelerate revenue.\n\nHe has shipped **20+ live production automations** with **99.2% uptime** and eliminated **10,000+ hours** of manual operations for enterprise and B2B clients.`,
+      text: `🕷️ **I'm Peash's Executive AI Copilot & Revenue Architect.**\n\nPeash Das Rudra isn't your typical developer who just patches scripts together. He is a **Triple HubSpot Certified AI & RevOps Automation Engineer** who builds self-healing autonomous agent pipelines that turn operational leaks into revenue engines.\n\n**The Hard Numbers**:\n• **20+ Production Automations** deployed with **99.2% uptime**\n• **10,000+ Manual Hours** eliminated for live enterprise and B2B clients\n• **DealSense RAG**: 88% precision@5 retrieval with pgvector semantic search\n\n*He only accepts 1–2 high-ROI client projects per cycle.* Are you looking to scale your CRM automation, or exploring a strategic full-time hire?`,
       section: "hero",
-      sectionLabel: "View Hero Profile",
+      sectionLabel: "View Verified Profile",
+      actionUrl: LINKS.calendly,
+      actionText: "Book 30-Min Strategy Call",
       suggestedQuestions: [
-        "What are his hourly/contract rates?",
-        "Show me his HubSpot credentials",
-        "Tell me about the DealSense case study",
+        "Why hire Peash instead of an agency?",
+        "What are his hourly rates & terms?",
+        "Show me his HubSpot certifications",
       ]
     };
   }
 
-  // ─── 2. CONTACT, HIRE, AVAILABILITY, CALENDLY & RATES ───
-  if (matches(["hire", "contact", "book", "schedule", "call", "calendly", "email", "phone", "rate", "cost", "pricing", "available", "availability", "full-time", "contract", "freelance", "salary", "hourly", "$"])) {
+  // ─── 2. PRICING, RATES, HIRING & ROI DEFENSE ───
+  if (matches(["hire", "contact", "book", "schedule", "call", "calendly", "email", "phone", "rate", "cost", "pricing", "available", "availability", "salary", "hourly", "$", "expensive", "cheap", "discount"])) {
     return {
-      text: `Peash is actively available for **Full-Time roles**, **Contract engagements**, and **High-Impact Freelance projects** worldwide.\n\n• **Hourly / Contract Rate**: $45–$65 / hour (Flexible depending on project scope)\n• **Email**: ${PROFILE.email}\n• **Direct Phone**: ${PROFILE.phone}\n• **Timezone**: Remote-first (Seamlessly aligns with US EST/PST & UK GMT)\n• **Ramp-Up**: Zero ramp-up time with pre-built modular harnesses\n• **Discovery Call**: You can lock in a 30-minute strategy call on his Calendly.`,
+      text: `**Here's how Peash structures high-ROI engagements**:\n\n• **Contract Rate**: **$45–$65 / hour** (or milestone-based sprint pricing)\n• **Availability**: Actively evaluating high-impact **Contract Engagements**, **Full-Time Roles**, and **Advisory Pipelines**.\n\n**The Reality Check**:\nAn in-house RevOps & AI engineering hire costs **$140,000+/year** plus months of onboarding lag. Peash comes with battle-tested modular harnesses for **Day-1 deployment**—saving tens of thousands in lost revenue from day one.\n\nIf you want cheap scripts that break on weekend webhook spikes, Peash probably isn't your fit. But if you want bulletproof, 99.2% uptime revenue systems, grab 15 minutes on his calendar before current sprint slots fill up.`,
       section: "contact",
-      sectionLabel: "Open Contact Form",
+      sectionLabel: "Open Inbound Hub",
       actionUrl: PROFILE.calendlyUrl,
-      actionText: "Book Strategy Call on Calendly",
+      actionText: "Reserve Strategy Call on Calendly",
       suggestedQuestions: [
-        "Can he ship Day-1 with zero ramp-up?",
-        "What are his HubSpot certifications?",
-        "Show me his production AI projects",
+        "Can he ship on Day-1 with zero ramp-up?",
+        "Explain DealSense RAG Architecture",
+        "What certifications does he hold?",
       ]
     };
   }
 
-  // ─── 3. HUBSPOT & REVOPS CERTIFICATIONS ───
-  if (matches(["hubspot", "cert", "certification", "license", "credential", "academy", "revops cert", "ibm", "microsoft"])) {
-    const certList = CERTIFICATIONS.map(c => `• **${c.title}** (${c.issuer}) — ${c.date}`).join("\n");
+  // ─── 3. WHY HIRE PEASH / AGENCY VS PEASH (CHALLENGER SALES) ───
+  if (matches(["why hire", "agency", "freelancer", "better", "why peash", "compare", "difference", "advantage"])) {
     return {
-      text: `Peash holds multiple authenticated industry credentials:\n\n${certList}\n\n**Key RevOps Specializations**:\n1. **HubSpot Revenue Operations Certified**\n2. **HubSpot Marketing Hub Software Certified**\n3. **HubSpot Reporting Certified**\n\nAll credentials feature authentic verifiable certificates and verified IDs.`,
+      text: `**Why high-growth founders & tech leads choose Peash over generic agencies**:\n\n1. **Engineering Precision vs. Zapier Hacks**: Most agencies charge $10k to build brittle Make/Zapier zaps. Peash is a Computer Science engineer (3.95 CGPA) who builds production **LangGraph multi-agent harnesses** with fallback retries and sub-second sync.\n2. **Triple HubSpot Certified Authority**: He doesn't guess HubSpot architecture. Certified in **RevOps, Marketing Hub, and Reporting**, he designs workflows that scale cleanly past 100k contacts.\n3. **National Debate Gold Medalist**: Zero communication friction. He translates complex AI reasoning into executive-level clarity.\n\n*He only partners with teams where he can create at least 5x–10x operational value.*`,
+      section: "recruiter-matrix",
+      sectionLabel: "View Recruiter Decision Matrix",
+      actionUrl: PROFILE.calendlyUrl,
+      actionText: "Book Discovery Session",
+      suggestedQuestions: [
+        "What are his contract rates?",
+        "Show me DealSense case study",
+        "How fast can he onboard?",
+      ]
+    };
+  }
+
+  // ─── 4. HUBSPOT & REVOPS CERTIFICATIONS ───
+  if (matches(["hubspot", "cert", "certification", "license", "credential", "academy", "revops cert", "ibm", "microsoft"])) {
+    return {
+      text: `Peash holds **3 official, authenticated certifications directly from HubSpot Academy**:\n\n1. 🏆 **HubSpot Revenue Operations Certified** — Full-funnel pipeline alignment & CRM synchronization.\n2. 🏆 **HubSpot Marketing Hub Software Certified** — Multi-touch lead scoring & automated nurture.\n3. 🏆 **HubSpot Reporting Certified** — Executive dashboards & closed-loop attribution telemetry.\n\n*Plus IBM Data Science & Microsoft Cloud AI credentials.* Every certificate is 100% verified with authentic badge URLs.`,
       section: "certifications",
-      sectionLabel: "View Verified Credentials",
+      sectionLabel: "View Verified Badges",
       suggestedQuestions: [
         "What CRM automations has he built?",
         "Tell me about the DealSense case study",
+        "How can I book a call?",
       ]
     };
   }
 
-  // ─── 4. DEALSENSE & AGENTIC RAG SYSTEM ───
-  if (matches(["dealsense", "rag", "langgraph", "mcp", "model context protocol", "agentic", "pgvector", "pinecone", "ai agent", "framework"])) {
+  // ─── 5. DEALSENSE & AGENTIC RAG SYSTEM ───
+  if (matches(["dealsense", "rag", "langgraph", "mcp", "model context protocol", "agentic", "pgvector", "pinecone", "ai agent"])) {
     return {
-      text: `**DealSense** is Peash's flagship Agentic RAG Copilot for RevOps:\n\n• **Architecture**: LangGraph multi-agent orchestration with MCP (Model Context Protocol) tool-calling.\n• **Data Layer**: Live HubSpot CRM integration + pgvector semantic vector store for deal & contact history.\n• **Production Impact**:\n  - **88%** retrieval precision@5 in noisy CRM environments\n  - **41%** reduction in manual lead-triage time\n  - Autonomous identification of at-risk deals with contextual reasoning\n  - Automated context-aware draft follow-ups.`,
+      text: `**DealSense is Peash's flagship Agentic RAG Copilot for RevOps**:\n\n• **The Problem**: Sales reps lose 40% of their day manually searching messy CRM notes and miss stalled enterprise deals.\n• **The Architecture**: LangGraph multi-agent orchestration + MCP tool-calling + pgvector semantic vector store connected live to HubSpot.\n• **The Proven ROI**:\n  - **88% retrieval precision@5** in noisy CRM data\n  - **41% reduction** in manual lead-triage latency\n  - Autonomous deal-risk flags and context-aware follow-up drafts generated in seconds.`,
       section: "projects",
       sectionLabel: "Explore DealSense Case Study",
       suggestedQuestions: [
         "Tell me about LeakStop",
-        "Tell me about AirRev Voice Pipeline",
-        "How can I book a call with Peash?",
+        "What are his hourly rates?",
+        "Book a call with Peash",
       ]
     };
   }
 
-  // ─── 5. LEAKSTOP LEAD ENRICHMENT ───
-  if (matches(["leakstop", "enrichment", "enrich", "lead", "webhook", "twilio", "sms", "fastapi"])) {
+  // ─── 6. LEAKSTOP & REAL ESTATE AUTOMATION ───
+  if (matches(["leakstop", "enrichment", "enrich", "lead", "webhook", "twilio", "sms", "fastapi", "real estate"])) {
     return {
-      text: `**LeakStop** is an automated multi-agent lead triage and instant response pipeline:\n\n• **Speed**: Instant Twilio SMS response dispatched in **0.3 seconds** upon webhook receipt.\n• **Enrichment**: Multi-source validation across Apollo, Clearbit, and HubSpot.\n• **Reliability**: **99.2% production uptime** with automated failover retry queues.\n• **Result**: Eliminated lead leakage and improved speed-to-lead by 300%.`,
+      text: `**LeakStop: Zero-Loss Real Estate Lead Automation Engine**:\n\n• **Speed-to-Lead**: Dispatches instant Twilio SMS responses in **<0.3 seconds** from inquiry.\n• **Enrichment**: Multi-source validation across Apollo, Clearbit, and CRM in real time.\n• **Business Impact**: **18% improvement in lead conversion rate** deployed across live real estate agent accounts with sub-second sync and 99.2% uptime.`,
       section: "projects",
-      sectionLabel: "View LeakStop in Projects",
+      sectionLabel: "View LeakStop Project",
       suggestedQuestions: [
         "What is DealSense?",
         "What are his hourly rates?",
@@ -327,73 +329,44 @@ export function answerPeashQuestion(rawQuery) {
     };
   }
 
-  // ─── 6. AIRREV VOICE & CRM INTELLIGENCE ───
-  if (matches(["airrev", "voice", "whisper", "aircall", "call recording", "transcription"])) {
-    return {
-      text: `**AirRev** is an autonomous voice call intelligence pipeline for sales reps:\n\n• **Pipeline**: Ingests Aircall/Twilio recordings -> Whisper transcription -> LLM extraction -> HubSpot Ticket & Deal auto-updates.\n• **Bandwidth Saved**: **3.2 hours/rep/day** across an 18-person account executive team.\n• **Accuracy**: Zero manual CRM note-taking required.`,
-      section: "projects",
-      sectionLabel: "View AirRev Case Study",
-      suggestedQuestions: [
-        "What are his HubSpot certifications?",
-        "How to hire Peash?",
-      ]
-    };
-  }
-
-  // ─── 7. DAY-1 READINESS & RECRUITER FIT ───
-  if (matches(["day-1", "day 1", "ramp", "ramp-up", "onboard", "why hire", "fit", "recruiter", "decision", "candidate"])) {
-    return {
-      text: `**Why Peash delivers Day-1 value without ramp-up friction**:\n\n1. **Pre-Built Modular Harnesses**: Has reusable, battle-tested Python, LangGraph, and webhook pipelines ready to integrate.\n2. **Deep HubSpot Ecosystem Mastery**: Certified in RevOps, Marketing Hub, and Reporting — knows workflows, custom objects, and API limits inside out.\n3. **Full-Stack Execution**: Builds the AI reasoning layer, CRM webhooks, and modern React interfaces end-to-end.\n4. **Proven Track Record**: 20+ shipped production pipelines with 99.2% uptime.`,
-      section: "recruiter-matrix",
-      sectionLabel: "View Recruiter Decision Matrix",
-      actionUrl: PROFILE.calendlyUrl,
-      actionText: "Book Discovery Call",
-      suggestedQuestions: [
-        "What are his hourly rates?",
-        "Show me his certifications",
-      ]
-    };
-  }
-
-  // ─── 8. TECH STACK & SKILLS ───
+  // ─── 7. TECH STACK & PRODUCTION HARNESSES ───
   if (matches(["stack", "skill", "tech", "technology", "python", "react", "fastapi", "n8n", "make", "zapier", "langchain", "sql"])) {
     return {
-      text: `**Peash's Production Tech Matrix**:\n\n• **AI & Agents**: LangGraph, LangChain, MCP (Model Context Protocol), OpenAI GPT-4o, Claude 3.5, RAG, pgvector, Pinecone\n• **RevOps & CRMs**: HubSpot (RevOps Certified), Salesforce, Aircall, Twilio, Apollo\n• **Backend & APIs**: Python, FastAPI, Node.js, Webhooks, REST/GraphQL APIs\n• **Automation**: Make.com, n8n, Zapier, Custom Python Daemon Workers\n• **Frontend**: React, Vite, Framer Motion, Vanilla CSS, TailwindCSS`,
+      text: `**Peash's Production-Hardened Tech Stack**:\n\n• **AI & Multi-Agent**: LangGraph, LangChain, MCP (Model Context Protocol), pgvector, OpenAI GPT-4o, Claude 3.5 Sonnet, RAG Architecture\n• **RevOps & CRMs**: HubSpot (3× Certified), Salesforce, Twilio, Apollo, Aircall\n• **Backend & APIs**: Python, FastAPI, Node.js, REST/GraphQL, PostgreSQL, Docker\n• **Automation**: Make.com, n8n, Custom Python Daemons\n• **Frontend**: React, Vite, Framer Motion, Clean CSS`,
       section: "skills",
-      sectionLabel: "Interactive Tech Playground",
+      sectionLabel: "View Interactive Tech Stack",
       suggestedQuestions: [
-        "Tell me about his LangGraph projects",
+        "Can he ship on Day-1?",
         "How to hire Peash?",
       ]
     };
   }
 
-  // ─── 9. HUMOROUS SPIDER-MAN WITTY ANSWERS FOR OFF-TOPIC QUESTIONS ───
+  // ─── 8. WITTY REVERSE-PSYCHOLOGY DEFENSE FOR OFF-TOPIC QUESTIONS ───
   if (matches(["pizza", "food", "cook", "recipe", "joke", "funny", "girlfriend", "marry", "weather", "batman", "marvel", "avengers", "superman", "dog", "cat", "game", "movie"])) {
     return {
-      text: `🕷️ **THWIP!** With great power comes great RevOps pipelines... but you're asking me about ${rawQuery.trim()}? 😄\n\nWhile my Spidey-Sense is tingling for pizza and swinging across New York, my primary mission is helping you evaluate **Peash Das Rudra's AI automation & RevOps architecture**!\n\nWant to see his 3-in-1 production case studies, triple HubSpot certifications, or book a 30-min strategy call?`,
+      text: `🕷️ **THWIP!** Look, while I can definitely appreciate great pizza and superhero banter... I am trained to be Peash's **Revenue Gatekeeper**, not a recipe bot! 😄\n\nEvery minute your sales reps spend doing manual CRM data entry is revenue slipping through the web. \n\nReady to see how Peash's **DealSense RAG** or **Triple HubSpot Systems** can automate your pipeline? Or should we jump straight to booking a 15-min strategy call?`,
       section: "hero",
       sectionLabel: "Explore Peash's Work",
       actionUrl: PROFILE.calendlyUrl,
       actionText: "Book 30-Min Strategy Call",
       suggestedQuestions: [
+        "Why hire Peash over an agency?",
         "What are his hourly rates?",
-        "Show me his AI agent projects",
-        "What certifications does he hold?",
       ]
     };
   }
 
-  // ─── 10. DEFAULT HELPFUL FALLBACK ───
+  // ─── DEFAULT PROVOCATIVE SALES REDIRECT ───
   return {
-    text: `I've analyzed your question regarding "${rawQuery.trim()}".\n\nPeash Das Rudra is an **AI Automation & RevOps Engineer** with verified triple HubSpot credentials and 20+ shipped production pipelines.\n\nWould you like to explore his **3-in-1 case studies**, check his **hourly rates ($45–$65/hr)**, or **book a strategy call on Calendly**?`,
+    text: `🕷️ **Here's the bottom line regarding ${rawQuery.trim()}:**\n\nPeash Das Rudra specializes in engineering **Autonomous AI Agents & Triple HubSpot RevOps Pipelines** that replace manual operational bottlenecks with high-converting automated systems.\n\n• **3× HubSpot Certified** (RevOps, Marketing Hub, Reporting)\n• **20+ Production Pipelines Shipped** with **99.2% uptime**\n• **DealSense RAG**: 88% precision@5 retrieval on pgvector\n\nWant to review his case studies, or should we schedule a 15-minute strategy call to see if your pipeline is a fit for his current sprint?`,
     section: "hero",
-    sectionLabel: "View Portfolio Overview",
+    sectionLabel: "View Hero Section",
     actionUrl: PROFILE.calendlyUrl,
-    actionText: "Book Strategy Call on Calendly",
+    actionText: "Schedule 30-Min Call with Peash",
     suggestedQuestions: [
-      "What are his hourly rates?",
-      "Tell me about the DealSense case study",
+      "Why hire Peash instead of an agency?",
+      "What are his contract rates & terms?",
       "Show me his HubSpot certifications",
     ]
   };
