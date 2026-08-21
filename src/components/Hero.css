@@ -671,7 +671,7 @@ html[data-theme="light"] .hubspot-text-path {
 
 @media (max-width: 600px) {
   .hero {
-    padding: 68px 0 24px;
+    padding: 72px 0 24px;
     /* Increased gap between navbar and HubSpot certified badge */
   }
 
@@ -681,8 +681,9 @@ html[data-theme="light"] .hubspot-text-path {
   }
 
   .hero-top-row {
-    margin-bottom: 20px;
-    justify-content: center;
+    margin-bottom: 10px;
+    justify-content: flex-start;
+    padding-left: 4px;
   }
 
   .eyebrow {
@@ -718,7 +719,7 @@ html[data-theme="light"] .hubspot-text-path {
 
   .hero-ctas .btn-primary,
   .hero-ctas .btn-outline {
-    width: auto;
+    width: 95%;
     justify-content: center;
     padding: 14px 16px;
     /* Slightly taller buttons for better touch targets */
@@ -739,7 +740,7 @@ html[data-theme="light"] .hubspot-text-path {
   }
 
   .hero-badges {
-    margin-top: -4px;
+    margin-top: -2px;
     /* Pull it slightly into the grid gap to make it super tight */
     margin-bottom: 24px;
     padding: 0;
@@ -750,6 +751,7 @@ html[data-theme="light"] .hubspot-text-path {
     align-items: flex-end;
     flex-wrap: nowrap;
     overflow: visible;
+    margin-left: -4px !important;
     /* Don't clip the glowing borders */
     gap: 0;
     width: 100%;
