@@ -86,40 +86,63 @@ export function MusicProvider({ children }) {
     }
   }, [currentTrackIndex, isReady]);
 
-  // Start Playing specifically when triggered (e.g. Copilot Click)
+  // Start Playing safely (Crash-proof on mobile phones & tablets)
   const startMusic = () => {
-    if (playerRef.current && isReady && playerRef.current.playVideo) {
-      playerRef.current.playVideo();
+    try {
+      if (playerRef.current && isReady && typeof playerRef.current.playVideo === "function") {
+        const res = playerRef.current.playVideo();
+        if (res && typeof res.catch === "function") {
+          res.catch(() => {});
+        }
+      }
       setIsPlaying(true);
-    } else {
+    } catch (e) {
       setIsPlaying(true);
     }
   };
 
-  // Play / Pause Toggle
+  // Play / Pause Toggle (Crash-Proof)
   const togglePlay = () => {
-    if (!playerRef.current || !isReady) return;
-    if (isPlaying) {
-      playerRef.current.pauseVideo();
-      setIsPlaying(false);
-    } else {
-      playerRef.current.playVideo();
-      setIsPlaying(true);
+    try {
+      if (!playerRef.current || !isReady) {
+        setIsPlaying(!isPlaying);
+        return;
+      }
+      if (isPlaying) {
+        if (typeof playerRef.current.pauseVideo === "function") {
+          playerRef.current.pauseVideo();
+        }
+        setIsPlaying(false);
+      } else {
+        if (typeof playerRef.current.playVideo === "function") {
+          const res = playerRef.current.playVideo();
+          if (res && typeof res.catch === "function") {
+            res.catch(() => {});
+          }
+        }
+        setIsPlaying(true);
+      }
+    } catch (e) {
+      setIsPlaying(!isPlaying);
     }
   };
 
-  // Next Track
+  // Next Track (Crash-Proof)
   const nextTrack = () => {
-    const nextIdx = (currentTrackIndex + 1) % PLAYLIST.length;
-    setCurrentTrackIndex(nextIdx);
-    setIsPlaying(true);
+    try {
+      const nextIdx = (currentTrackIndex + 1) % PLAYLIST.length;
+      setCurrentTrackIndex(nextIdx);
+      setIsPlaying(true);
+    } catch (e) {}
   };
 
-  // Previous Track
+  // Previous Track (Crash-Proof)
   const prevTrack = () => {
-    const prevIdx = (currentTrackIndex - 1 + PLAYLIST.length) % PLAYLIST.length;
-    setCurrentTrackIndex(prevIdx);
-    setIsPlaying(true);
+    try {
+      const prevIdx = (currentTrackIndex - 1 + PLAYLIST.length) % PLAYLIST.length;
+      setCurrentTrackIndex(prevIdx);
+      setIsPlaying(true);
+    } catch (e) {}
   };
 
   // Set Volume
