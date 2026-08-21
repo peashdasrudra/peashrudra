@@ -235,7 +235,6 @@
     position: fixed;
     top: 0;
     left: 0;
-    right: 0;
     width: 100%;
     display: flex;
     flex-direction: column;
@@ -264,8 +263,8 @@
   }
 
   .navbar {
-    width: 85vw !important;
-    max-width: 85vw !important;
+    width: 85% !important;
+    max-width: 85% !important;
     margin: 0;
     height: 44px;
     border-radius: var(--radius-full);
@@ -278,8 +277,8 @@
   }
 
   .mobile-menu {
-    width: 85vw !important;
-    max-width: 85vw !important;
+    width: 85% !important;
+    max-width: 85% !important;
     margin: 6px 0 0;
     padding: 6px;
     gap: 2px;
