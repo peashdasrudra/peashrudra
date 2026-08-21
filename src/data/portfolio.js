@@ -549,7 +549,7 @@ export const CERTIFICATIONS = [
 
 export const EDUCATION = [
   {
-    year: "2022",
+    year: "2022 – 2026",
     degree: "B.Sc. in Computer Science & Engineering",
     institution: "Northern University of Business & Technology Khulna",
     location: "Khulna, Bangladesh",
