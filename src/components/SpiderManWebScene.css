@@ -1,8 +1,8 @@
 /* ═══════════════════════════════════════════════
-   LIGHTWEIGHT CRASH-PROOF VECTOR SPIDER SCENE CSS
+   REALISTIC JUMPING SPIDER-MAN & SILK WEBS CSS
    ═══════════════════════════════════════════════ */
 
-.spiderman-vector-scene {
+.realistic-spiderman-scene {
   position: absolute;
   inset: 0;
   width: 100%;
@@ -10,9 +10,11 @@
   pointer-events: none;
   overflow: hidden;
   z-index: 1;
+  contain: strict;
 }
 
-.spider-web-svg {
+/* ─── Silk Webs SVG Layer ─── */
+.silk-webs-svg {
   position: absolute;
   inset: 0;
   width: 100%;
@@ -20,84 +22,122 @@
   pointer-events: none;
 }
 
-.web-laser-line {
-  stroke-dasharray: 4 2;
-  animation: webLaserPulse 1.8s linear infinite;
+.main-silk-cord {
+  stroke-dasharray: 6 0;
+  animation: silkTensionPulse 2.5s ease-in-out infinite alternate;
 }
 
-@keyframes webLaserPulse {
-  0% { stroke-dashoffset: 0; opacity: 0.9; }
-  50% { opacity: 0.4; }
-  100% { stroke-dashoffset: 24; opacity: 0.9; }
+@keyframes silkTensionPulse {
+  0% { opacity: 0.95; stroke-width: 0.45; }
+  100% { opacity: 0.75; stroke-width: 0.35; }
 }
 
-.web-impact-dot {
-  animation: webImpactPulse 1.2s ease-in-out infinite alternate;
+.web-splatter-burst {
+  animation: splatterPop 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
-@keyframes webImpactPulse {
-  0% { r: 1.2; opacity: 0.8; }
-  100% { r: 2.2; opacity: 1; }
+@keyframes splatterPop {
+  0% { transform: scale(0.3); opacity: 0; }
+  50% { transform: scale(1.1); opacity: 1; }
+  100% { transform: scale(1); opacity: 0.85; }
 }
 
-/* Hanging Mascot */
-.spider-hanging-mascot {
+/* ─── Acrobatic Jumping Spider-Man Avatar ─── */
+.spiderman-acrobat-avatar {
   position: absolute;
-  top: 0;
-  left: 50%;
-  transform: translateX(-50%);
+  width: 48px;
+  height: 56px;
+  transform: translate(-50%, -20%);
   display: flex;
   flex-direction: column;
   align-items: center;
   pointer-events: none;
-  animation: gentleSwing 4s ease-in-out infinite alternate;
+  z-index: 2;
+  transition: left 0.45s cubic-bezier(0.34, 1.56, 0.64, 1), 
+              top 0.45s cubic-bezier(0.34, 1.56, 0.64, 1),
+              transform 0.35s ease;
+  will-change: left, top, transform;
+}
+
+/* Ceiling Tether Rope */
+.avatar-tether-rope {
+  position: absolute;
+  bottom: 80%;
+  left: 50%;
+  width: 1px;
+  height: 60px;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.6) 0%, rgba(56, 189, 248, 0.8) 100%);
+  box-shadow: 0 0 4px rgba(56, 189, 248, 0.5);
   transform-origin: top center;
 }
 
-@keyframes gentleSwing {
-  0% { transform: translateX(-50%) rotate(-4deg); }
-  100% { transform: translateX(-50%) rotate(4deg); }
+.spiderman-character-body {
+  width: 48px;
+  height: 56px;
+  filter: drop-shadow(0 6px 14px rgba(0, 0, 0, 0.7)) drop-shadow(0 0 10px rgba(239, 68, 68, 0.5));
+  transition: transform 0.3s ease;
 }
 
-.mascot-web-rope {
-  width: 1px;
-  height: 28px;
-  background: rgba(255, 255, 255, 0.4);
-  box-shadow: 0 0 6px rgba(56, 189, 248, 0.6);
-}
-
-.mascot-mask-wrap {
-  width: 22px;
-  height: 22px;
-  filter: drop-shadow(0 2px 8px rgba(239, 68, 68, 0.6));
-}
-
-.mini-spidey-svg {
+.spiderman-full-svg {
   width: 100%;
   height: 100%;
   display: block;
 }
 
+/* Pose Variations */
+.spiderman-acrobat-avatar.perched-left {
+  animation: crouchBreathe 3s ease-in-out infinite alternate;
+  transform: translate(-50%, -20%) rotate(-6deg);
+}
+
+.spiderman-acrobat-avatar.perched-right {
+  animation: crouchBreathe 3s ease-in-out infinite alternate 0.5s;
+  transform: translate(-50%, -20%) scaleX(-1) rotate(-6deg);
+}
+
+.spiderman-acrobat-avatar.jumping {
+  transform: translate(-50%, -60%) scale(1.15) rotate(18deg);
+}
+
+.spiderman-acrobat-avatar.shooting {
+  transform: translate(-50%, -30%) scale(1.08) rotate(4deg);
+}
+
+.spiderman-acrobat-avatar.shooting .shooter-spark {
+  animation: wristSpark 0.4s ease-out;
+}
+
+@keyframes wristSpark {
+  0% { r: 1.4; opacity: 1; fill: #ffffff; }
+  50% { r: 4.5; opacity: 1; fill: #38bdf8; }
+  100% { r: 1.4; opacity: 0.8; fill: #38bdf8; }
+}
+
+@keyframes crouchBreathe {
+  0% { transform: translate(-50%, -20%) rotate(-6deg) scale(0.97); }
+  100% { transform: translate(-50%, -17%) rotate(-4deg) scale(1.02); }
+}
+
 /* THWIP! Pop badge */
-.vector-thwip-badge {
+.realistic-thwip-badge {
   position: absolute;
   transform: translate(-50%, -100%);
   font-family: var(--font-mono);
   font-size: 11px;
   font-weight: 800;
   color: #38bdf8;
-  background: rgba(14, 16, 24, 0.95);
+  background: rgba(10, 11, 16, 0.95);
   border: 1px solid #38bdf8;
-  padding: 2px 7px;
+  padding: 2px 8px;
   border-radius: 6px;
-  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.6), 0 0 10px rgba(56, 189, 248, 0.4);
-  animation: thwipPop 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.7), 0 0 12px rgba(56, 189, 248, 0.45);
+  animation: thwipRealistic 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
   pointer-events: none;
   z-index: 10;
 }
 
-@keyframes thwipPop {
+@keyframes thwipRealistic {
   0% { transform: translate(-50%, -50%) scale(0.6); opacity: 0; }
-  30% { transform: translate(-50%, -120%) scale(1.1); opacity: 1; }
-  100% { transform: translate(-50%, -160%) scale(0.9); opacity: 0; }
+  35% { transform: translate(-50%, -130%) scale(1.15); opacity: 1; }
+  100% { transform: translate(-50%, -170%) scale(0.9); opacity: 0; }
 }
