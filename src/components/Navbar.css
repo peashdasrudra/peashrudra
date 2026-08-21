@@ -164,23 +164,19 @@
 /* Dark Mode Defaults */
 .theme-toggle .sun {
   color: var(--bg);
-  /* Sun is over the white slider, so it's black */
 }
 
 .theme-toggle .moon {
   color: var(--dim);
-  /* Moon is exposed, so it's gray */
 }
 
 /* Light Mode Overrides */
 .theme-toggle.light-mode .sun {
   color: var(--dim);
-  /* Sun is exposed, so it's gray */
 }
 
 .theme-toggle.light-mode .moon {
   color: var(--bg);
-  /* Moon is over the black slider, so it's white */
 }
 
 .nav-toggle {
@@ -193,15 +189,12 @@
   justify-content: center;
   border-radius: var(--radius-full);
   transition: all 0.2s ease;
+  display: none;
 }
 
 .nav-toggle:hover {
   color: var(--white);
   background: var(--surface-2);
-}
-
-.nav-toggle {
-  display: none;
 }
 
 .mobile-menu {
@@ -244,23 +237,18 @@
   border-radius: var(--radius-full) !important;
 }
 
-
-
 @media (max-width: 900px) {
   .nav-header {
     position: fixed;
     top: 0;
     left: 0;
     right: 0;
-    width: 85%;
+    width: 100%;
     display: flex;
-    /* Changed from fixed to flex */
     flex-direction: column;
-    align-items: flex-start;
-    /* Changed 'left' to standard 'flex-start' */
+    align-items: center;
     padding: 12px 0;
     pointer-events: auto;
-    /* Changed from none to auto so it's clickable */
     box-sizing: border-box;
     transform: none;
   }
@@ -279,11 +267,12 @@
 
   .nav-toggle {
     display: flex;
+    padding: 6px;
   }
 
   .navbar {
     width: 85%;
-    max-width: 640px;
+    max-width: 480px;
     min-width: 280px;
     margin: 0 auto;
     height: 44px;
@@ -331,13 +320,9 @@
     transform: scale(0.85);
   }
 
-  .nav-toggle {
-    padding: 6px;
-  }
-
   .mobile-menu {
     width: 85%;
-    max-width: 640px;
+    max-width: 480px;
     min-width: 280px;
     margin: 6px auto 0;
     padding: 6px;
