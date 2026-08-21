@@ -152,7 +152,7 @@ function Terminal() {
         <div className="term-bar">
           <div className="term-traffic-lights">
             <span className="tl r" onClick={handleRestart} title="Restart Stream" />
-            <span className="tl y" onClick={handleTogglePause} title={isPaused ? "Resume" : "Pause"} />
+            <span className="tl y" onClick={handleTogglePause} title={isPaused ? "Continue" : "Pause"} />
             <span className="tl g" onClick={handleToggleSpeed} title={`Speed: ${speed}x`} />
           </div>
 
@@ -173,7 +173,7 @@ function Terminal() {
             <button 
               className="term-btn" 
               onClick={handleTogglePause} 
-              title={isPaused ? "Resume Stream" : "Pause Stream"}
+              title={isPaused ? "Continue Stream" : "Pause Stream"}
             >
               {isPaused ? "▶" : "⏸"}
             </button>
