@@ -62,64 +62,182 @@ Your persona is inspired by a sharp, charismatic, and highly technical Spider-Ma
 5. Formatting: Keep responses concise (2-4 punchy paragraphs max), formatted in clean markdown with bullet points where appropriate.
 `;
 
-// Asynchronous Hybrid Engine: OpenAI with Automatic Deterministic Fallback
+// Asynchronous Multi-Provider AI Engine (Groq, Google Gemini, OpenRouter, OpenAI)
 export async function answerPeashQuestionAsync(rawQuery, conversationHistory = []) {
   const userQuery = rawQuery.trim();
   const apiKey = 
+    import.meta.env.VITE_AI_API_KEY ||
+    import.meta.env.VITE_GROQ_API_KEY ||
+    import.meta.env.VITE_GEMINI_API_KEY ||
     import.meta.env.VITE_OPENAI_API_KEY || 
-    (typeof window !== "undefined" && (window.__PEASH_OPENAI_KEY__ || localStorage.getItem("peash_openai_api_key")));
+    (typeof window !== "undefined" && (window.__PEASH_AI_KEY__ || localStorage.getItem("peash_ai_api_key") || localStorage.getItem("peash_openai_api_key")));
 
-  // If OpenAI API key is present, execute via OpenAI GPT-4o-mini
-  if (apiKey && apiKey.startsWith("sk-")) {
-    try {
-      const messages = [
-        { role: "system", content: PEASH_SYSTEM_PROMPT },
-        ...conversationHistory.slice(-8).map(m => ({
-          role: m.sender === "user" ? "user" : "assistant",
-          content: m.text,
-        })),
-        { role: "user", content: userQuery },
-      ];
+  if (apiKey) {
+    const cleanKey = apiKey.trim();
 
-      const res = await fetch("https://api.openai.com/v1/chat/completions", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${apiKey}`,
-        },
-        body: JSON.stringify({
-          model: "gpt-4o-mini",
-          messages,
-          temperature: 0.7,
-          max_tokens: 600,
-        }),
-      });
+    // ─── 1. GROQ CLOUD (100% Free, Ultra-Fast Llama-3.3-70B) ───
+    if (cleanKey.startsWith("gsk_") || import.meta.env.VITE_GROQ_API_KEY) {
+      try {
+        const messages = [
+          { role: "system", content: PEASH_SYSTEM_PROMPT },
+          ...conversationHistory.slice(-8).map(m => ({
+            role: m.sender === "user" ? "user" : "assistant",
+            content: m.text,
+          })),
+          { role: "user", content: userQuery },
+        ];
 
-      if (res.ok) {
-        const data = await res.json();
-        const aiText = data.choices[0]?.message?.content;
-        if (aiText) {
-          return {
-            text: aiText,
-            section: detectRelevantSection(userQuery),
-            sectionLabel: "Explore Relevant Section",
-            actionUrl: userQuery.toLowerCase().includes("call") || userQuery.toLowerCase().includes("hire") ? PROFILE.calendlyUrl : null,
-            actionText: "Book Strategy Call on Calendly",
-            suggestedQuestions: [
-              "What are his hourly rates?",
-              "Tell me about DealSense RAG",
-              "Show me his HubSpot certifications",
-            ],
-          };
+        const res = await fetch("https://api.groq.com/openai/v1/chat/completions", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${cleanKey}`,
+          },
+          body: JSON.stringify({
+            model: "llama-3.3-70b-versatile",
+            messages,
+            temperature: 0.7,
+            max_tokens: 600,
+          }),
+        });
+
+        if (res.ok) {
+          const data = await res.json();
+          const aiText = data.choices[0]?.message?.content;
+          if (aiText) {
+            return formatAiResponse(aiText, userQuery);
+          }
         }
+      } catch (err) {
+        console.warn("Groq API call failed, falling back", err);
       }
-    } catch (err) {
-      console.warn("OpenAI API call failed, using built-in deterministic engine", err);
+    }
+
+    // ─── 2. GOOGLE GEMINI (100% Free Gemini-1.5-Flash via Google AI Studio) ───
+    if (cleanKey.startsWith("AIzaSy") || import.meta.env.VITE_GEMINI_API_KEY) {
+      try {
+        const contents = [
+          { role: "user", parts: [{ text: `SYSTEM INSTRUCTIONS:\n${PEASH_SYSTEM_PROMPT}` }] },
+          { role: "model", parts: [{ text: "Understood. I am Peash Das Rudra's Spider-Man inspired AI Copilot." }] },
+          ...conversationHistory.slice(-6).map(m => ({
+            role: m.sender === "user" ? "user" : "model",
+            parts: [{ text: m.text }],
+          })),
+          { role: "user", parts: [{ text: userQuery }] },
+        ];
+
+        const res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${cleanKey}`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ contents }),
+        });
+
+        if (res.ok) {
+          const data = await res.json();
+          const aiText = data.candidates?.[0]?.content?.parts?.[0]?.text;
+          if (aiText) {
+            return formatAiResponse(aiText, userQuery);
+          }
+        }
+      } catch (err) {
+        console.warn("Gemini API call failed, falling back", err);
+      }
+    }
+
+    // ─── 3. OPENROUTER (100% Free Llama-3.3 / DeepSeek) ───
+    if (cleanKey.startsWith("sk-or-")) {
+      try {
+        const messages = [
+          { role: "system", content: PEASH_SYSTEM_PROMPT },
+          ...conversationHistory.slice(-8).map(m => ({
+            role: m.sender === "user" ? "user" : "assistant",
+            content: m.text,
+          })),
+          { role: "user", content: userQuery },
+        ];
+
+        const res = await fetch("https://openrouter.ai/api/v1/chat/completions", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${cleanKey}`,
+          },
+          body: JSON.stringify({
+            model: "meta-llama/llama-3.3-70b-instruct:free",
+            messages,
+            max_tokens: 600,
+          }),
+        });
+
+        if (res.ok) {
+          const data = await res.json();
+          const aiText = data.choices[0]?.message?.content;
+          if (aiText) {
+            return formatAiResponse(aiText, userQuery);
+          }
+        }
+      } catch (err) {
+        console.warn("OpenRouter API call failed, falling back", err);
+      }
+    }
+
+    // ─── 4. OPENAI (GPT-4o-mini) ───
+    if (cleanKey.startsWith("sk-")) {
+      try {
+        const messages = [
+          { role: "system", content: PEASH_SYSTEM_PROMPT },
+          ...conversationHistory.slice(-8).map(m => ({
+            role: m.sender === "user" ? "user" : "assistant",
+            content: m.text,
+          })),
+          { role: "user", content: userQuery },
+        ];
+
+        const res = await fetch("https://api.openai.com/v1/chat/completions", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${cleanKey}`,
+          },
+          body: JSON.stringify({
+            model: "gpt-4o-mini",
+            messages,
+            temperature: 0.7,
+            max_tokens: 600,
+          }),
+        });
+
+        if (res.ok) {
+          const data = await res.json();
+          const aiText = data.choices[0]?.message?.content;
+          if (aiText) {
+            return formatAiResponse(aiText, userQuery);
+          }
+        }
+      } catch (err) {
+        console.warn("OpenAI API call failed, using built-in deterministic engine", err);
+      }
     }
   }
 
   // Built-in Deterministic Knowledge Engine Fallback
   return answerPeashQuestion(userQuery);
+}
+
+// Helper formatter
+function formatAiResponse(aiText, userQuery) {
+  return {
+    text: aiText,
+    section: detectRelevantSection(userQuery),
+    sectionLabel: "Explore Relevant Section",
+    actionUrl: userQuery.toLowerCase().includes("call") || userQuery.toLowerCase().includes("hire") ? PROFILE.calendlyUrl : null,
+    actionText: "Book Strategy Call on Calendly",
+    suggestedQuestions: [
+      "What are his hourly rates?",
+      "Tell me about DealSense RAG",
+      "Show me his HubSpot certifications",
+    ],
+  };
 }
 
 // Section detector helper
