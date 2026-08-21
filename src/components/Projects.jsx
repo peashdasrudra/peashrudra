@@ -8,8 +8,28 @@ import "./Projects.css";
 function ProjectCard({ project, index, isMobile }) {
   const [expanded, setExpanded] = useState(false);
 
+  // Extract clean year label from project period
+  const displayYear = project.period.includes("2026")
+    ? "2026"
+    : project.period.includes("2025")
+    ? "2025"
+    : project.period.includes("2024")
+    ? "2024"
+    : project.period.includes("2023")
+    ? "2023"
+    : project.period;
+
   return (
     <div className="proj-wrapper" style={{ "--stack-index": index }}>
+      {/* Left Vertical Year Timeline Indicator */}
+      <div className="proj-timeline-left">
+        <div className="proj-year-badge">
+          <span className="proj-year-dot" />
+          <span className="proj-year-text">{displayYear}</span>
+        </div>
+        <div className="proj-year-line" />
+      </div>
+
       <motion.div
         className={`proj-card spot ${project.featured ? "proj-featured" : ""}`}
         initial={{ opacity: 0, y: isMobile ? 0 : 40, scale: isMobile ? 1 : 0.97 }}
