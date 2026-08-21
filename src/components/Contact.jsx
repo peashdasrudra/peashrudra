@@ -1,7 +1,8 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { Mail, ExternalLink, Copy, Check, ArrowRight, Calendar } from "lucide-react";
+import { Mail, ExternalLink, Copy, Check, ArrowRight, Calendar, MessageCircle, ArrowUpRight } from "lucide-react";
 import { PROFILE } from "../data/portfolio";
+import { LINKS } from "../data/links";
 import "./Contact.css";
 
 export default function Contact() {
@@ -26,7 +27,7 @@ export default function Contact() {
         >
           <div className="contact-badge">
             <span className="pulse" />
-            Available for new opportunities
+            Available for Q3/Q4 Contracts & Full-Time Roles
           </div>
 
           <h2>
@@ -35,14 +36,14 @@ export default function Contact() {
           </h2>
 
           <p>
-            Open to freelance automation projects, CRM consulting, and full-time
-            remote or Bangladesh-based engineering roles. Let's talk about what
-            you need built.
+            Open to contract automation systems, HubSpot RevOps architecture, and full-time
+            remote engineering roles. Book a direct discovery call or start an instant chat.
           </p>
 
+          {/* High-Converting Non-Stacked Inbound Actions */}
           <div className="contact-actions">
             <motion.a
-              href={PROFILE.calendlyUrl}
+              href={LINKS.calendly}
               target="_blank"
               rel="noopener noreferrer"
               className="btn-primary contact-btn"
@@ -50,18 +51,27 @@ export default function Contact() {
             >
               <Calendar size={15} />
               <span>Book 30-Min Strategy Call</span>
-              <ArrowRight size={14} />
+              <ArrowUpRight size={14} />
             </motion.a>
 
             <motion.a
-              href="https://wa.me/8801533679773"
+              href={LINKS.whatsapp}
               target="_blank"
               rel="noopener noreferrer"
               className="btn-outline contact-btn whatsapp-cta"
               whileTap={{ scale: 0.95 }}
             >
-              <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.711 2.598 2.669-.699c.969.57 1.961.88 2.791.88 3.182 0 5.767-2.587 5.768-5.766.001-3.187-2.575-5.77-5.768-5.771zm3.392 8.244c-.144.405-.837.774-1.17.824-.312.045-.694.073-2.146-.527-1.728-.715-2.833-2.483-2.919-2.598-.086-.115-.693-.923-.693-1.761 0-.837.44-1.25.596-1.423.157-.173.342-.217.456-.217.114 0 .228.001.328.005.105.004.246-.04.385.294.144.346.491 1.196.534 1.282.043.086.071.187.014.3-.057.115-.086.187-.171.288-.086.1-.181.224-.258.3-.086.086-.176.18-.076.353.1.173.444.733.953 1.186.656.584 1.209.765 1.382.852.173.086.275.072.376-.043.101-.115.434-.506.549-.679.115-.173.231-.144.389-.086.158.058 1.002.472 1.175.559.173.086.289.13.332.202.043.072.043.418-.101.823z"/></svg>
+              <MessageCircle size={15} />
               <span>WhatsApp Direct</span>
+            </motion.a>
+
+            <motion.a
+              href={`mailto:${LINKS.email}`}
+              className="btn-outline contact-btn"
+              whileTap={{ scale: 0.95 }}
+            >
+              <Mail size={15} />
+              <span>Send Email</span>
             </motion.a>
 
             <motion.button
@@ -70,10 +80,11 @@ export default function Contact() {
               whileTap={{ scale: 0.95 }}
             >
               {copied ? <Check size={15} /> : <Copy size={15} />}
-              <span>{copied ? "Email copied!" : "Copy email"}</span>
+              <span>{copied ? "Email copied!" : "Copy Email"}</span>
             </motion.button>
           </div>
 
+          {/* Social Links */}
           <div className="contact-links">
             <a
               href={PROFILE.social.linkedin}
@@ -103,11 +114,11 @@ export default function Contact() {
               Fiverr
             </a>
             <a
-              href={`mailto:${PROFILE.email}`}
+              href={`mailto:${LINKS.email}`}
               className="link-chip"
             >
               <Mail size={15} />
-              {PROFILE.email}
+              {LINKS.email}
             </a>
           </div>
         </motion.div>

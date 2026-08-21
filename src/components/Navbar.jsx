@@ -44,9 +44,8 @@ export default function Navbar({ onOpenCmd, theme, toggleTheme }) {
           ))}
         </div>
 
-        <a href={PROFILE.calendlyUrl} target="_blank" rel="noopener noreferrer" className="nav-cta">
-          <span className="nav-cta-dot" />
-          <span>Book Call</span>
+        <a href="#contact" className="nav-cta">
+          let's talk
         </a>
 
         <div className="nav-controls">
