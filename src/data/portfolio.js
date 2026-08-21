@@ -549,6 +549,7 @@ export const CERTIFICATIONS = [
 
 export const EDUCATION = [
   {
+    year: "2022",
     degree: "B.Sc. in Computer Science & Engineering",
     institution: "Northern University of Business & Technology Khulna",
     location: "Khulna, Bangladesh",
@@ -561,6 +562,7 @@ export const EDUCATION = [
     icon: "GraduationCap",
   },
   {
+    year: "2020",
     degree: "Higher Secondary Certificate (H.S.C.), Science",
     institution: "Government P.C. College, Bagerhat",
     location: "Bagerhat, Bangladesh",
@@ -572,6 +574,7 @@ export const EDUCATION = [
     icon: "School",
   },
   {
+    year: "2018",
     degree: "Secondary School Certificate (S.S.C.), Science",
     institution: "Bagerhat ML Collegiate School",
     location: "Bagerhat, Bangladesh",
@@ -583,6 +586,7 @@ export const EDUCATION = [
     icon: "School",
   },
   {
+    year: "2015",
     degree: "Junior School Certificate (J.S.C.)",
     institution: "Ramu Khizaree Government High School",
     location: "Bangladesh",
@@ -594,6 +598,7 @@ export const EDUCATION = [
     icon: "School",
   },
   {
+    year: "2012",
     degree: "Primary School Certificate (P.S.C.)",
     institution: "South Sofipur Model Govt. Primary School",
     location: "Bangladesh",

@@ -103,7 +103,7 @@ function TimelineRow({ edu, index }) {
           >
             <Icon size={24} />
           </motion.div>
-          <div className="edu-year">{edu.period.split(" ")[1] || edu.period}</div>
+          <div className="edu-year">{edu.year || edu.period.split(" ")[1] || edu.period}</div>
         </div>
       </div>
       
