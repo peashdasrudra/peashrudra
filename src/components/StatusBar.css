@@ -94,3 +94,14 @@
 @media (max-width: 600px) {
   .status-cta { display: none; }
 }
+
+/* Light Theme Overrides */
+[data-theme="light"] .statusbar {
+  background: rgba(255, 255, 255, 0.94);
+  border-top: 1px solid rgba(0, 0, 0, 0.08);
+  box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.04);
+}
+
+[data-theme="light"] .status-cta {
+  color: #ffffff;
+}

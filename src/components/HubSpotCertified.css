@@ -381,3 +381,25 @@
     height: 100px;
   }
 }
+
+/* Light Theme Overrides */
+[data-theme="light"] .hs-card-3d-wrapper {
+  background: rgba(255, 255, 255, 0.95);
+  border: 1px solid #e2e8f0;
+  box-shadow: 0 10px 30px rgba(15, 23, 42, 0.06), 0 1px 3px rgba(15, 23, 42, 0.04);
+}
+
+[data-theme="light"] .hs-hero-banner {
+  background: linear-gradient(135deg, rgba(234, 88, 12, 0.06), rgba(255, 255, 255, 0.9));
+  border-color: rgba(234, 88, 12, 0.2);
+  box-shadow: 0 10px 30px rgba(234, 88, 12, 0.06);
+}
+
+[data-theme="light"] .hs-badge-wrap {
+  background: linear-gradient(135deg, rgba(234, 88, 12, 0.08), rgba(234, 88, 12, 0.15));
+}
+
+[data-theme="light"] .hs-verify-btn:hover {
+  background: var(--hubspot);
+  color: #ffffff;
+}

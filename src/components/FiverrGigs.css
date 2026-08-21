@@ -147,17 +147,19 @@
 
 /* ─── Light Mode Overrides ─── */
 [data-theme="light"] .fiverr-premium-card {
-  background: var(--surface);
-  border-color: var(--border);
+  background: #ffffff;
+  border-color: #e2e8f0;
+  box-shadow: 0 10px 30px rgba(15, 23, 42, 0.06), 0 1px 3px rgba(15, 23, 42, 0.04);
 }
 [data-theme="light"] .fiverr-pricing-row {
-  background: var(--surface-2);
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
 }
 [data-theme="light"] .fiverr-price-block strong {
   color: var(--white);
 }
 [data-theme="light"] .fiverr-price-block.highlight strong {
-  color: var(--green-dim);
+  color: var(--green-text);
 }
 
 /* ─── Responsive ─── */

@@ -424,3 +424,33 @@
     grid-template-columns: 1fr;
   }
 }
+
+/* Light Theme Overrides */
+[data-theme="light"] .editorial-research {
+  background: rgba(255, 255, 255, 0.95);
+  border: 1px solid #e2e8f0;
+  box-shadow: 0 10px 30px rgba(15, 23, 42, 0.06), 0 1px 3px rgba(15, 23, 42, 0.04);
+}
+
+[data-theme="light"] .metric-box {
+  background: #f8fafc;
+  border-color: #e2e8f0;
+}
+
+[data-theme="light"] .edu-content-card {
+  background: rgba(255, 255, 255, 0.95);
+  border: 1px solid #e2e8f0;
+  box-shadow: 0 10px 30px rgba(15, 23, 42, 0.06), 0 1px 3px rgba(15, 23, 42, 0.04);
+}
+
+[data-theme="light"] .edu-timeline-icon {
+  background: #ffffff;
+  border-color: #cbd5e1;
+  color: #94a3b8;
+}
+
+[data-theme="light"] .edu-course-tag {
+  background: #f1f5f9;
+  border-color: #e2e8f0;
+  color: #334155;
+}

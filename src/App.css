@@ -69,34 +69,47 @@
 }
 
 [data-theme="light"] {
-  --bg: #fafafa;
-  --bg-alt: #f0f0f0;
+  --bg: #f8fafc;
+  --bg-alt: #f1f5f9;
   --surface: #ffffff;
-  --surface-2: #f4f4f5;
-  --surface-3: #e4e4e7;
+  --surface-2: #f1f5f9;
+  --surface-3: #e2e8f0;
   --card: #ffffff;
-  --card-hover: #fafafa;
+  --card-hover: #ffffff;
   
-  --glass-bg: rgba(255, 255, 255, 0.7);
+  --glass-bg: rgba(255, 255, 255, 0.85);
   --glass-border: rgba(0, 0, 0, 0.08);
 
-  --neon-shadow: 0 0 12px rgba(0, 0, 0, 0.1);
+  --neon-shadow: 0 0 12px rgba(22, 163, 74, 0.15);
 
-  --white: #0a0a0a;       /* Inverted: Main text is black */
-  --white-dim: #27272a;   
-  --silver: #52525b;      
-  --dim: #71717a;
-  --muted: #a1a1aa;
+  --white: #0f172a;       /* Main text: Crisp slate 900 */
+  --white-dim: #1e293b;   /* Slightly softer headline text */
+  --silver: #475569;      /* Body text: Slate 600 */
+  --dim: #64748b;         /* Captions: Slate 500 */
+  --muted: #94a3b8;       /* Subtle text: Slate 400 */
 
-  --border: #e4e4e7;
-  --border-soft: #f4f4f5;
-  --border-hover: #d4d4d8;
+  --border: #e2e8f0;
+  --border-soft: #f1f5f9;
+  --border-hover: #cbd5e1;
 
-  --shadow-subtle: rgba(0, 0, 0, 0.05) 0px 4px 12px;
-  --shadow-med: rgba(0, 0, 0, 0.1) 0px 10px 22px;
-  --shadow-heavy: rgba(0, 0, 0, 0.15) 0px 20px 48px;
+  --shadow-subtle: 0 2px 8px rgba(15, 23, 42, 0.04);
+  --shadow-med: 0 8px 24px rgba(15, 23, 42, 0.08);
+  --shadow-heavy: 0 20px 48px rgba(15, 23, 42, 0.12);
+  --shadow-green: 0 6px 20px rgba(22, 163, 74, 0.25);
 
-  --green-text: #15803d; /* Darker, high-contrast green for light backgrounds */
+  --green: #16a34a;
+  --green-dim: #15803d;
+  --green-glow: rgba(22, 163, 74, 0.25);
+  --green-subtle: rgba(22, 163, 74, 0.08);
+  --green-border: rgba(22, 163, 74, 0.25);
+  --green-text: #15803d;
+
+  --hubspot: #ea580c;
+  --hubspot-dim: #c2410c;
+  --hubspot-glow: rgba(234, 88, 12, 0.25);
+  --hubspot-subtle: rgba(234, 88, 12, 0.08);
+  --hubspot-border: rgba(234, 88, 12, 0.25);
+  --hubspot-text: #ea580c;
 }
 
 /* ─── RESET ─── */

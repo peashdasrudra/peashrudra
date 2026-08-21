@@ -88,3 +88,17 @@
     padding: 10px 18px;
   }
 }
+
+/* Light Theme Overrides */
+[data-theme="light"] .magnetic-pill {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  color: #334155;
+  box-shadow: 0 2px 8px rgba(15, 23, 42, 0.04);
+}
+
+[data-theme="light"] .magnetic-pill-wrap.active .magnetic-pill {
+  background: rgba(22, 163, 74, 0.1);
+  border-color: var(--green-text);
+  color: var(--green-text);
+}

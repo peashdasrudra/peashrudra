@@ -237,6 +237,41 @@
   border-radius: var(--radius-full) !important;
 }
 
+/* Light Theme Overrides */
+[data-theme="light"] .navbar {
+  background: rgba(255, 255, 255, 0.85);
+  border-color: rgba(0, 0, 0, 0.08);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+}
+
+[data-theme="light"] .nav-scrolled .navbar {
+  background: rgba(255, 255, 255, 0.95);
+  border-color: rgba(0, 0, 0, 0.12);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+}
+
+[data-theme="light"] .mobile-menu {
+  background: rgba(255, 255, 255, 0.96) !important;
+  border-color: rgba(0, 0, 0, 0.08) !important;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+}
+
+[data-theme="light"] .nav-cta,
+[data-theme="light"] .mobile-cta {
+  background: var(--green) !important;
+  color: #ffffff !important;
+}
+
+[data-theme="light"] .theme-toggle {
+  background: #e2e8f0;
+  border-color: #cbd5e1;
+}
+
+[data-theme="light"] .theme-toggle-slider {
+  background: #ffffff;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+}
+
 @media (max-width: 900px) {
   .nav-header {
     position: fixed;

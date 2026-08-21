@@ -130,3 +130,18 @@
     height: 32px;
   }
 }
+
+/* Light Theme Overrides */
+[data-theme="light"] .achievements-list {
+  border-top-color: #e2e8f0;
+}
+
+[data-theme="light"] .achievement-row {
+  border-bottom-color: #e2e8f0;
+}
+
+[data-theme="light"] .achievement-row.active {
+  background: #f1f5f9;
+  border-bottom-color: var(--green);
+  box-shadow: inset 0 0 40px rgba(22, 163, 74, 0.05);
+}
