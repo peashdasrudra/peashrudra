@@ -1,46 +1,136 @@
 /* ═══════════════════════════════════════════════
-   SPIDER-MAN NEURAL WEB & WAVE SKILLS MATRIX
+   ULTRA-PREMIUM SPIDER PLAYGROUND & TECH MATRIX
+   Awwwards / Linear / Cyber Luxury Aesthetic
    ═══════════════════════════════════════════════ */
 
 .spider-skills-section {
   position: relative;
   overflow: hidden;
-  padding: 100px 0;
-  min-height: 800px;
+  padding: 90px 0 110px;
+  min-height: 860px;
+  cursor: default;
 }
 
-/* ─── Interactive Web Canvas ─── */
-.spiderweb-canvas {
+/* ─── Ambient Multi-Spectrum Background Light Flares ─── */
+.spider-bg-nebula {
   position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  pointer-events: auto;
-  cursor: crosshair;
-  z-index: 1;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 1000px;
+  height: 600px;
+  background: radial-gradient(circle, rgba(30, 215, 96, 0.06) 0%, rgba(225, 29, 72, 0.04) 40%, rgba(56, 189, 248, 0.03) 65%, transparent 75%);
+  filter: blur(100px);
+  pointer-events: none;
+  z-index: 0;
 }
 
 .spider-skills-wrap {
   position: relative;
-  z-index: 2;
-  pointer-events: auto;
+  z-index: 20;
 }
 
-/* ─── HUD Status Bar ─── */
-.spider-hud-bar {
-  display: inline-flex;
+/* ─── Spider-Man Follower Cursor Avatar ─── */
+.spiderman-cursor-avatar {
+  position: absolute;
+  pointer-events: none;
+  z-index: 60;
+  transform: translate(-50%, -50%);
+  will-change: transform, left, top;
+}
+
+.spiderman-mask-container {
+  position: relative;
+  width: 48px;
+  height: 56px;
+  filter: drop-shadow(0 10px 24px rgba(0, 0, 0, 0.9)) drop-shadow(0 0 16px rgba(30, 215, 96, 0.6));
+  transition: transform 0.2s ease;
+}
+
+.spiderman-mask-container.sense-active {
+  filter: drop-shadow(0 12px 28px rgba(225, 29, 72, 0.8)) drop-shadow(0 0 24px rgba(30, 215, 96, 0.95));
+}
+
+.spiderman-mask-svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+/* Spider-Sense Electric Sparks */
+.spider-sense-waves {
+  position: absolute;
+  top: -12px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 4px;
+  pointer-events: none;
+}
+
+.sense-wave {
+  width: 3px;
+  height: 12px;
+  background: linear-gradient(to top, #1ed760, #ff3366);
+  border-radius: 2px;
+  animation: senseSparks 0.35s infinite alternate;
+}
+
+.sense-wave.wave-1 {
+  transform: rotate(-25deg);
+  animation-delay: 0.08s;
+}
+
+.sense-wave.wave-2 {
+  height: 16px;
+  animation-delay: 0.16s;
+}
+
+.sense-wave.wave-3 {
+  transform: rotate(25deg);
+  animation-delay: 0.24s;
+}
+
+@keyframes senseSparks {
+  0% { transform: translateY(0) scaleY(0.7); opacity: 0.4; }
+  100% { transform: translateY(-4px) scaleY(1.3); opacity: 1; filter: drop-shadow(0 0 8px #1ed760); }
+}
+
+/* Comic-Style THWIP! Badge */
+.spider-thwip-badge {
+  position: absolute;
+  top: -18px;
+  right: -36px;
+  background: linear-gradient(135deg, #e11d48 0%, #0f172a 100%);
+  border: 1.5px solid #1ed760;
+  border-radius: 6px;
+  padding: 3px 8px;
+  font-family: var(--font-display);
+  font-size: 11px;
+  font-weight: 900;
+  letter-spacing: 0.8px;
+  color: #ffffff;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.7), 0 0 14px rgba(30, 215, 96, 0.7);
+  transform: rotate(12deg);
+  white-space: nowrap;
+  pointer-events: none;
+}
+
+/* ─── Top Control HUD ─── */
+.spider-top-hud {
+  display: flex;
   align-items: center;
-  gap: 16px;
-  background: rgba(16, 16, 20, 0.7);
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  justify-content: space-between;
+  width: 100%;
+  background: rgba(16, 16, 22, 0.8);
+  border: 1px solid rgba(255, 255, 255, 0.09);
   border-radius: var(--radius-full);
-  padding: 8px 18px;
-  margin-top: 18px;
+  padding: 8px 20px;
+  margin-top: 20px;
   margin-bottom: 24px;
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.45);
 }
 
 .spider-hud-status {
@@ -67,33 +157,52 @@
   50% { transform: scale(1.4); opacity: 0.4; }
 }
 
-.spider-hud-meta {
+.spider-view-toggle {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 4px;
+  background: rgba(0, 0, 0, 0.4);
+  padding: 3px;
+  border-radius: var(--radius-full);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.spider-toggle-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 14px;
+  border-radius: var(--radius-full);
+  background: transparent;
+  border: none;
+  color: var(--silver);
   font-family: var(--font-mono);
-  font-size: 11px;
-  color: var(--dim);
+  font-size: 11.5px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
 }
 
-.spider-hud-sep {
-  color: rgba(255, 255, 255, 0.2);
+.spider-toggle-btn.active {
+  background: var(--surface-3);
+  color: var(--white);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.4);
 }
 
-/* ─── Category Matrix Tabs ─── */
+/* ─── Category Tabs ─── */
 .spider-cat-tabs {
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 8px;
   flex-wrap: wrap;
-  margin-top: 24px;
-  margin-bottom: 48px;
+  margin-top: 16px;
+  margin-bottom: 28px;
 }
 
 .spider-cat-tab {
   position: relative;
-  background: rgba(255, 255, 255, 0.03);
+  background: rgba(255, 255, 255, 0.04);
   border: 1px solid rgba(255, 255, 255, 0.08);
   border-radius: var(--radius-full);
   padding: 8px 18px;
@@ -134,48 +243,129 @@
   font-weight: 700;
 }
 
-/* ─── Groups Grid & Cards ─── */
-.spider-groups-container {
+/* ─── TAB 1: BIG BORDERLESS SPIDER PLAYGROUND ─── */
+.spider-playground-view-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  position: relative;
+}
+
+.spider-playground-wrapper {
+  position: relative;
+  width: 100%;
+  height: 640px;
+  background: transparent;
+  border: none;
+  box-shadow: none;
+  overflow: hidden;
+  margin-bottom: 24px;
+}
+
+.spider-playground-canvas {
+  width: 100%;
+  height: 100%;
+  cursor: grab;
+}
+
+.spider-playground-canvas:active {
+  cursor: grabbing;
+}
+
+.spider-fluid-legend {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  max-width: 900px;
+}
+
+.spider-legend-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--font-mono);
+  font-size: 11.5px;
+  color: var(--silver);
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  padding: 6px 14px;
+  border-radius: var(--radius-full);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.spider-legend-pill:hover,
+.spider-legend-pill.active {
+  color: var(--white);
+  border-color: rgba(255, 255, 255, 0.2);
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.spider-legend-pill.dimmed {
+  opacity: 0.4;
+}
+
+.spider-legend-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+}
+
+/* ─── TAB 2: STRUCTURED CARD MATRIX ─── */
+.spider-web-cards-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
   gap: 28px;
+  width: 100%;
 }
 
-.spider-group-card {
-  background: rgba(14, 14, 18, 0.65);
-  border: 1px solid rgba(255, 255, 255, 0.07);
+.spider-web-card {
+  background: rgba(14, 14, 18, 0.7);
+  border: 1px solid rgba(255, 255, 255, 0.08);
   border-radius: var(--radius-l);
   padding: 28px 24px;
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
-  transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
   position: relative;
   overflow: hidden;
+  transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
-.spider-group-card::before {
-  content: "";
-  position: absolute;
-  top: 0; left: 0; right: 0;
-  height: 2px;
-  background: linear-gradient(90deg, transparent, rgba(30, 215, 96, 0.3), transparent);
-}
-
-.spider-group-card:hover {
+.spider-web-card:hover {
   transform: translateY(-4px);
-  border-color: rgba(255, 255, 255, 0.16);
+  border-color: rgba(255, 255, 255, 0.18);
   box-shadow: 0 16px 40px rgba(0, 0, 0, 0.5), 0 0 25px rgba(30, 215, 96, 0.08);
 }
 
-.spider-group-header {
+.spider-card-web-bg {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 120px;
+  height: 120px;
+  pointer-events: none;
+  opacity: 0.6;
+}
+
+.spider-card-web-svg {
+  width: 100%;
+  height: 100%;
+}
+
+.spider-card-header {
   display: flex;
   align-items: center;
   gap: 12px;
   margin-bottom: 20px;
+  position: relative;
+  z-index: 2;
 }
 
-.spider-group-icon-wrap {
+.spider-card-icon-box {
   width: 36px;
   height: 36px;
   border-radius: var(--radius-m);
@@ -187,105 +377,136 @@
   flex-shrink: 0;
 }
 
-.spider-group-title {
+.spider-card-title-group {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.spider-card-title {
   font-family: var(--font-display);
   font-size: 16px;
   font-weight: 700;
   color: var(--white);
-  flex: 1;
 }
 
-.spider-group-count {
+.spider-card-count {
   font-family: var(--font-mono);
   font-size: 11px;
   color: var(--dim);
-  background: rgba(255, 255, 255, 0.04);
-  padding: 3px 8px;
-  border-radius: var(--radius-xs);
 }
 
-/* ─── Pill Cluster ─── */
-.spider-group-cluster {
+/* ─── Badges Cluster ─── */
+.spider-card-badges-wrap {
   display: flex;
   flex-wrap: wrap;
   gap: 10px;
+  position: relative;
+  z-index: 2;
 }
 
-.spider-pill-wrap {
+.spider-badge-wrap {
   position: relative;
   display: inline-block;
-  cursor: grab;
+  cursor: pointer;
   user-select: none;
 }
 
-.spider-pill-wrap:active {
-  cursor: grabbing;
-}
-
-.spider-pill {
+.spider-badge-pill {
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  font-family: var(--font-mono);
-  font-size: 12.5px;
-  font-weight: 500;
+  font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+  font-size: 13px;
+  font-weight: 600;
   color: var(--silver);
-  padding: 8px 14px;
-  background: rgba(255, 255, 255, 0.04);
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  padding: 9px 16px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: var(--radius-full);
   transition: all 0.25s ease;
   position: relative;
   overflow: hidden;
 }
 
-.spider-pill-dot {
-  width: 6px;
-  height: 6px;
+.spider-badge-dot {
+  width: 7px;
+  height: 7px;
   border-radius: 50%;
-  background: var(--pill-accent, var(--green));
-  box-shadow: 0 0 8px var(--pill-accent, var(--green));
-  transition: transform 0.2s ease;
+  box-shadow: 0 0 8px currentColor;
+  flex-shrink: 0;
 }
 
-.spider-pill-wrap:hover .spider-pill {
-  background: rgba(255, 255, 255, 0.08);
-  border-color: var(--pill-accent, var(--green));
+.spider-badge-name {
+  white-space: nowrap;
+}
+
+.spider-badge-wrap:hover .spider-badge-pill {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: var(--badge-accent, var(--green));
   color: var(--white);
-  box-shadow: 0 0 16px var(--pill-glow, rgba(30, 215, 96, 0.3));
+  box-shadow: 0 0 18px rgba(30, 215, 96, 0.35);
 }
 
-.spider-pill-wrap:hover .spider-pill-dot {
-  transform: scale(1.4);
-}
-
-.spider-pill-ray {
+.spider-badge-shimmer {
   position: absolute;
   top: 0;
   left: -100%;
   width: 100%;
   height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-  animation: pillRaySwipe 0.8s ease forwards;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.25), transparent);
+  animation: badgeShimmer 0.7s ease forwards;
 }
 
-@keyframes pillRaySwipe {
+@keyframes badgeShimmer {
   to { left: 100%; }
 }
 
+/* ─── Active Latch Feedback ─── */
+.spider-active-latch-bar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  background: rgba(30, 215, 96, 0.12);
+  border: 1px solid var(--green-border);
+  color: var(--white);
+  font-family: var(--font-mono);
+  font-size: 13.5px;
+  padding: 12px 24px;
+  border-radius: var(--radius-full);
+  box-shadow: 0 6px 24px rgba(30, 215, 96, 0.25);
+  margin-top: 36px;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+}
+
+.spider-latch-icon {
+  font-size: 16px;
+}
+
 /* ─── Light Theme Overrides ─── */
-[data-theme="light"] .spider-hud-bar {
-  background: rgba(255, 255, 255, 0.88);
+[data-theme="light"] .spider-top-hud {
+  background: rgba(255, 255, 255, 0.9);
   border-color: #e2e8f0;
-  box-shadow: 0 4px 16px rgba(15, 23, 42, 0.05);
+  box-shadow: 0 4px 16px rgba(15, 23, 42, 0.06);
 }
 
 [data-theme="light"] .spider-hud-status {
   color: #16a34a;
 }
 
-[data-theme="light"] .spider-hud-meta {
-  color: #64748b;
+[data-theme="light"] .spider-legend-pill {
+  background: #ffffff;
+  border-color: #e2e8f0;
+  color: #475569;
+}
+
+[data-theme="light"] .spider-legend-pill.active {
+  color: #0f172a;
+  background: #f1f5f9;
 }
 
 [data-theme="light"] .spider-cat-tab {
@@ -302,50 +523,51 @@
   color: #ffffff;
 }
 
-[data-theme="light"] .spider-group-card {
-  background: rgba(255, 255, 255, 0.9);
+[data-theme="light"] .spider-web-card {
+  background: rgba(255, 255, 255, 0.95);
   border-color: #e2e8f0;
   box-shadow: 0 8px 24px rgba(15, 23, 42, 0.06);
 }
 
-[data-theme="light"] .spider-group-title {
+[data-theme="light"] .spider-card-title {
   color: #0f172a;
 }
 
-[data-theme="light"] .spider-group-count {
-  background: #f1f5f9;
-  color: #64748b;
-}
-
-[data-theme="light"] .spider-pill {
+[data-theme="light"] .spider-badge-pill {
   background: #ffffff;
-  border-color: #e2e8f0;
-  color: #334155;
+  border-color: #cbd5e1;
+  color: #1e293b;
   box-shadow: 0 2px 6px rgba(15, 23, 42, 0.04);
 }
 
-[data-theme="light"] .spider-pill-wrap:hover .spider-pill {
+[data-theme="light"] .spider-badge-wrap:hover .spider-badge-pill {
   background: #f8fafc;
+  border-color: var(--badge-accent, #16a34a);
   color: #0f172a;
+  box-shadow: 0 0 16px rgba(22, 163, 74, 0.25);
+}
+
+[data-theme="light"] .spider-active-latch-bar {
+  background: #ffffff;
+  border-color: #cbd5e1;
+  color: #0f172a;
+  box-shadow: 0 6px 20px rgba(15, 23, 42, 0.08);
 }
 
 /* ─── Mobile Optimizations ─── */
 @media (max-width: 768px) {
   .spider-skills-section {
-    padding: 60px 0;
+    padding: 50px 0;
   }
 
-  .spider-groups-container {
-    grid-template-columns: 1fr;
-    gap: 20px;
+  .spider-playground-wrapper {
+    height: 480px;
   }
 
-  .spider-hud-bar {
+  .spider-top-hud {
     flex-direction: column;
-    align-items: flex-start;
-    gap: 6px;
-    width: 100%;
-    padding: 10px 14px;
+    gap: 12px;
+    padding: 12px 16px;
     border-radius: var(--radius-m);
   }
 
@@ -353,6 +575,7 @@
     justify-content: flex-start;
     overflow-x: auto;
     flex-wrap: nowrap;
+    width: 100%;
     padding-bottom: 8px;
     -webkit-overflow-scrolling: touch;
   }
@@ -360,11 +583,11 @@
   .spider-cat-tab {
     flex-shrink: 0;
     font-size: 11px;
-    padding: 7px 14px;
+    padding: 6px 14px;
   }
 
-  .spider-pill {
-    font-size: 11.5px;
-    padding: 7px 12px;
+  .spider-badge-pill {
+    font-size: 12px;
+    padding: 7px 13px;
   }
 }

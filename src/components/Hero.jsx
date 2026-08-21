@@ -26,6 +26,10 @@ function CountUp({ end, suffix = "", prefix = "", duration = 2000 }) {
 function Terminal() {
   const bodyRef = useRef(null);
   const [lines, setLines] = useState([]);
+  const [isPaused, setIsPaused] = useState(false);
+  const [speed, setSpeed] = useState(1); // 1x or 2x
+  const [copied, setCopied] = useState(false);
+  const [activeHoverLine, setActiveHoverLine] = useState(null);
   const lineIndex = useRef(0);
   const charIndex = useRef(0);
   const timeoutRef = useRef(null);
@@ -35,17 +39,19 @@ function Terminal() {
   const y = useMotionValue(0);
   const mouseXSpring = useSpring(x, { stiffness: 150, damping: 20 });
   const mouseYSpring = useSpring(y, { stiffness: 150, damping: 20 });
-  const rotateX = useTransform(mouseYSpring, [-0.5, 0.5], ["12deg", "-12deg"]);
-  const rotateY = useTransform(mouseXSpring, [-0.5, 0.5], ["-12deg", "12deg"]);
+  const rotateX = useTransform(mouseYSpring, [-0.5, 0.5], ["10deg", "-10deg"]);
+  const rotateY = useTransform(mouseXSpring, [-0.5, 0.5], ["-10deg", "10deg"]);
 
   const typeLine = useCallback(() => {
+    if (isPaused) return;
+
     if (lineIndex.current >= TERMINAL_LINES.length) {
       timeoutRef.current = setTimeout(() => {
         setLines([]);
         lineIndex.current = 0;
         charIndex.current = 0;
         typeLine();
-      }, 2200);
+      }, 2200 / speed);
       return;
     }
 
@@ -54,7 +60,12 @@ function Terminal() {
     if (charIndex.current === 0) {
       setLines((prev) => [
         ...prev,
-        { prompt: current.prompt, text: "", type: current.type },
+        { 
+          prompt: current.prompt, 
+          text: "", 
+          type: current.type,
+          timestamp: new Date().toTimeString().slice(0, 8),
+        },
       ]);
     }
 
@@ -68,18 +79,48 @@ function Terminal() {
         return updated;
       });
       charIndex.current++;
-      timeoutRef.current = setTimeout(typeLine, 16);
+      timeoutRef.current = setTimeout(typeLine, 16 / speed);
     } else {
       charIndex.current = 0;
       lineIndex.current++;
-      timeoutRef.current = setTimeout(typeLine, 420);
+      timeoutRef.current = setTimeout(typeLine, 400 / speed);
     }
-  }, []);
+  }, [isPaused, speed]);
 
   useEffect(() => {
-    typeLine();
+    if (!isPaused) {
+      typeLine();
+    }
     return () => clearTimeout(timeoutRef.current);
-  }, [typeLine]);
+  }, [typeLine, isPaused]);
+
+  const handleRestart = (e) => {
+    e.stopPropagation();
+    clearTimeout(timeoutRef.current);
+    setLines([]);
+    lineIndex.current = 0;
+    charIndex.current = 0;
+    setIsPaused(false);
+    setTimeout(typeLine, 100);
+  };
+
+  const handleTogglePause = (e) => {
+    e.stopPropagation();
+    setIsPaused((prev) => !prev);
+  };
+
+  const handleToggleSpeed = (e) => {
+    e.stopPropagation();
+    setSpeed((prev) => (prev === 1 ? 2 : 1));
+  };
+
+  const handleCopy = (e) => {
+    e.stopPropagation();
+    const fullLog = lines.map((l) => `${l.prompt} ${l.text}`).join("\n");
+    navigator.clipboard?.writeText(fullLog);
+    setCopied(true);
+    setTimeout(() => setCopied(false), 1800);
+  };
 
   const handleMouseMove = (e) => {
     const rect = e.currentTarget.getBoundingClientRect();
@@ -107,15 +148,59 @@ function Terminal() {
       transition={{ duration: 0.6, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
     >
       <div className="terminal">
+        {/* Terminal Header Bar */}
         <div className="term-bar">
-          <span className="tl r" aria-hidden="true" />
-          <span className="tl y" aria-hidden="true" />
-          <span className="tl g" aria-hidden="true" />
-          <span className="term-title">automation.log — live</span>
+          <div className="term-traffic-lights">
+            <span className="tl r" onClick={handleRestart} title="Restart Stream" />
+            <span className="tl y" onClick={handleTogglePause} title={isPaused ? "Resume" : "Pause"} />
+            <span className="tl g" onClick={handleToggleSpeed} title={`Speed: ${speed}x`} />
+          </div>
+
+          <div className="term-title-wrap">
+            <span className={`term-live-beacon ${isPaused ? "paused" : ""}`} />
+            <span className="term-title">automation.log — {isPaused ? "PAUSED" : "LIVE"}</span>
+          </div>
+
+          {/* Interactive Controls */}
+          <div className="term-controls">
+            <button 
+              className={`term-btn ${speed === 2 ? "active" : ""}`} 
+              onClick={handleToggleSpeed} 
+              title="Toggle 2x Execution Speed"
+            >
+              {speed}x
+            </button>
+            <button 
+              className="term-btn" 
+              onClick={handleTogglePause} 
+              title={isPaused ? "Resume Stream" : "Pause Stream"}
+            >
+              {isPaused ? "▶" : "⏸"}
+            </button>
+            <button 
+              className="term-btn" 
+              onClick={handleRestart} 
+              title="Rerun Log Stream"
+            >
+              ↺
+            </button>
+            <button 
+              className={`term-btn ${copied ? "copied" : ""}`} 
+              onClick={handleCopy} 
+              title="Copy Output"
+            >
+              {copied ? "✓ Copied" : "Copy"}
+            </button>
+          </div>
         </div>
-        <div className="term-body" ref={bodyRef} aria-hidden="true">
+
+        {/* Terminal Body */}
+        <div className="term-body" ref={bodyRef}>
+          {/* Animated Laser Scanline */}
+          <div className="term-scanline" aria-hidden="true" />
+
           {/* Ghost layer: renders all lines invisibly to pre-allocate exact height without CLS */}
-          <div className="term-ghost">
+          <div className="term-ghost" aria-hidden="true">
             {TERMINAL_LINES.map((line, i) => (
               <div key={i} className="term-line">
                 <span className="prompt">{line.prompt}</span>
@@ -125,17 +210,38 @@ function Terminal() {
               </div>
             ))}
           </div>
-          {/* Active typing layer: overlaps the ghost layer exactly */}
+
+          {/* Active typing layer */}
           <div className="term-active">
             {lines.map((line, i) => (
-              <div key={i} className="term-line">
+              <div 
+                key={i} 
+                className={`term-line interactive-row ${activeHoverLine === i ? "hovered" : ""}`}
+                onMouseEnter={() => setActiveHoverLine(i)}
+                onMouseLeave={() => setActiveHoverLine(null)}
+              >
+                <span className="term-row-time">{line.timestamp || "00:00:00"}</span>
                 <span className="prompt">{line.prompt}</span>
                 <span className={line.type === "ok" ? "ok" : "meta"}>
                   {line.text}
                 </span>
-                {i === lines.length - 1 && <span className="cursor-blink" />}
+                {i === lines.length - 1 && !isPaused && <span className="cursor-blink" />}
               </div>
             ))}
+          </div>
+        </div>
+
+        {/* Live Telemetry Footer Bar */}
+        <div className="term-footer">
+          <div className="term-stat">
+            <span className="stat-dot green" />
+            <span>RTT: <strong>11ms</strong></span>
+          </div>
+          <div className="term-stat">
+            <span>MEM: <strong>42MB</strong></span>
+          </div>
+          <div className="term-stat">
+            <span>PIPELINE: <strong className="text-green">HEALTHY</strong></span>
           </div>
         </div>
       </div>

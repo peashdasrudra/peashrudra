@@ -1,14 +1,18 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { ExternalLink, ChevronDown, ChevronUp, AlertTriangle, Cpu, Zap, CheckCircle2, GitBranch, FileText, Eye } from "lucide-react";
+import { 
+  ExternalLink, ChevronDown, ChevronUp, AlertTriangle, Cpu, Zap, 
+  CheckCircle2, GitBranch, FileText, Eye, Sparkles, ArrowUpRight, 
+  Layers, Workflow, Terminal 
+} from "lucide-react";
 import { PROJECTS } from "../data/portfolio";
 import { useIsMobile } from "../hooks/useIsMobile";
 import "./Projects.css";
 
 function ProjectCard({ project, index, isMobile }) {
   const [expanded, setExpanded] = useState(false);
+  const [activeCaseTab, setActiveCaseTab] = useState("problem"); // 'problem' | 'solution' | 'impact'
 
-  // Extract clean year label from project period
   const displayYear = project.period.includes("2026")
     ? "2026"
     : project.period.includes("2025")
@@ -21,7 +25,7 @@ function ProjectCard({ project, index, isMobile }) {
 
   return (
     <div className="proj-wrapper" style={{ "--stack-index": index }}>
-      {/* Left Vertical Year Timeline Indicator */}
+      {/* Left Timeline Indicator */}
       <div className="proj-timeline-left">
         <div className="proj-year-badge">
           <span className="proj-year-dot" />
@@ -32,12 +36,12 @@ function ProjectCard({ project, index, isMobile }) {
 
       <motion.div
         className={`proj-card spot ${project.featured ? "proj-featured" : ""}`}
-        initial={{ opacity: 0, y: isMobile ? 0 : 40, scale: isMobile ? 1 : 0.97 }}
+        initial={{ opacity: 0, y: isMobile ? 0 : 35, scale: isMobile ? 1 : 0.98 }}
         whileInView={{ opacity: 1, y: 0, scale: 1 }}
-        viewport={{ once: true, margin: "-60px" }}
+        viewport={{ once: true, margin: "-50px" }}
         transition={{
-          duration: isMobile ? 0.2 : 0.6,
-          delay: isMobile ? 0 : index * 0.1,
+          duration: isMobile ? 0.2 : 0.55,
+          delay: isMobile ? 0 : index * 0.08,
           ease: [0.16, 1, 0.3, 1],
         }}
         onMouseMove={(e) => {
@@ -46,12 +50,24 @@ function ProjectCard({ project, index, isMobile }) {
           e.currentTarget.style.setProperty("--my", e.clientY - r.top + "px");
         }}
       >
-        {!isMobile && <div className="proj-card-beam" />}
+        {/* Holographic Top Laser Accent */}
+        <div className="proj-card-beam" />
+
+        {/* Featured Ribbon */}
+        {project.featured && (
+          <div className="proj-featured-ribbon">
+            <Sparkles size={11} />
+            <span>FEATURED AGENTIC SYSTEM</span>
+          </div>
+        )}
 
         {/* Header */}
         <div className="proj-header">
           <div className="proj-top-row">
-            <div className="proj-icon">{project.icon}</div>
+            <div className="proj-icon-wrapper">
+              <span className="proj-icon">{project.icon}</span>
+            </div>
+
             <div className="proj-badges">
               <span className="proj-type-badge">
                 <span className="proj-pulse-dot" />
@@ -64,28 +80,50 @@ function ProjectCard({ project, index, isMobile }) {
                   target="_blank" 
                   rel="noopener noreferrer" 
                   className="proj-eye-btn" 
-                  title="View Live Project"
-                  whileHover={!isMobile ? { scale: 1.15, rotate: 5 } : undefined}
-                  whileTap={{ scale: 0.9 }}
+                  title="View Live Production System"
+                  whileHover={{ scale: 1.12, rotate: 4 }}
+                  whileTap={{ scale: 0.92 }}
                 >
-                  <Eye size={16} />
+                  <Eye size={15} />
+                  <span className="eye-btn-text">Live Demo</span>
+                  <ArrowUpRight size={12} />
                 </motion.a>
               )}
             </div>
           </div>
+
           <h3 className="proj-title">{project.title}</h3>
           <p className="proj-subtitle">{project.subtitle}</p>
         </div>
 
-        {/* Metrics Row */}
+        {/* Live Architecture Micro-HUD */}
+        <div className="proj-arch-flow">
+          <div className="arch-flow-node">
+            <Workflow size={12} className="text-green" />
+            <span>Trigger / Ingest</span>
+          </div>
+          <span className="arch-flow-arrow">──▶</span>
+          <div className="arch-flow-node active">
+            <Cpu size={12} className="text-cyan" />
+            <span>{project.tags[0] || "AI Core"}</span>
+          </div>
+          <span className="arch-flow-arrow">──▶</span>
+          <div className="arch-flow-node">
+            <Zap size={12} className="text-orange" />
+            <span>{project.metrics[0]?.label || "Live Output"}</span>
+          </div>
+        </div>
+
+        {/* Key Metrics Row */}
         <div className="proj-metrics">
           {project.metrics.map((m, i) => (
             <motion.div 
               key={i} 
               className="proj-metric"
-              whileHover={!isMobile ? { y: -3, scale: 1.04 } : undefined}
+              whileHover={{ y: -3, scale: 1.03 }}
               transition={{ type: "spring", stiffness: 350, damping: 15 }}
             >
+              <div className="metric-glow-ring" />
               <span className="metric-value">{m.value}</span>
               <span className="metric-label">{m.label}</span>
             </motion.div>
@@ -95,24 +133,25 @@ function ProjectCard({ project, index, isMobile }) {
         {/* Description */}
         <p className="proj-desc">{project.description}</p>
 
-        {/* Expandable Case Study */}
+        {/* Interactive Case Study Toggle */}
         <motion.button
-          className={`proj-expand-btn ${expanded ? 'proj-expand-active' : ''}`}
+          className={`proj-expand-btn ${expanded ? "proj-expand-active" : ""}`}
           onClick={() => setExpanded(!expanded)}
           aria-expanded={expanded}
-          whileTap={{ scale: 0.95 }}
+          whileTap={{ scale: 0.96 }}
         >
           {expanded ? (
             <>
-              Hide Details <ChevronUp size={14} />
+              Hide Architecture Details <ChevronUp size={14} />
             </>
           ) : (
             <>
-              View Case Study <ChevronDown size={14} />
+              Explore Interactive Case Study <ChevronDown size={14} />
             </>
           )}
         </motion.button>
 
+        {/* Expandable Tabbed Case Study Drawer */}
         <AnimatePresence>
           {expanded && (
             <motion.div
@@ -120,109 +159,115 @@ function ProjectCard({ project, index, isMobile }) {
               initial={{ height: 0, opacity: 0 }}
               animate={{ height: "auto", opacity: 1 }}
               exit={{ height: 0, opacity: 0 }}
-              transition={{ duration: isMobile ? 0 : 0.5, ease: [0.16, 1, 0.3, 1] }}
+              transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
             >
-              <motion.div
-                className="case-study-inner"
-                initial="hidden"
-                animate="show"
-                variants={{
-                  hidden: { opacity: 0 },
-                  show: { opacity: 1, transition: { staggerChildren: isMobile ? 0 : 0.05, delayChildren: isMobile ? 0 : 0.05 } },
-                }}
-              >
-                {/* ─── Problem ─── */}
-                <motion.div
-                  className="case-card case-problem"
-                  variants={{ hidden: { opacity: isMobile ? 1 : 0, y: isMobile ? 0 : 15 }, show: { opacity: 1, y: 0, transition: { duration: isMobile ? 0 : 0.3, ease: [0.16, 1, 0.3, 1] } } }}
-                >
-                  <div className="case-card-accent problem" />
-                  <div className="case-card-header">
-                    <div className="case-icon-wrap problem">
-                      <AlertTriangle size={18} />
-                    </div>
-                    <div className="case-header-text">
-                      <span className="case-step-num">01</span>
-                      <h4>The Problem</h4>
-                    </div>
-                  </div>
-                  <p className="case-card-body">{project.problem}</p>
-                </motion.div>
-
-                {/* ─── Connector ─── */}
-                <motion.div className="case-connector" variants={{ hidden: { scaleY: isMobile ? 1 : 0 }, show: { scaleY: 1, transition: { duration: isMobile ? 0 : 0.15 } } }} />
-
-                {/* ─── Solution ─── */}
-                <motion.div
-                  className="case-card case-solution"
-                  variants={{ hidden: { opacity: isMobile ? 1 : 0, y: isMobile ? 0 : 15 }, show: { opacity: 1, y: 0, transition: { duration: isMobile ? 0 : 0.3, ease: [0.16, 1, 0.3, 1] } } }}
-                >
-                  <div className="case-card-accent solution" />
-                  <div className="case-card-header">
-                    <div className="case-icon-wrap solution">
-                      <Cpu size={18} />
-                    </div>
-                    <div className="case-header-text">
-                      <span className="case-step-num">02</span>
-                      <h4>The Solution</h4>
-                    </div>
-                  </div>
-                  <p className="case-card-body">{project.solution}</p>
-                </motion.div>
-
-                {/* ─── Connector ─── */}
-                <motion.div className="case-connector" variants={{ hidden: { scaleY: isMobile ? 1 : 0 }, show: { scaleY: 1, transition: { duration: isMobile ? 0 : 0.15 } } }} />
-
-                {/* ─── Impact ─── */}
-                <motion.div
-                  className="case-card case-impact"
-                  variants={{ hidden: { opacity: isMobile ? 1 : 0, y: isMobile ? 0 : 15 }, show: { opacity: 1, y: 0, transition: { duration: isMobile ? 0 : 0.3, ease: [0.16, 1, 0.3, 1] } } }}
-                >
-                  <div className="case-card-accent impact" />
-                  <div className="case-card-header">
-                    <div className="case-icon-wrap impact">
-                      <Zap size={18} />
-                    </div>
-                    <div className="case-header-text">
-                      <span className="case-step-num">03</span>
-                      <h4>Impact & Results</h4>
-                    </div>
-                  </div>
-                  <motion.ul
-                    className="impact-list-v2"
-                    initial="hidden"
-                    animate="show"
-                    variants={{
-                      hidden: { opacity: 0 },
-                      show: { opacity: 1, transition: { staggerChildren: isMobile ? 0 : 0.05, delayChildren: isMobile ? 0 : 0.1 } },
-                    }}
+              <div className="case-study-interactive-wrap">
+                {/* Case Study Phase Tabs */}
+                <div className="case-study-nav-tabs">
+                  <button
+                    className={`case-tab-btn ${activeCaseTab === "problem" ? "active" : ""}`}
+                    onClick={() => setActiveCaseTab("problem")}
                   >
-                    {project.impact.map((item, j) => (
-                      <motion.li
-                        key={j}
-                        variants={{
-                          hidden: { opacity: isMobile ? 1 : 0, x: isMobile ? 0 : -10 },
-                          show: { opacity: 1, x: 0, transition: { duration: isMobile ? 0 : 0.25, ease: [0.16, 1, 0.3, 1] } },
-                        }}
-                      >
-                        <CheckCircle2 size={14} className="impact-check" />
-                        <span>{item}</span>
-                      </motion.li>
-                    ))}
-                  </motion.ul>
-                </motion.div>
-              </motion.div>
+                    <AlertTriangle size={13} />
+                    <span>01. The Problem</span>
+                  </button>
+                  <button
+                    className={`case-tab-btn ${activeCaseTab === "solution" ? "active" : ""}`}
+                    onClick={() => setActiveCaseTab("solution")}
+                  >
+                    <Cpu size={13} />
+                    <span>02. Architecture & Solution</span>
+                  </button>
+                  <button
+                    className={`case-tab-btn ${activeCaseTab === "impact" ? "active" : ""}`}
+                    onClick={() => setActiveCaseTab("impact")}
+                  >
+                    <Zap size={13} />
+                    <span>03. Impact & Results</span>
+                  </button>
+                </div>
+
+                {/* Tab Contents */}
+                <div className="case-tab-content">
+                  {activeCaseTab === "problem" && (
+                    <motion.div
+                      className="case-pane problem-pane"
+                      initial={{ opacity: 0, x: -10 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ duration: 0.25 }}
+                    >
+                      <div className="case-pane-header">
+                        <div className="case-icon-wrap problem">
+                          <AlertTriangle size={18} />
+                        </div>
+                        <div>
+                          <h4>Operational Bottlenecks & Challenges</h4>
+                          <span className="case-pane-sub">Identified core business friction points</span>
+                        </div>
+                      </div>
+                      <p className="case-card-body">{project.problem}</p>
+                    </motion.div>
+                  )}
+
+                  {activeCaseTab === "solution" && (
+                    <motion.div
+                      className="case-pane solution-pane"
+                      initial={{ opacity: 0, x: -10 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ duration: 0.25 }}
+                    >
+                      <div className="case-pane-header">
+                        <div className="case-icon-wrap solution">
+                          <Cpu size={18} />
+                        </div>
+                        <div>
+                          <h4>Engineered Solution & Autonomous Logic</h4>
+                          <span className="case-pane-sub">Tech stack, agentic workflows, and integrations</span>
+                        </div>
+                      </div>
+                      <p className="case-card-body">{project.solution}</p>
+                    </motion.div>
+                  )}
+
+                  {activeCaseTab === "impact" && (
+                    <motion.div
+                      className="case-pane impact-pane"
+                      initial={{ opacity: 0, x: -10 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ duration: 0.25 }}
+                    >
+                      <div className="case-pane-header">
+                        <div className="case-icon-wrap impact">
+                          <Zap size={18} />
+                        </div>
+                        <div>
+                          <h4>Measurable Production Outcomes</h4>
+                          <span className="case-pane-sub">Verified efficiency and revenue scaling metrics</span>
+                        </div>
+                      </div>
+                      <ul className="impact-list-v2">
+                        {project.impact.map((item, j) => (
+                          <li key={j}>
+                            <CheckCircle2 size={15} className="impact-check" />
+                            <span>{item}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    </motion.div>
+                  )}
+                </div>
+              </div>
             </motion.div>
           )}
         </AnimatePresence>
 
-        {/* Tags */}
-        <div className="pill-row" style={{ marginTop: 20, position: "relative", zIndex: 2 }}>
+        {/* Tech Stack Pills */}
+        <div className="pill-row" style={{ marginTop: 22, position: "relative", zIndex: 2 }}>
           {project.tags.map((tag) => (
             <motion.span 
               key={tag} 
               className="pill proj-tag"
-              whileHover={!isMobile ? { y: -2, scale: 1.05, borderColor: "var(--green-border)" } : undefined}
+              whileHover={{ y: -2, scale: 1.05, borderColor: "var(--green-border)" }}
               transition={{ type: "spring", stiffness: 400, damping: 15 }}
             >
               {tag}
@@ -230,7 +275,7 @@ function ProjectCard({ project, index, isMobile }) {
           ))}
         </div>
 
-        {/* External Links — only render when URL is non-empty */}
+        {/* External Links */}
         {(project.caseStudyUrl || project.githubUrl) && (
           <div className="proj-links">
             {project.caseStudyUrl && (
@@ -239,22 +284,26 @@ function ProjectCard({ project, index, isMobile }) {
                 className="proj-link-btn proj-link-case"
                 target="_blank"
                 rel="noopener noreferrer"
-                whileHover={!isMobile ? { y: -2, scale: 1.03 } : undefined}
+                whileHover={{ y: -2, scale: 1.03 }}
                 whileTap={{ scale: 0.96 }}
               >
-                <FileText size={13} /> Case Study
+                <FileText size={13} />
+                <span>Deep Case Study</span>
+                <ArrowUpRight size={11} />
               </motion.a>
             )}
             {project.githubUrl && (
               <motion.a
                 href={project.githubUrl}
-                className="proj-link-btn proj-link-github"
+                className="proj-link-btn proj-link-gh"
                 target="_blank"
                 rel="noopener noreferrer"
-                whileHover={!isMobile ? { y: -2, scale: 1.03 } : undefined}
+                whileHover={{ y: -2, scale: 1.03 }}
                 whileTap={{ scale: 0.96 }}
               >
-                <GitBranch size={13} /> Source Code
+                <GitBranch size={13} />
+                <span>Source Code</span>
+                <ExternalLink size={11} />
               </motion.a>
             )}
           </div>
@@ -264,28 +313,66 @@ function ProjectCard({ project, index, isMobile }) {
   );
 }
 
-const FILTER_CATEGORIES = [
-  { id: "all", label: "All Projects" },
-  { id: "ai", label: "AI & Agents" },
-  { id: "crm", label: "CRM & RevOps" },
-  { id: "mobile", label: "Mobile / Flutter" },
-];
-
 export default function Projects() {
   const isMobile = useIsMobile();
-  const [activeFilter, setActiveFilter] = useState("all");
+  const [filter, setFilter] = useState("all");
+
+  const filterTabs = [
+    { id: "all", label: "All Projects" },
+    { id: "ai", label: "AI & Agents" },
+    { id: "crm", label: "CRM & RevOps" },
+    { id: "mobile", label: "Mobile / Flutter" },
+  ];
 
   const filteredProjects = PROJECTS.filter((p) => {
-    if (activeFilter === "all") return true;
-    if (activeFilter === "ai") return p.tags.some(t => ["AI Agent", "LLM", "RAG", "LangGraph"].includes(t));
-    if (activeFilter === "crm") return p.tags.some(t => ["CRM Automation", "RevOps", "HubSpot", "Lead Automation"].includes(t));
-    if (activeFilter === "mobile") return p.tags.some(t => ["Flutter", "Cross-platform", "Firebase"].includes(t));
+    if (filter === "all") return true;
+    if (filter === "ai") {
+      const titleLower = p.title.toLowerCase();
+      const typeLower = p.type.toLowerCase();
+      const tagsStr = p.tags.join(" ").toLowerCase();
+      return (
+        typeLower.includes("agent") ||
+        typeLower.includes("ai") ||
+        typeLower.includes("rag") ||
+        tagsStr.includes("langgraph") ||
+        tagsStr.includes("openai") ||
+        tagsStr.includes("pgvector") ||
+        tagsStr.includes("mcp") ||
+        tagsStr.includes("gemini") ||
+        titleLower.includes("agent") ||
+        titleLower.includes("voice")
+      );
+    }
+    if (filter === "crm") {
+      const typeLower = p.type.toLowerCase();
+      const tagsStr = p.tags.join(" ").toLowerCase();
+      return (
+        typeLower.includes("crm") ||
+        typeLower.includes("revops") ||
+        tagsStr.includes("hubspot") ||
+        tagsStr.includes("n8n") ||
+        tagsStr.includes("make") ||
+        tagsStr.includes("twilio") ||
+        tagsStr.includes("real estate")
+      );
+    }
+    if (filter === "mobile") {
+      const tagsStr = p.tags.join(" ").toLowerCase();
+      const typeLower = p.type.toLowerCase();
+      return (
+        tagsStr.includes("flutter") ||
+        tagsStr.includes("bloc") ||
+        tagsStr.includes("mobile") ||
+        typeLower.includes("mobile") ||
+        typeLower.includes("flutter")
+      );
+    }
     return true;
   });
 
   return (
-    <section id="projects">
-      <div className="wrap" style={{ position: "relative" }}>
+    <section id="projects" className="proj-section">
+      <div className="wrap">
         <motion.div
           className="section-head"
           initial={{ opacity: 0, y: 20 }}
@@ -293,40 +380,46 @@ export default function Projects() {
           viewport={{ once: true }}
           transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
         >
-          <div className="kicker">./projects --shipped</div>
-          <h2 className="section-title">Built end-to-end, proven in production.</h2>
+          <div className="kicker">./projects --production-systems</div>
+          <h2 className="section-title">Engineered to scale revenue.</h2>
           <p className="section-desc">
-            Case studies and projects showcasing range across AI automation, mobile, and SaaS product development.
+            Production-grade Agentic RAG architectures, automated CRM pipelines, and scalable enterprise systems built for real-world reliability.
           </p>
 
-          {/* Interactive Filter Tabs */}
+          {/* Filter Bar with Animated Pill */}
           <div className="proj-filter-bar">
-            {FILTER_CATEGORIES.map((cat) => (
-              <button
-                key={cat.id}
-                className={`proj-filter-tab ${activeFilter === cat.id ? "active" : ""}`}
-                onClick={() => setActiveFilter(cat.id)}
-              >
-                {activeFilter === cat.id && (
-                  <motion.div
-                    className="proj-filter-pill-bg"
-                    layoutId="activeFilterPill"
-                    transition={{ type: "spring", stiffness: 400, damping: 30 }}
-                  />
-                )}
-                <span className="proj-filter-label">{cat.label}</span>
-              </button>
-            ))}
+            {filterTabs.map((tab) => {
+              const isActive = filter === tab.id;
+              return (
+                <button
+                  key={tab.id}
+                  className={`proj-filter-tab ${isActive ? "active" : ""}`}
+                  onClick={() => setFilter(tab.id)}
+                >
+                  {isActive && (
+                    <motion.div
+                      className="proj-filter-pill-bg"
+                      layoutId="activeFilterPill"
+                      transition={{ type: "spring", stiffness: 400, damping: 30 }}
+                    />
+                  )}
+                  <span className="proj-filter-label">{tab.label}</span>
+                </button>
+              );
+            })}
           </div>
         </motion.div>
 
-        {/* Project List */}
-        <div className="proj-list-container">
-          <AnimatePresence mode="popLayout">
-            {filteredProjects.map((project, i) => (
-              <ProjectCard key={project.title} project={project} index={i} isMobile={isMobile} />
-            ))}
-          </AnimatePresence>
+        {/* Project Cards Stack */}
+        <div className="proj-stack">
+          {filteredProjects.map((project, index) => (
+            <ProjectCard
+              key={project.title}
+              project={project}
+              index={index}
+              isMobile={isMobile}
+            />
+          ))}
         </div>
       </div>
     </section>
