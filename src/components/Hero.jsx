@@ -351,7 +351,7 @@ export default function Hero() {
               className="btn-outline hero-sec-cta"
               whileTap={{ scale: 0.95 }}
             >
-              <FileText size={14} /> <span>View Resume</span>
+              <FileText size={14} /> <span>Connect Linkedin</span>
             </motion.a>
           </motion.div>
 
