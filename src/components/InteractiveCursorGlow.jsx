@@ -80,7 +80,7 @@ export default function InteractiveCursorGlow() {
         setHoverLabel("DRAG");
       } else if (button || link) {
         setIsHovered(true);
-        setHoverLabel("CLICK");
+        setHoverLabel(null);
       } else {
         setIsHovered(false);
         setHoverLabel(null);
