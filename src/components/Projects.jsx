@@ -31,12 +31,23 @@ function ProjectCard({ project, index, isMobile }) {
           <div className="proj-top-row">
             <div className="proj-icon">{project.icon}</div>
             <div className="proj-badges">
-              <span className="proj-type-badge">{project.type}</span>
+              <span className="proj-type-badge">
+                <span className="proj-pulse-dot" />
+                {project.type}
+              </span>
               <span className="proj-period">{project.period}</span>
               {project.url && (
-                <a href={project.url} target="_blank" rel="noopener noreferrer" className="proj-eye-btn" title="View Live Project">
+                <motion.a 
+                  href={project.url} 
+                  target="_blank" 
+                  rel="noopener noreferrer" 
+                  className="proj-eye-btn" 
+                  title="View Live Project"
+                  whileHover={!isMobile ? { scale: 1.15, rotate: 5 } : undefined}
+                  whileTap={{ scale: 0.9 }}
+                >
                   <Eye size={16} />
-                </a>
+                </motion.a>
               )}
             </div>
           </div>
@@ -47,10 +58,15 @@ function ProjectCard({ project, index, isMobile }) {
         {/* Metrics Row */}
         <div className="proj-metrics">
           {project.metrics.map((m, i) => (
-            <div key={i} className="proj-metric">
+            <motion.div 
+              key={i} 
+              className="proj-metric"
+              whileHover={!isMobile ? { y: -3, scale: 1.04 } : undefined}
+              transition={{ type: "spring", stiffness: 350, damping: 15 }}
+            >
               <span className="metric-value">{m.value}</span>
               <span className="metric-label">{m.label}</span>
-            </div>
+            </motion.div>
           ))}
         </div>
 
@@ -181,9 +197,14 @@ function ProjectCard({ project, index, isMobile }) {
         {/* Tags */}
         <div className="pill-row" style={{ marginTop: 20, position: "relative", zIndex: 2 }}>
           {project.tags.map((tag) => (
-            <span key={tag} className="pill">
+            <motion.span 
+              key={tag} 
+              className="pill proj-tag"
+              whileHover={!isMobile ? { y: -2, scale: 1.05, borderColor: "var(--green-border)" } : undefined}
+              transition={{ type: "spring", stiffness: 400, damping: 15 }}
+            >
               {tag}
-            </span>
+            </motion.span>
           ))}
         </div>
 
@@ -191,24 +212,28 @@ function ProjectCard({ project, index, isMobile }) {
         {(project.caseStudyUrl || project.githubUrl) && (
           <div className="proj-links">
             {project.caseStudyUrl && (
-               <a
+              <motion.a
                 href={project.caseStudyUrl}
                 className="proj-link-btn proj-link-case"
                 target="_blank"
                 rel="noopener noreferrer"
+                whileHover={!isMobile ? { y: -2, scale: 1.03 } : undefined}
+                whileTap={{ scale: 0.96 }}
               >
                 <FileText size={13} /> Case Study
-              </a>
+              </motion.a>
             )}
             {project.githubUrl && (
-              <a
+              <motion.a
                 href={project.githubUrl}
                 className="proj-link-btn proj-link-github"
                 target="_blank"
                 rel="noopener noreferrer"
+                whileHover={!isMobile ? { y: -2, scale: 1.03 } : undefined}
+                whileTap={{ scale: 0.96 }}
               >
                 <GitBranch size={13} /> Source Code
-              </a>
+              </motion.a>
             )}
           </div>
         )}

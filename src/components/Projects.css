@@ -102,9 +102,26 @@
 
 .proj-type-badge {
   background: var(--green);
-  color: #000;
+  color: #031f0d;
   font-weight: 700;
   text-transform: uppercase;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  letter-spacing: 0.4px;
+}
+
+.proj-pulse-dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: #031f0d;
+  animation: projPulseDot 1.8s infinite;
+}
+
+@keyframes projPulseDot {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.35; transform: scale(0.75); }
 }
 
 .proj-period {
