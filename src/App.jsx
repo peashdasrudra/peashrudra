@@ -19,6 +19,7 @@ import Gallery from "./components/Gallery";
 import Contact from "./components/Contact";
 import Footer from "./components/Footer";
 import StatusBar from "./components/StatusBar";
+import CommandPalette from "./components/CommandPalette";
 
 function DynamicGlowOrb() {
   const mouseX = useMotionValue(typeof window !== "undefined" ? window.innerWidth / 2 : 0);
@@ -55,6 +56,21 @@ function DynamicGlowOrb() {
 
 export default function App() {
   const [loaded, setLoaded] = useState(false);
+  const [isCmdOpen, setIsCmdOpen] = useState(false);
+  const [theme, setTheme] = useState("dark");
+
+  useEffect(() => {
+    const savedTheme = localStorage.getItem("theme") || "dark";
+    setTheme(savedTheme);
+    document.documentElement.setAttribute("data-theme", savedTheme);
+  }, []);
+
+  const toggleTheme = () => {
+    const newTheme = theme === "dark" ? "light" : "dark";
+    setTheme(newTheme);
+    localStorage.setItem("theme", newTheme);
+    document.documentElement.setAttribute("data-theme", newTheme);
+  };
 
   const handleLoadComplete = useCallback(() => {
     setLoaded(true);
@@ -76,7 +92,19 @@ export default function App() {
           <ScrollProgress />
 
           {/* Navigation */}
-          <Navbar />
+          <Navbar 
+            onOpenCmd={() => setIsCmdOpen(true)}
+            theme={theme}
+            toggleTheme={toggleTheme}
+          />
+
+          {/* Command Palette HUD */}
+          <CommandPalette 
+            isOpen={isCmdOpen}
+            setIsOpen={setIsCmdOpen}
+            theme={theme}
+            toggleTheme={toggleTheme}
+          />
 
           {/* Main content */}
           <main className="app-content">

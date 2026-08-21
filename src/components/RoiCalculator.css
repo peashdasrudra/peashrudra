@@ -1,0 +1,270 @@
+/* ═══════════════════════════════════════════════
+   INTERACTIVE ROI & AUTOMATION SAVINGS CALCULATOR
+   ═══════════════════════════════════════════════ */
+
+.roi-calculator-container {
+  margin-top: 48px;
+  background: rgba(16, 16, 19, 0.7);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: var(--radius-xl);
+  padding: 40px;
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.4);
+  position: relative;
+  overflow: hidden;
+}
+
+.roi-calculator-container::before {
+  content: "";
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--green), #ff7a59, transparent);
+}
+
+.roi-header {
+  margin-bottom: 32px;
+}
+
+.roi-kicker {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--green-text);
+  background: var(--green-subtle);
+  border: 1px solid var(--green-border);
+  padding: 6px 14px;
+  border-radius: var(--radius-full);
+  margin-bottom: 12px;
+}
+
+.roi-title {
+  font-family: var(--font-display);
+  font-size: 26px;
+  font-weight: 700;
+  color: var(--white);
+  margin-bottom: 8px;
+}
+
+.roi-desc {
+  font-size: 14px;
+  color: var(--silver);
+  max-width: 600px;
+  line-height: 1.6;
+}
+
+/* ─── Grid Layout ─── */
+.roi-grid {
+  display: grid;
+  grid-template-columns: 1.15fr 0.85fr;
+  gap: 36px;
+  align-items: center;
+}
+
+/* ─── Sliders ─── */
+.roi-controls {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.roi-slider-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.roi-slider-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--silver);
+}
+
+.roi-val-badge {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--green-text);
+  background: rgba(30, 215, 96, 0.08);
+  border: 1px solid rgba(30, 215, 96, 0.2);
+  padding: 4px 10px;
+  border-radius: var(--radius-full);
+}
+
+.roi-slider {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  height: 6px;
+  border-radius: 3px;
+  background: rgba(255, 255, 255, 0.1);
+  outline: none;
+  transition: background 0.2s;
+  cursor: pointer;
+}
+
+.roi-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: var(--green);
+  box-shadow: 0 0 12px var(--green);
+  cursor: pointer;
+  transition: transform 0.15s ease;
+}
+
+.roi-slider::-webkit-slider-thumb:hover {
+  transform: scale(1.2);
+}
+
+.roi-slider-ticks {
+  display: flex;
+  justify-content: space-between;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--dim);
+}
+
+/* ─── Results Card ─── */
+.roi-results-card {
+  background: linear-gradient(135deg, rgba(30, 215, 96, 0.08) 0%, rgba(20, 20, 25, 0.95) 100%);
+  border: 1px solid rgba(30, 215, 96, 0.25);
+  border-radius: var(--radius-l);
+  padding: 32px 28px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  box-shadow: 0 12px 36px rgba(0, 0, 0, 0.5), 0 0 30px rgba(30, 215, 96, 0.06);
+}
+
+.roi-stat-main {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.roi-stat-label {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  text-transform: uppercase;
+  color: var(--silver);
+  letter-spacing: 0.5px;
+}
+
+.roi-stat-number {
+  font-family: var(--font-display);
+  font-size: 44px;
+  font-weight: 700;
+  color: var(--green-text);
+  line-height: 1.1;
+  text-shadow: 0 0 20px rgba(30, 215, 96, 0.35);
+}
+
+.roi-stat-sub {
+  font-size: 13px;
+  color: var(--silver);
+}
+
+.roi-metric-pills {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.roi-pill-box {
+  background: rgba(0, 0, 0, 0.3);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: var(--radius-m);
+  padding: 12px 14px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.roi-pill-val {
+  display: block;
+  font-family: var(--font-display);
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--white);
+}
+
+.roi-pill-lab {
+  display: block;
+  font-size: 11px;
+  color: var(--dim);
+}
+
+.roi-cta-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  background: var(--green);
+  color: #031f0d;
+  font-family: var(--font-display);
+  font-size: 14px;
+  font-weight: 700;
+  padding: 14px 20px;
+  border-radius: var(--radius-full);
+  text-decoration: none;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 16px rgba(30, 215, 96, 0.3);
+}
+
+.roi-cta-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(30, 215, 96, 0.5);
+  background: #22c55e;
+}
+
+/* ─── Responsive ─── */
+@media (max-width: 800px) {
+  .roi-calculator-container {
+    padding: 24px 20px;
+  }
+
+  .roi-grid {
+    grid-template-columns: 1fr;
+    gap: 28px;
+  }
+
+  .roi-stat-number {
+    font-size: 36px;
+  }
+}
+
+/* ─── Light Theme Overrides ─── */
+[data-theme="light"] .roi-calculator-container {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  box-shadow: 0 16px 40px rgba(15, 23, 42, 0.08);
+}
+
+[data-theme="light"] .roi-slider {
+  background: #e2e8f0;
+}
+
+[data-theme="light"] .roi-results-card {
+  background: linear-gradient(135deg, rgba(22, 163, 74, 0.06) 0%, #ffffff 100%);
+  border: 1px solid #cbd5e1;
+  box-shadow: 0 12px 32px rgba(15, 23, 42, 0.06);
+}
+
+[data-theme="light"] .roi-pill-box {
+  background: #f8fafc;
+  border-color: #e2e8f0;
+}
+
+[data-theme="light"] .roi-pill-val {
+  color: #0f172a;
+}

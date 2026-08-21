@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Menu, X, Sun, Moon } from "lucide-react";
+import { Menu, X, Sun, Moon, Search } from "lucide-react";
 import "./Navbar.css";
 
 const NAV_LINKS = [
@@ -12,29 +12,17 @@ const NAV_LINKS = [
   { href: "#education", label: "education" },
 ];
 
-export default function Navbar() {
+export default function Navbar({ onOpenCmd, theme, toggleTheme }) {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
-  const [theme, setTheme] = useState("dark");
 
   useEffect(() => {
-    const savedTheme = localStorage.getItem("theme") || "dark";
-    setTheme(savedTheme);
-    document.documentElement.setAttribute("data-theme", savedTheme);
-
     function handleScroll() {
       setScrolled(window.scrollY > 40);
     }
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
-
-  const toggleTheme = () => {
-    const newTheme = theme === "dark" ? "light" : "dark";
-    setTheme(newTheme);
-    localStorage.setItem("theme", newTheme);
-    document.documentElement.setAttribute("data-theme", newTheme);
-  };
 
   function handleLinkClick() {
     setIsOpen(false);
@@ -61,6 +49,16 @@ export default function Navbar() {
         </a>
 
         <div className="nav-controls">
+          <button
+            className="nav-cmd-btn"
+            onClick={onOpenCmd}
+            aria-label="Open command search"
+            title="Search & Quick Actions (Ctrl + K)"
+          >
+            <Search size={12} />
+            <span className="nav-cmd-hint">⌘K</span>
+          </button>
+
           <motion.button
             className={`theme-toggle ${theme === "light" ? "light-mode" : ""}`}
             onClick={toggleTheme}

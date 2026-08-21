@@ -264,8 +264,24 @@ function ProjectCard({ project, index, isMobile }) {
   );
 }
 
+const FILTER_CATEGORIES = [
+  { id: "all", label: "All Projects" },
+  { id: "ai", label: "AI & Agents" },
+  { id: "crm", label: "CRM & RevOps" },
+  { id: "mobile", label: "Mobile / Flutter" },
+];
+
 export default function Projects() {
   const isMobile = useIsMobile();
+  const [activeFilter, setActiveFilter] = useState("all");
+
+  const filteredProjects = PROJECTS.filter((p) => {
+    if (activeFilter === "all") return true;
+    if (activeFilter === "ai") return p.tags.some(t => ["AI Agent", "LLM", "RAG", "LangGraph"].includes(t));
+    if (activeFilter === "crm") return p.tags.some(t => ["CRM Automation", "RevOps", "HubSpot", "Lead Automation"].includes(t));
+    if (activeFilter === "mobile") return p.tags.some(t => ["Flutter", "Cross-platform", "Firebase"].includes(t));
+    return true;
+  });
 
   return (
     <section id="projects">
@@ -282,13 +298,35 @@ export default function Projects() {
           <p className="section-desc">
             Case studies and projects showcasing range across AI automation, mobile, and SaaS product development.
           </p>
+
+          {/* Interactive Filter Tabs */}
+          <div className="proj-filter-bar">
+            {FILTER_CATEGORIES.map((cat) => (
+              <button
+                key={cat.id}
+                className={`proj-filter-tab ${activeFilter === cat.id ? "active" : ""}`}
+                onClick={() => setActiveFilter(cat.id)}
+              >
+                {activeFilter === cat.id && (
+                  <motion.div
+                    className="proj-filter-pill-bg"
+                    layoutId="activeFilterPill"
+                    transition={{ type: "spring", stiffness: 400, damping: 30 }}
+                  />
+                )}
+                <span className="proj-filter-label">{cat.label}</span>
+              </button>
+            ))}
+          </div>
         </motion.div>
 
-        {/* Normal Flow Container */}
+        {/* Project List */}
         <div className="proj-list-container">
-          {PROJECTS.map((project, i) => (
-            <ProjectCard key={i} project={project} index={i} isMobile={isMobile} />
-          ))}
+          <AnimatePresence mode="popLayout">
+            {filteredProjects.map((project, i) => (
+              <ProjectCard key={project.title} project={project} index={i} isMobile={isMobile} />
+            ))}
+          </AnimatePresence>
         </div>
       </div>
     </section>

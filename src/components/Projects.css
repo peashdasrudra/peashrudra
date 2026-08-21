@@ -1,3 +1,73 @@
+/* ─── Filter Bar ─── */
+.proj-filter-bar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 28px;
+  flex-wrap: wrap;
+}
+
+.proj-filter-tab {
+  position: relative;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: var(--radius-full);
+  padding: 8px 18px;
+  color: var(--silver);
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: color 0.2s ease, border-color 0.2s ease;
+}
+
+.proj-filter-tab:hover {
+  color: var(--white);
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+.proj-filter-tab.active {
+  color: var(--white);
+  border-color: transparent;
+}
+
+.proj-filter-pill-bg {
+  position: absolute;
+  inset: 0;
+  background: var(--green);
+  border-radius: inherit;
+  z-index: 0;
+  box-shadow: 0 4px 16px rgba(30, 215, 96, 0.35);
+}
+
+.proj-filter-tab.active .proj-filter-label {
+  color: #031f0d;
+  font-weight: 700;
+}
+
+.proj-filter-label {
+  position: relative;
+  z-index: 1;
+}
+
+[data-theme="light"] .proj-filter-tab {
+  background: #f1f5f9;
+  border-color: #e2e8f0;
+  color: #475569;
+}
+
+[data-theme="light"] .proj-filter-tab:hover {
+  color: #0f172a;
+}
+
+[data-theme="light"] .proj-filter-tab.active .proj-filter-label {
+  color: #ffffff;
+}
+
+[data-theme="light"] .proj-filter-pill-bg {
+  background: var(--green);
+}
+
 /* ─── Layout ─── */
 .proj-list-container {
   display: flex;

@@ -3,6 +3,7 @@ import { useState } from "react";
 import { Brain, BarChart3, Zap, MessageSquare, Code2, Smartphone, CheckCircle2 } from "lucide-react";
 import { SERVICES } from "../data/portfolio";
 import { useIsMobile } from "../hooks/useIsMobile";
+import RoiCalculator from "./RoiCalculator";
 import "./Services.css";
 
 const ICONS = { Brain, BarChart3, Zap, MessageSquare, Code2, Smartphone };
@@ -100,6 +101,9 @@ export default function Services() {
             />
           ))}
         </div>
+
+        {/* Interactive Automation ROI Calculator */}
+        <RoiCalculator />
       </div>
     </section>
   );

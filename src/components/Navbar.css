@@ -20,16 +20,17 @@
   pointer-events: auto;
   display: flex;
   align-items: center;
-  gap: 6px;
+  gap: 8px;
   box-sizing: border-box;
   background: rgba(20, 20, 20, 0.82);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
   border: 1px solid var(--border);
   border-radius: var(--radius-full);
-  padding: 8px 8px 8px 20px;
+  padding: 6px 8px 6px 18px;
   box-shadow: var(--shadow-med);
-  width: min(92%, 780px);
+  width: max-content;
+  max-width: min(96vw, 960px);
   transition: background 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
@@ -82,10 +83,10 @@
 
 .navlinks a {
   font-family: var(--font-mono);
-  font-size: 12.5px;
+  font-size: 12px;
   font-weight: 500;
   color: var(--silver);
-  padding: 8px 14px;
+  padding: 6px 12px;
   border-radius: var(--radius-full);
   transition: all 0.2s ease;
   position: relative;
@@ -102,7 +103,7 @@
   font-weight: 600;
   background: var(--green);
   color: #031f0d;
-  padding: 10px 20px;
+  padding: 7px 16px;
   border-radius: var(--radius-full);
   white-space: nowrap;
   transition: transform 0.18s var(--ease-spring), box-shadow 0.18s ease;
@@ -118,6 +119,47 @@
   display: flex;
   align-items: center;
   gap: 8px;
+}
+
+.nav-cmd-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-full);
+  padding: 6px 10px;
+  color: var(--silver);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.nav-cmd-btn:hover {
+  border-color: var(--green-border);
+  color: var(--white);
+  background: var(--surface-3);
+  transform: translateY(-1px);
+}
+
+.nav-cmd-hint {
+  font-size: 10px;
+  color: var(--dim);
+  background: rgba(255, 255, 255, 0.05);
+  padding: 1px 4px;
+  border-radius: 3px;
+}
+
+[data-theme="light"] .nav-cmd-btn {
+  background: #f1f5f9;
+  border-color: #e2e8f0;
+  color: #475569;
+}
+
+[data-theme="light"] .nav-cmd-btn:hover {
+  border-color: var(--green);
+  color: #0f172a;
 }
 
 .theme-toggle {
