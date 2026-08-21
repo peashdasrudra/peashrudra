@@ -516,22 +516,32 @@ Direct Email: ${PROFILE.email}`;
         {/* Interactive Spider-Man Cyber Agent Icon Capsule */}
         <motion.div
           className={`peash-avatar-capsule ${isSpeaking ? "speaking" : ""} ${isNeonHighlighted ? "neon-active" : ""} ${isMusicPlaying ? "singing-active" : ""}`}
-          onClick={() => {
+          onClick={(e) => {
+            e.stopPropagation();
             setIsCopilotOpen(true);
             setIsNeonHighlighted(false);
             playTechBlip(isMuted, 650);
           }}
-          whileHover={{ scale: 1.1 }}
+          onPointerDown={(e) => {
+            e.stopPropagation();
+            setIsCopilotOpen(true);
+            setIsNeonHighlighted(false);
+            playTechBlip(isMuted, 650);
+          }}
+          whileHover={{ scale: 1.12 }}
           whileTap={{ scale: 0.92 }}
+          role="button"
+          tabIndex={0}
+          style={{ cursor: "pointer", pointerEvents: "auto" }}
           title={isMusicPlaying ? "Spider-Man AI Copilot — Singing to Soundtrack! (Click to Chat)" : "Peash AI Copilot — Click to Ask Anything"}
         >
-          <div className="peash-avatar-inner">
+          <div className="peash-avatar-inner" style={{ pointerEvents: "none" }}>
             <SpiderManCyberIcon isSpeaking={isSpeaking} isSinging={isMusicPlaying} />
           </div>
 
           {/* Neon Highlight Pulse Waves */}
           {(isNeonHighlighted || isMusicPlaying) && (
-            <span className="peash-neon-ripple" />
+            <span className="peash-neon-ripple" style={{ pointerEvents: "none" }} />
           )}
 
           <span className="peash-guide-beacon" />
