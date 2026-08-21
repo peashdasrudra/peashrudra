@@ -252,18 +252,21 @@
     top: 0;
     left: 0;
     right: 0;
-    width: 100%;
+    width: 85%;
     display: flex;
+    /* Changed from fixed to flex */
     flex-direction: column;
-    align-items: center;
-    padding: 12px 0 0;
-    pointer-events: none;
+    align-items: flex-start;
+    /* Changed 'left' to standard 'flex-start' */
+    padding: 12px 0;
+    pointer-events: auto;
+    /* Changed from none to auto so it's clickable */
     box-sizing: border-box;
     transform: none;
   }
 
   .nav-scrolled {
-    padding: 8px 0 0;
+    padding: 8px 0;
   }
 
   .navlinks {
