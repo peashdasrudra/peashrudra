@@ -64,8 +64,15 @@
 }
 
 @keyframes navPulse {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0.25; }
+
+  0%,
+  100% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0.25;
+  }
 }
 
 .navlinks {
@@ -263,8 +270,9 @@
   }
 
   .navbar {
-    width: 85% !important;
-    max-width: 85% !important;
+
+    width: 100% !important;
+    max-width: 100% !important;
     margin: 0;
     height: 44px;
     border-radius: var(--radius-full);
@@ -277,8 +285,8 @@
   }
 
   .mobile-menu {
-    width: 85% !important;
-    max-width: 85% !important;
+    width: 100% !important;
+    max-width: 100% !important;
     margin: 6px 0 0;
     padding: 6px;
     gap: 2px;
