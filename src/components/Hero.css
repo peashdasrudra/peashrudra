@@ -676,7 +676,7 @@ html[data-theme="light"] .hubspot-text-path {
   }
 
   .hero-grid {
-    gap: 16px;
+    gap: 12px;
     /* CRITICAL: Overrides the 32px gap to pull badges tight against buttons */
   }
 
