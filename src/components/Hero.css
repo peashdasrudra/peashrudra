@@ -671,12 +671,13 @@ html[data-theme="light"] .hubspot-text-path {
 
 @media (max-width: 600px) {
   .hero {
-    padding: 96px 0 24px;
+    padding: 72px 0 24px;
     /* Increased gap between navbar and HubSpot certified badge */
   }
 
   .hero-grid {
-    gap: 16px; /* CRITICAL: Overrides the 32px gap to pull badges tight against buttons */
+    gap: 16px;
+    /* CRITICAL: Overrides the 32px gap to pull badges tight against buttons */
   }
 
   .hero-top-row {
@@ -685,7 +686,8 @@ html[data-theme="light"] .hubspot-text-path {
   }
 
   .eyebrow {
-    display: none !important; /* Removed from phone per user request */
+    display: none !important;
+    /* Removed from phone per user request */
   }
 
   .hero-title {
@@ -694,27 +696,32 @@ html[data-theme="light"] .hubspot-text-path {
   }
 
   .hero-typed {
-    margin-top: 16px; /* Increased to avoid stacked look */
+    margin-top: 16px;
+    /* Increased to avoid stacked look */
     font-size: 13px;
   }
 
   .hero-desc {
     font-size: 13.5px;
     line-height: 1.5;
-    margin-top: 20px; /* Increased to avoid stacked look */
+    margin-top: 20px;
+    /* Increased to avoid stacked look */
   }
 
   .hero-ctas {
     flex-direction: column;
-    gap: 12px; /* Breathe more between buttons */
-    margin-top: 24px; /* Increased to separate from description */
+    gap: 12px;
+    /* Breathe more between buttons */
+    margin-top: 24px;
+    /* Increased to separate from description */
   }
 
   .hero-ctas .btn-primary,
   .hero-ctas .btn-outline {
     width: 100%;
     justify-content: center;
-    padding: 14px 16px; /* Slightly taller buttons for better touch targets */
+    padding: 14px 16px;
+    /* Slightly taller buttons for better touch targets */
     font-size: 14px;
   }
 
@@ -732,7 +739,8 @@ html[data-theme="light"] .hubspot-text-path {
   }
 
   .hero-badges {
-    margin-top: -4px; /* Pull it slightly into the grid gap to make it super tight */
+    margin-top: -4px;
+    /* Pull it slightly into the grid gap to make it super tight */
     margin-bottom: 24px;
     padding: 0;
     transform: scale(0.85) !important;
@@ -767,8 +775,8 @@ html[data-theme="light"] .hubspot-text-path {
   }
 
   /* Reset hover states for touch */
-  .hero-badges > .hero-custom-badge:hover,
-  .hero-badges > .hero-custom-badge:active {
+  .hero-badges>.hero-custom-badge:hover,
+  .hero-badges>.hero-custom-badge:active {
     box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
   }
 
@@ -776,7 +784,8 @@ html[data-theme="light"] .hubspot-text-path {
   .hero-cb-border-glow {
     /* Kept animation running, but optimized */
     will-change: transform;
-    opacity: 0.8 !important; /* Slightly reduce opacity to lessen composite cost */
+    opacity: 0.8 !important;
+    /* Slightly reduce opacity to lessen composite cost */
   }
 
   /* Restore original premium widths before scaling */
