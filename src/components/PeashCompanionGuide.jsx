@@ -2,9 +2,11 @@ import { useState, useEffect, useRef } from "react";
 import { 
   Sparkles, X, Bot, Send, Compass, Zap, Award, Calendar, 
   ArrowRight, Play, Pause, SkipForward, Disc3, ExternalLink,
-  HelpCircle, ArrowUpRight, Volume2, Square, Menu, ChevronRight, Radio
+  HelpCircle, ArrowUpRight, Volume2, Square, Menu, ChevronRight, 
+  Radio, MessageCircle, Mail, FileText, CheckCircle2
 } from "lucide-react";
 import { PROFILE } from "../data/portfolio";
+import { LINKS } from "../data/links";
 import { answerPeashQuestionAsync } from "../utils/peashAiEngine";
 import { useMusic } from "../context/MusicContext";
 import "./PeashCompanionGuide.css";
@@ -117,7 +119,7 @@ function SpiderManCompactMascot({ isSinging }) {
 }
 
 /* ═══════════════════════════════════════════════════════════════
-   CLEAN, ZERO-BLINK, FAST 2G-COMPATIBLE COPILOT
+   HIGH-CONVERTING INBOUND SPIDER-MAN COPILOT
    ═══════════════════════════════════════════════════════════════ */
 export default function PeashCompanionGuide() {
   const { 
@@ -384,7 +386,7 @@ export default function PeashCompanionGuide() {
               </div>
             )}
 
-            {/* ─── 4. MINIMAL CLEAN BODY (FEW PROMINENT FAQS) ─── */}
+            {/* ─── 4. MINIMAL CLEAN BODY WITH INBOUND ACTION HUB ─── */}
             <div className="clean-modal-body" ref={chatScrollRef}>
               {chatMessages.length === 0 ? (
                 <div className="clean-welcome-layout">
@@ -395,7 +397,55 @@ export default function PeashCompanionGuide() {
                       <span>Instant Recruiter & Client Guide</span>
                     </div>
                     <h3>How can I help you evaluate Peash?</h3>
-                    <p>Select any question below or type your custom inquiry.</p>
+                    <p>Select any question below or book a direct strategy call.</p>
+                  </div>
+
+                  {/* ⚡ High-Conversion Inbound Quick Links Hub */}
+                  <div className="inbound-quick-hub">
+                    <span className="inbound-hub-label">⚡ Direct Hiring & Inbound Paths:</span>
+                    <div className="inbound-pills-row">
+                      <a
+                        href={LINKS.calendly}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inbound-pill-btn primary"
+                      >
+                        <Calendar size={13} />
+                        <span>Book Zoom Call</span>
+                        <ArrowUpRight size={12} />
+                      </a>
+
+                      <a
+                        href={LINKS.whatsapp}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inbound-pill-btn whatsapp"
+                      >
+                        <MessageCircle size={13} />
+                        <span>WhatsApp Direct</span>
+                        <ArrowUpRight size={12} />
+                      </a>
+
+                      <a
+                        href={`mailto:${LINKS.email}`}
+                        className="inbound-pill-btn email"
+                      >
+                        <Mail size={13} />
+                        <span>Email Inbound</span>
+                        <ArrowUpRight size={12} />
+                      </a>
+
+                      <a
+                        href={LINKS.resumePdf}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inbound-pill-btn resume"
+                      >
+                        <FileText size={13} />
+                        <span>Resume (PDF)</span>
+                        <ArrowUpRight size={12} />
+                      </a>
+                    </div>
                   </div>
 
                   {/* 3 Prominent Minimal Clean FAQ Cards */}
@@ -540,26 +590,38 @@ export default function PeashCompanionGuide() {
               </button>
             </div>
 
-            {/* ─── 6. PROMINENT STRATEGY CALL CTA FOOTER ─── */}
+            {/* ─── 6. HIGH-CONVERSION INBOUND CTA FOOTER ─── */}
             <div className="clean-cta-footer">
-              <div className="cta-quick-nav">
-                <button onClick={() => handleScrollTo("projects")}>🚀 Projects</button>
-                <span>•</span>
-                <button onClick={() => handleScrollTo("skills")}>⚡ Skills</button>
-                <span>•</span>
-                <button onClick={() => handleScrollTo("certifications")}>🏆 Certs</button>
+              <div className="cta-live-status-pill">
+                <span className="live-status-green-dot" />
+                <span className="status-copy">AVAILABLE FOR CONTRACT & FULL-TIME</span>
               </div>
 
-              <a
-                href={PROFILE.calendlyUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="btn-large-strategy-call"
-              >
-                <Calendar size={15} />
-                <span>Book 30-Min Strategy Call</span>
-                <ArrowUpRight size={14} />
-              </a>
+              {/* Dual Inbound Actions */}
+              <div className="cta-buttons-cluster">
+                <a
+                  href={LINKS.whatsapp}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="btn-secondary-inbound-whatsapp"
+                  title="Direct WhatsApp Inbound"
+                >
+                  <MessageCircle size={15} />
+                  <span>WhatsApp</span>
+                </a>
+
+                <a
+                  href={LINKS.calendly}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="btn-large-strategy-call"
+                  title="Schedule 30-Minute Discovery Strategy Call"
+                >
+                  <Calendar size={15} />
+                  <span>Book 30-Min Call</span>
+                  <ArrowUpRight size={14} />
+                </a>
+              </div>
             </div>
 
           </div>
