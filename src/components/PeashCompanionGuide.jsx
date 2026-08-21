@@ -4,7 +4,7 @@ import {
   Volume2, VolumeX, Sparkles, X, MessageSquare, Bot, 
   Send, Compass, Zap, Award, Calendar, CheckCircle2, 
   ChevronRight, ArrowRight, Play, Pause, SkipForward, Disc3, ExternalLink,
-  Copy, Check, HelpCircle, ArrowUpRight, ShieldCheck, Clock
+  Copy, Check, HelpCircle, ArrowUpRight, ShieldCheck, Clock, Flame, Terminal, Cpu
 } from "lucide-react";
 import { PROFILE } from "../data/portfolio";
 import { useIsMobile } from "../hooks/useIsMobile";
@@ -64,39 +64,43 @@ const SECTION_MESSAGES = {
   },
 };
 
-// 4 Primary Quick Help Action Cards
-const QUICK_HELP_CARDS = [
+// 4 Luxury Quick Help Bento Cards
+const LUXURY_HELP_CARDS = [
   {
     icon: Compass,
-    title: "Case Studies",
-    desc: "3-in-1 production LangGraph workflows & 45% bandwidth savings",
-    query: "Explain the 3-in-1 production case studies",
-    tag: "Projects",
+    title: "Production Case Studies",
+    badge: "3-in-1 ARCHITECTURE",
+    desc: "Autonomous LangGraph agents, CRM data pipelines & 45% operational bandwidth savings.",
+    query: "Explain the 3-in-1 production case studies and LangGraph multi-agent architecture.",
+    color: "#38bdf8",
   },
   {
     icon: Award,
-    title: "Certifications",
-    desc: "Triple HubSpot, IBM & Microsoft authenticated credentials",
-    query: "What certifications does Peash hold?",
-    tag: "Credentials",
+    title: "Certified Credentials",
+    badge: "TRIPLE HUBSPOT",
+    desc: "HubSpot RevOps, Marketing Hub, IBM AI & Microsoft authenticated certifications.",
+    query: "What certifications does Peash hold and what is his track record in RevOps?",
+    color: "#1ed760",
   },
   {
     icon: Calendar,
     title: "Rates & Hiring",
-    desc: "Contract rates, freelance availability & direct discovery booking",
-    query: "What are his hourly/contract rates and availability?",
-    tag: "Hiring",
+    badge: "$45–$65 / HR",
+    desc: "Contract & freelance availability with direct 30-minute discovery call booking.",
+    query: "What are his hourly/contract rates and freelance availability?",
+    color: "#f59e0b",
   },
   {
     icon: Zap,
-    title: "Day-1 Fit",
-    desc: "Pre-built modular harnesses with zero ramp-up time",
-    query: "Can you ship Day-1 with zero ramp-up?",
-    tag: "Readiness",
+    title: "Day-1 Production Fit",
+    badge: "ZERO RAMP-UP",
+    desc: "Pre-built modular automation harnesses ready to deploy into live environments on day 1.",
+    query: "Can you ship Day-1 with zero ramp-up and pre-built modular harnesses?",
+    color: "#ec4899",
   },
 ];
 
-// Curated FAQ quick chips
+// Popular Instant FAQ Chips
 const POPULAR_FAQS = [
   "What is Peash's core specialization?",
   "Tell me about his LangGraph & MCP tools",
@@ -214,13 +218,14 @@ function SpiderManCyberIcon({ isSpeaking, isSinging }) {
 }
 
 /* ═══════════════════════════════════════════════════════════════
-   MAIN MINIMAL AESTHETIC PEASH AI COPILOT
+   MAIN JAW-DROPPING PEASH AI COPILOT
    ═══════════════════════════════════════════════════════════════ */
 export default function PeashCompanionGuide() {
   const isMobile = useIsMobile();
   const { 
     currentTrack, 
     isPlaying: isMusicPlaying, 
+    startMusic,
     togglePlay: toggleMusic, 
     nextTrack: nextMusicTrack, 
     volume: musicVolume,
@@ -243,20 +248,27 @@ export default function PeashCompanionGuide() {
   const [thinkingStep, setThinkingStep] = useState("");
   const chatScrollRef = useRef(null);
 
-  // Immediate Pop-Up with Volume Bar & Pause when Music Starts
+  // ─── 5-Second Introduction Balloon ───
   useEffect(() => {
-    if (isMusicPlaying) {
+    const introTimer = setTimeout(() => {
+      setCustomPrompt({
+        tag: "AI ASSISTANT",
+        text: "Hey! I'm Peash's AI Copilot. Click me to explore architecture, credentials & play soundtrack!",
+      });
       setIsOpen(true);
       playTechBlip(isMuted);
 
-      const autoCloseTimer = setTimeout(() => {
+      // Auto close after 5 seconds and keep neon blinking
+      const autoClose = setTimeout(() => {
         setIsOpen(false);
         setIsNeonHighlighted(true);
-      }, 7000);
+      }, 5000);
 
-      return () => clearTimeout(autoCloseTimer);
-    }
-  }, [isMusicPlaying, isMuted]);
+      return () => clearTimeout(autoClose);
+    }, 5000);
+
+    return () => clearTimeout(introTimer);
+  }, [isMuted]);
 
   // Section Observer for live guide speech bubbles
   useEffect(() => {
@@ -296,6 +308,17 @@ export default function PeashCompanionGuide() {
     }
   }, [chatMessages, isThinking]);
 
+  // Handle Opening Copilot & Starting Song
+  const handleOpenCopilot = () => {
+    setIsCopilotOpen(true);
+    setIsNeonHighlighted(false);
+    playTechBlip(isMuted, 650);
+    // Start music on click if not already playing
+    if (!isMusicPlaying) {
+      startMusic();
+    }
+  };
+
   const handleAskQuestion = (userQuery) => {
     if (!userQuery.trim()) return;
     const qText = userQuery.trim();
@@ -305,11 +328,11 @@ export default function PeashCompanionGuide() {
     setChatMessages((prev) => [...prev, userMsg]);
     setInputQuery("");
     setIsThinking(true);
-    setThinkingStep("Analyzing Peash's RevOps Knowledge Base...");
+    setThinkingStep("Accessing Peash's RevOps & AI Knowledge Base...");
     playTechBlip(isMuted, 620);
 
     setTimeout(() => {
-      setThinkingStep("Synthesizing Architecture & Verification...");
+      setThinkingStep("Synthesizing Architecture & Production Credentials...");
     }, 300);
 
     // 2. Intelligent AI Answer via reasoning engine
@@ -355,16 +378,13 @@ export default function PeashCompanionGuide() {
               animate={{ opacity: 1, y: 0, scale: 1 }}
               exit={{ opacity: 0, y: 15, scale: 0.92 }}
               transition={{ duration: 0.25, ease: [0.16, 1, 0.3, 1] }}
-              onClick={() => {
-                setIsCopilotOpen(true);
-                setIsNeonHighlighted(false);
-              }}
+              onClick={handleOpenCopilot}
             >
               {/* Balloon Header */}
               <div className="speech-balloon-header">
                 <div className="speech-tag">
                   <Sparkles size={11} className="text-green" />
-                  <span>{isMusicPlaying ? "SOUNDTRACK ACTIVE" : currentMsg.tag}</span>
+                  <span>{currentMsg.tag}</span>
                 </div>
                 <div className="speech-actions" onClick={(e) => e.stopPropagation()}>
                   <button
@@ -387,55 +407,12 @@ export default function PeashCompanionGuide() {
                 </div>
               </div>
 
-              {/* Balloon Message or Live Music Quick Bar */}
-              {isMusicPlaying && currentTrack ? (
-                <div className="balloon-music-panel" onClick={(e) => e.stopPropagation()}>
-                  <div className="balloon-music-track">
-                    <span className="balloon-track-name">🎵 {currentTrack.title}</span>
-                    <span className="balloon-artist-name">{currentTrack.artist}</span>
-                  </div>
-
-                  {/* Volume Slider & Controls */}
-                  <div className="balloon-music-controls">
-                    <button
-                      className="balloon-music-btn play-pause"
-                      onClick={toggleMusic}
-                      title={isMusicPlaying ? "Pause Music" : "Play Music"}
-                    >
-                      {isMusicPlaying ? <Pause size={13} /> : <Play size={13} />}
-                      <span>{isMusicPlaying ? "Pause" : "Play"}</span>
-                    </button>
-
-                    <button
-                      className="balloon-music-btn skip"
-                      onClick={nextMusicTrack}
-                      title="Next Track"
-                    >
-                      <SkipForward size={13} />
-                    </button>
-
-                    <div className="balloon-volume-slider-wrap">
-                      <Volume2 size={12} className="balloon-vol-icon" />
-                      <input
-                        type="range"
-                        min="0"
-                        max="100"
-                        value={musicVolume}
-                        onChange={(e) => setMusicVolume(Number(e.target.value))}
-                        className="balloon-volume-slider"
-                        title={`Volume: ${musicVolume}%`}
-                      />
-                      <span className="balloon-vol-pct">{musicVolume}%</span>
-                    </div>
-                  </div>
-                </div>
-              ) : (
-                <p className="speech-balloon-text">{currentMsg.text}</p>
-              )}
+              {/* Balloon Message */}
+              <p className="speech-balloon-text">{currentMsg.text}</p>
 
               {/* Tap to Chat Cue */}
               <div className="speech-balloon-footer">
-                <span>✦ Click to Open Copilot (Who, What, FAQs & Music)</span>
+                <span>✦ Click to Open Copilot & Play Soundtrack</span>
               </div>
 
               <div className="speech-balloon-tail" />
@@ -448,22 +425,18 @@ export default function PeashCompanionGuide() {
           className={`peash-avatar-capsule ${isSpeaking ? "speaking" : ""} ${isNeonHighlighted ? "neon-active" : ""} ${isMusicPlaying ? "singing-active" : ""}`}
           onClick={(e) => {
             e.stopPropagation();
-            setIsCopilotOpen(true);
-            setIsNeonHighlighted(false);
-            playTechBlip(isMuted, 650);
+            handleOpenCopilot();
           }}
           onPointerDown={(e) => {
             e.stopPropagation();
-            setIsCopilotOpen(true);
-            setIsNeonHighlighted(false);
-            playTechBlip(isMuted, 650);
+            handleOpenCopilot();
           }}
           whileHover={{ scale: 1.12 }}
           whileTap={{ scale: 0.92 }}
           role="button"
           tabIndex={0}
           style={{ cursor: "pointer", pointerEvents: "auto" }}
-          title={isMusicPlaying ? "Spider-Man AI Copilot — Singing to Soundtrack! (Click to Chat)" : "Peash AI Copilot — Click to Ask Anything"}
+          title={isMusicPlaying ? "Spider-Man AI Copilot — Singing to Soundtrack! (Click to Chat)" : "Peash AI Copilot — Click to Explore & Play Music"}
         >
           <div className="peash-avatar-inner" style={{ pointerEvents: "none" }}>
             <SpiderManCyberIcon isSpeaking={isSpeaking} isSinging={isMusicPlaying} />
@@ -477,7 +450,7 @@ export default function PeashCompanionGuide() {
         </motion.div>
       </div>
 
-      {/* ─── MINIMAL, AESTHETIC & HELP-FOCUSED COPILOT MODAL ─── */}
+      {/* ─── ABSOLUTE TOP-CLASS CYBER COMMAND COPILOT MODAL ─── */}
       <AnimatePresence>
         {isCopilotOpen && (
           <motion.div 
@@ -488,43 +461,53 @@ export default function PeashCompanionGuide() {
             onClick={() => setIsCopilotOpen(false)}
           >
             <motion.div 
-              className="copilot-modal-minimal"
+              className="copilot-modal-luxury"
               initial={{ opacity: 0, scale: 0.95, y: 16 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.95, y: 16 }}
               transition={{ duration: 0.22, ease: [0.16, 1, 0.3, 1] }}
               onClick={(e) => e.stopPropagation()}
             >
-              {/* ─── 1. MINIMAL HEADER ─── */}
-              <div className="copilot-min-header">
-                <div className="header-left">
-                  <div className="header-avatar">
+              {/* ─── 1. CYBER COMMAND HEADER ─── */}
+              <div className="copilot-luxury-header">
+                <div className="header-brand-wrap">
+                  <div className="header-avatar-box">
                     <SpiderManCyberIcon isSpeaking={isSpeaking} isSinging={isMusicPlaying} />
                   </div>
-                  <div className="header-meta">
-                    <div className="header-title-wrap">
+                  <div className="header-brand-text">
+                    <div className="header-name-row">
                       <h4>Peash AI Copilot</h4>
-                      <span className="header-live-badge">
-                        <span className="badge-pulse-dot" /> Online
+                      <span className="header-status-badge">
+                        <span className="status-live-dot" /> ACTIVE NEURAL v3.5
                       </span>
                     </div>
-                    <span className="header-tagline">RevOps & AI Architecture Guide</span>
+                    <span className="header-sub">RevOps & Autonomous Agent Architecture Console</span>
                   </div>
                 </div>
 
-                {/* Minimal Soundtrack Strip in Header */}
+                {/* Holographic Music Visualizer Pill */}
                 {currentTrack && (
-                  <div className="header-music-pill">
+                  <div className={`header-hologram-music ${isMusicPlaying ? "active-sound" : ""}`}>
+                    <div className={`holo-disc ${isMusicPlaying ? "spinning" : ""}`}>
+                      <Disc3 size={13} />
+                    </div>
+                    <div className="holo-track-info">
+                      <span className="holo-title">{currentTrack.title}</span>
+                      <div className="holo-eq-bars">
+                        <span className={`bar ${isMusicPlaying ? "pulse" : ""}`} />
+                        <span className={`bar ${isMusicPlaying ? "pulse" : ""}`} />
+                        <span className={`bar ${isMusicPlaying ? "pulse" : ""}`} />
+                      </div>
+                    </div>
                     <button 
-                      className="music-pill-btn" 
+                      className="holo-btn play-toggle"
                       onClick={toggleMusic}
                       title={isMusicPlaying ? "Pause Track" : "Play Track"}
                     >
                       {isMusicPlaying ? <Pause size={11} /> : <Play size={11} />}
                     </button>
-                    <span className="music-pill-title">{currentTrack.title}</span>
                     <button 
-                      className="music-pill-btn skip" 
+                      className="holo-btn skip"
                       onClick={nextMusicTrack}
                       title="Next Track"
                     >
@@ -533,105 +516,130 @@ export default function PeashCompanionGuide() {
                   </div>
                 )}
 
-                <div className="header-actions">
+                <div className="header-controls">
                   <button
-                    className="action-icon-btn"
+                    className="header-ctrl-btn"
                     onClick={() => {
                       setIsMuted(!isMuted);
                       if (typeof window !== "undefined" && "speechSynthesis" in window) {
                         window.speechSynthesis.cancel();
                       }
                     }}
-                    title={isMuted ? "Unmute Voice" : "Mute Voice"}
+                    title={isMuted ? "Unmute Voice Audio" : "Mute Voice Audio"}
                   >
                     {isMuted ? <VolumeX size={14} /> : <Volume2 size={14} />}
                   </button>
                   <button 
-                    className="action-icon-btn close"
+                    className="header-ctrl-btn close-btn"
                     onClick={() => setIsCopilotOpen(false)}
-                    title="Close (Esc)"
+                    title="Close Console (Esc)"
                   >
                     <X size={15} />
                   </button>
                 </div>
               </div>
 
-              {/* ─── 2. SCROLLABLE MAIN HELP HUB ─── */}
-              <div className="copilot-scroll-area" ref={chatScrollRef}>
+              {/* ─── 2. LIVE CREDENTIAL TELEMETRY HUD ─── */}
+              <div className="copilot-telemetry-hud">
+                <div className="telemetry-item">
+                  <span className="telemetry-dot green" />
+                  <span><strong>Peash Das Rudra</strong></span>
+                </div>
+                <div className="telemetry-item">
+                  <span className="telemetry-dot blue" />
+                  <span>Triple HubSpot Certified</span>
+                </div>
+                <div className="telemetry-item">
+                  <span className="telemetry-dot ruby" />
+                  <span>LangGraph Agent Architect</span>
+                </div>
+                <div className="telemetry-item">
+                  <span className="telemetry-dot gold" />
+                  <span>20+ Shipped B2B Systems</span>
+                </div>
+              </div>
+
+              {/* ─── 3. SCROLLABLE MAIN CONTENT AREA ─── */}
+              <div className="copilot-luxury-body" ref={chatScrollRef}>
                 {chatMessages.length === 0 ? (
-                  <div className="help-hub-welcome">
-                    {/* Welcome Hero Greeting */}
-                    <div className="welcome-hero">
-                      <div className="hero-badge">
+                  <div className="luxury-welcome-view">
+                    {/* Welcome Hero Statement */}
+                    <div className="luxury-welcome-hero">
+                      <div className="welcome-tag">
                         <Sparkles size={12} className="text-green" />
-                        <span>Instant Candidate & Client Assistant</span>
+                        <span>Autonomous RevOps Knowledge Base</span>
                       </div>
-                      <h3>How can I help you today?</h3>
+                      <h3>How can I accelerate your evaluation today?</h3>
                       <p>
-                        Get instant verified answers about <strong>Peash Das Rudra</strong>, his 3-in-1 production case studies, triple HubSpot credentials, or contract availability.
+                        Select a category below or ask anything about Peash's Day-1 production readiness, custom LangGraph agents, or booking availability.
                       </p>
                     </div>
 
-                    {/* 4 Clean Action Cards */}
-                    <div className="help-cards-grid">
-                      {QUICK_HELP_CARDS.map((card, cIdx) => {
+                    {/* 4 Luxury Bento Action Cards */}
+                    <div className="luxury-bento-grid">
+                      {LUXURY_HELP_CARDS.map((card, idx) => {
                         const CardIcon = card.icon;
                         return (
                           <button
-                            key={cIdx}
-                            className="help-action-card"
+                            key={idx}
+                            className="luxury-bento-card"
                             onClick={() => handleAskQuestion(card.query)}
+                            style={{ "--accent-color": card.color }}
                           >
-                            <div className="card-top">
-                              <div className="card-icon-box">
+                            <div className="bento-card-top">
+                              <div className="bento-icon-box">
                                 <CardIcon size={16} />
                               </div>
-                              <span className="card-tag">{card.tag}</span>
+                              <span className="bento-badge">{card.badge}</span>
                             </div>
-                            <h5 className="card-title">{card.title}</h5>
-                            <p className="card-desc">{card.desc}</p>
-                            <div className="card-footer">
+                            <h5 className="bento-title">{card.title}</h5>
+                            <p className="bento-desc">{card.desc}</p>
+                            <div className="bento-footer">
                               <span>Ask Copilot</span>
-                              <ArrowRight size={12} className="card-arrow" />
+                              <ArrowRight size={12} className="bento-arrow" />
                             </div>
                           </button>
                         );
                       })}
                     </div>
 
-                    {/* Popular Quick FAQs */}
-                    <div className="popular-faqs-section">
-                      <span className="faqs-label">Frequently Asked Questions:</span>
-                      <div className="faqs-pill-wrap">
+                    {/* Instant Clickable FAQ Chips */}
+                    <div className="luxury-faqs-row">
+                      <div className="faqs-header-row">
+                        <HelpCircle size={12} className="text-green" />
+                        <span>Instant Quick Questions:</span>
+                      </div>
+                      <div className="faqs-chips-container">
                         {POPULAR_FAQS.map((faq, fIdx) => (
                           <button
                             key={fIdx}
-                            className="faq-pill-btn"
+                            className="luxury-faq-chip"
                             onClick={() => handleAskQuestion(faq)}
                           >
-                            <span>✦ {faq}</span>
+                            <span className="chip-symbol">✦</span>
+                            <span>{faq}</span>
                           </button>
                         ))}
                       </div>
                     </div>
                   </div>
                 ) : (
-                  /* ─── CHAT CONVERSATION VIEW ─── */
-                  <div className="chat-stream-wrap">
+                  /* ─── LIVE CHAT STREAM VIEW ─── */
+                  <div className="luxury-chat-stream">
                     {chatMessages.map((msg, index) => (
-                      <div key={index} className={`chat-message ${msg.sender}`}>
+                      <div key={index} className={`luxury-chat-bubble ${msg.sender}`}>
                         {msg.sender === "copilot" && (
-                          <div className="msg-avatar">
+                          <div className="chat-avatar-icon">
                             <Bot size={13} />
                           </div>
                         )}
-                        <div className="msg-content">
+                        <div className="chat-bubble-card">
                           <p>{msg.text}</p>
 
-                          {/* Deep Link Jump Button */}
+                          {/* Interactive Section Jump */}
                           {msg.section && (
                             <button 
-                              className="msg-jump-btn"
+                              className="chat-jump-btn"
                               onClick={() => handleTourScroll(msg.section)}
                             >
                               <ArrowRight size={12} />
@@ -639,27 +647,27 @@ export default function PeashCompanionGuide() {
                             </button>
                           )}
 
-                          {/* External Action Button */}
+                          {/* External Resource Link */}
                           {msg.actionUrl && (
                             <a
                               href={msg.actionUrl}
                               target="_blank"
                               rel="noopener noreferrer"
-                              className="msg-ext-btn"
+                              className="chat-ext-btn"
                             >
                               <ExternalLink size={12} />
-                              <span>{msg.actionText || "View Link"}</span>
+                              <span>{msg.actionText || "View Source"}</span>
                             </a>
                           )}
 
-                          {/* Dynamic Suggested Follow-up Questions */}
+                          {/* Suggested Next Questions */}
                           {msg.suggestedQuestions && msg.suggestedQuestions.length > 0 && (
-                            <div className="suggested-chips-row">
+                            <div className="chat-suggested-row">
                               {msg.suggestedQuestions.map((sq, sIdx) => (
                                 <button
                                   key={sIdx}
                                   onClick={() => handleAskQuestion(sq)}
-                                  className="suggested-chip-btn"
+                                  className="chat-suggested-btn"
                                 >
                                   <span>{sq}</span>
                                 </button>
@@ -670,19 +678,19 @@ export default function PeashCompanionGuide() {
                       </div>
                     ))}
 
-                    {/* Neural Thinking State */}
+                    {/* Live Neural Reasoning Telemetry */}
                     {isThinking && (
                       <motion.div 
-                        className="chat-message copilot thinking"
+                        className="luxury-chat-bubble copilot thinking"
                         initial={{ opacity: 0, y: 8 }}
                         animate={{ opacity: 1, y: 0 }}
                       >
-                        <div className="msg-avatar thinking">
+                        <div className="chat-avatar-icon thinking">
                           <Bot size={13} className="spin-slow" />
                         </div>
-                        <div className="msg-content thinking-box">
-                          <span className="thinking-dot" />
-                          <span className="thinking-label">{thinkingStep}</span>
+                        <div className="chat-bubble-card thinking-card">
+                          <span className="thinking-pulse-dot" />
+                          <span className="thinking-status-text">{thinkingStep}</span>
                         </div>
                       </motion.div>
                     )}
@@ -690,54 +698,53 @@ export default function PeashCompanionGuide() {
                 )}
               </div>
 
-              {/* ─── 3. MINIMAL MODERN INPUT BAR ─── */}
-              <div className="copilot-min-input-bar">
+              {/* ─── 4. ULTRA-CLEAN INPUT CONSOLE ─── */}
+              <div className="copilot-luxury-input-bar">
                 {chatMessages.length > 0 && (
                   <button 
-                    className="reset-hub-btn"
+                    className="menu-reset-btn"
                     onClick={() => setChatMessages([])}
-                    title="Return to Help Menu"
+                    title="Return to Main Menu"
                   >
                     <HelpCircle size={13} />
-                    <span>Help Menu</span>
+                    <span>Menu</span>
                   </button>
                 )}
                 
                 <input
                   type="text"
-                  placeholder="Ask anything about Peash's skills, rates, or case studies..."
+                  placeholder="Ask anything about architecture, rates, HubSpot, or Day-1 readiness..."
                   value={inputQuery}
                   onChange={(e) => setInputQuery(e.target.value)}
                   onKeyDown={(e) => {
                     if (e.key === "Enter") handleAskQuestion(inputQuery);
                   }}
-                  className="min-input-field"
+                  className="luxury-input-field"
                 />
                 
                 <button
-                  className="min-send-btn"
+                  className="luxury-send-btn"
                   onClick={() => handleAskQuestion(inputQuery)}
                   disabled={!inputQuery.trim()}
-                  title="Send Question"
+                  title="Send Query (Enter)"
                 >
                   <Send size={14} />
                 </button>
               </div>
 
-              {/* ─── 4. MINIMAL COMPACT FOOTER ─── */}
-              <div className="copilot-min-footer">
-                <div className="footer-links">
-                  <button onClick={() => handleTourScroll("projects")}>Case Studies</button>
-                  <span>•</span>
-                  <button onClick={() => handleTourScroll("skills")}>Skills Playground</button>
-                  <span>•</span>
-                  <button onClick={() => handleTourScroll("certifications")}>HubSpot Certs</button>
+              {/* ─── 5. LUXURY COMPACT FOOTER ─── */}
+              <div className="copilot-luxury-footer">
+                <div className="footer-quick-links">
+                  <span className="footer-label">Jump:</span>
+                  <button onClick={() => handleTourScroll("projects")}>🚀 Case Studies</button>
+                  <button onClick={() => handleTourScroll("skills")}>⚡ Skills</button>
+                  <button onClick={() => handleTourScroll("certifications")}>🏆 Certs</button>
                 </div>
                 <a
                   href={PROFILE.calendlyUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="footer-book-btn"
+                  className="luxury-calendly-btn"
                 >
                   <Calendar size={12} />
                   <span>Book Strategy Call</span>

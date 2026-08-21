@@ -1,5 +1,5 @@
 /* ═══════════════════════════════════════════════
-   MINIMAL, AESTHETIC & HELP-FOCUSED AI COPILOT
+   TOP-CLASS LUXURY CYBER AI COPILOT HUD
    ═══════════════════════════════════════════════ */
 
 .peash-companion-root {
@@ -18,15 +18,15 @@
   pointer-events: auto;
 }
 
-/* ─── Speech Balloon ─── */
+/* ─── 5-Second Speech Balloon ─── */
 .peash-speech-balloon {
   position: relative;
-  width: 285px;
-  background: rgba(16, 18, 24, 0.96);
-  border: 1px solid rgba(30, 215, 96, 0.4);
+  width: 290px;
+  background: rgba(14, 16, 22, 0.96);
+  border: 1px solid rgba(30, 215, 96, 0.45);
   border-radius: 16px;
   padding: 14px 16px;
-  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.85), 0 0 25px rgba(30, 215, 96, 0.2);
+  box-shadow: 0 18px 45px rgba(0, 0, 0, 0.85), 0 0 25px rgba(30, 215, 96, 0.22);
   backdrop-filter: blur(28px);
   -webkit-backdrop-filter: blur(28px);
   margin-bottom: 4px;
@@ -96,112 +96,6 @@
   font-weight: 500;
 }
 
-/* Balloon Live Music Quick Bar */
-.balloon-music-panel {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-}
-
-.balloon-music-track {
-  display: flex;
-  flex-direction: column;
-  gap: 2px;
-}
-
-.balloon-track-name {
-  font-family: var(--font-display);
-  font-size: 12px;
-  font-weight: 800;
-  color: var(--white);
-}
-
-.balloon-artist-name {
-  font-size: 10px;
-  color: var(--silver);
-}
-
-.balloon-music-controls {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  flex-wrap: wrap;
-}
-
-.balloon-music-btn {
-  display: inline-flex;
-  align-items: center;
-  gap: 4px;
-  background: rgba(255, 255, 255, 0.08);
-  border: 1px solid rgba(255, 255, 255, 0.15);
-  color: var(--white);
-  padding: 4px 8px;
-  border-radius: var(--radius-m);
-  font-family: var(--font-mono);
-  font-size: 11px;
-  font-weight: 700;
-  cursor: pointer;
-  transition: all 0.2s ease;
-}
-
-.balloon-music-btn:hover {
-  background: rgba(255, 255, 255, 0.18);
-}
-
-.balloon-music-btn.play-pause {
-  background: var(--green);
-  border-color: var(--green);
-  color: #031f0d;
-}
-
-.balloon-volume-slider-wrap {
-  display: flex;
-  align-items: center;
-  gap: 5px;
-  background: rgba(0, 0, 0, 0.4);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  padding: 3px 8px;
-  border-radius: var(--radius-full);
-  flex: 1;
-  min-width: 110px;
-}
-
-.balloon-vol-icon {
-  color: var(--green-text);
-  flex-shrink: 0;
-}
-
-.balloon-volume-slider {
-  -webkit-appearance: none;
-  appearance: none;
-  width: 100%;
-  height: 4px;
-  border-radius: 2px;
-  background: rgba(255, 255, 255, 0.2);
-  outline: none;
-  cursor: pointer;
-}
-
-.balloon-volume-slider::-webkit-slider-thumb {
-  -webkit-appearance: none;
-  appearance: none;
-  width: 11px;
-  height: 11px;
-  border-radius: 50%;
-  background: var(--green);
-  box-shadow: 0 0 6px var(--green);
-  cursor: pointer;
-}
-
-.balloon-vol-pct {
-  font-family: var(--font-mono);
-  font-size: 9.5px;
-  font-weight: 700;
-  color: var(--green-text);
-  min-width: 26px;
-  text-align: right;
-}
-
 .speech-balloon-footer {
   margin-top: 8px;
   padding-top: 6px;
@@ -218,9 +112,9 @@
   right: 26px;
   width: 12px;
   height: 12px;
-  background: rgba(16, 18, 24, 0.96);
-  border-right: 1px solid rgba(30, 215, 96, 0.4);
-  border-bottom: 1px solid rgba(30, 215, 96, 0.4);
+  background: rgba(14, 16, 22, 0.96);
+  border-right: 1px solid rgba(30, 215, 96, 0.45);
+  border-bottom: 1px solid rgba(30, 215, 96, 0.45);
   transform: rotate(45deg);
 }
 
@@ -379,15 +273,15 @@
 }
 
 /* ═══════════════════════════════════════════════
-   MINIMAL, AESTHETIC COPILOT MODAL
+   TOP-CLASS LUXURY CYBER COMMAND MODAL
    ═══════════════════════════════════════════════ */
 
 .copilot-backdrop {
   position: fixed;
   inset: 0;
-  background: rgba(0, 0, 0, 0.82);
-  backdrop-filter: blur(14px);
-  -webkit-backdrop-filter: blur(14px);
+  background: rgba(0, 0, 0, 0.84);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
   z-index: 9999999;
   display: flex;
   align-items: center;
@@ -396,42 +290,43 @@
   pointer-events: auto;
 }
 
-.copilot-modal-minimal {
+.copilot-modal-luxury {
   width: 100%;
-  max-width: 580px;
-  max-height: 86vh;
-  background: rgba(13, 15, 20, 0.97);
+  max-width: 620px;
+  max-height: 88vh;
+  background: rgba(11, 13, 18, 0.97);
   border: 1px solid rgba(255, 255, 255, 0.12);
-  border-radius: 20px;
-  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.9), 0 0 30px rgba(30, 215, 96, 0.15);
+  border-radius: 22px;
+  box-shadow: 0 32px 90px rgba(0, 0, 0, 0.95), 0 0 40px rgba(30, 215, 96, 0.16);
   overflow: hidden;
   display: flex;
   flex-direction: column;
-  backdrop-filter: blur(32px);
-  -webkit-backdrop-filter: blur(32px);
+  backdrop-filter: blur(36px);
+  -webkit-backdrop-filter: blur(36px);
+  position: relative;
 }
 
-/* ─── 1. Minimal Header ─── */
-.copilot-min-header {
+/* ─── 1. Cyber Command Header ─── */
+.copilot-luxury-header {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 14px 18px;
-  background: rgba(20, 22, 30, 0.9);
+  padding: 14px 20px;
+  background: rgba(18, 21, 28, 0.94);
   border-bottom: 1px solid rgba(255, 255, 255, 0.08);
   gap: 10px;
 }
 
-.header-left {
+.header-brand-wrap {
   display: flex;
   align-items: center;
   gap: 10px;
   min-width: 0;
 }
 
-.header-avatar {
-  width: 34px;
-  height: 34px;
+.header-avatar-box {
+  width: 36px;
+  height: 36px;
   border-radius: 50%;
   background: rgba(30, 215, 96, 0.12);
   border: 1.5px solid var(--green);
@@ -441,19 +336,19 @@
   flex-shrink: 0;
 }
 
-.header-meta {
+.header-brand-text {
   display: flex;
   flex-direction: column;
   min-width: 0;
 }
 
-.header-title-wrap {
+.header-name-row {
   display: flex;
   align-items: center;
   gap: 6px;
 }
 
-.header-title-wrap h4 {
+.header-name-row h4 {
   font-family: var(--font-display);
   font-size: 14px;
   font-weight: 800;
@@ -461,7 +356,7 @@
   margin: 0;
 }
 
-.header-live-badge {
+.header-status-badge {
   display: inline-flex;
   align-items: center;
   gap: 4px;
@@ -470,11 +365,12 @@
   font-weight: 700;
   color: var(--green-text);
   background: rgba(30, 215, 96, 0.12);
+  border: 1px solid rgba(30, 215, 96, 0.25);
   padding: 1px 6px;
   border-radius: var(--radius-full);
 }
 
-.badge-pulse-dot {
+.status-live-dot {
   width: 5px;
   height: 5px;
   border-radius: 50%;
@@ -483,12 +379,7 @@
   animation: pulseDot 1.5s ease-in-out infinite alternate;
 }
 
-@keyframes pulseDot {
-  0% { opacity: 0.4; }
-  100% { opacity: 1; }
-}
-
-.header-tagline {
+.header-sub {
   font-size: 10px;
   color: var(--silver);
   white-space: nowrap;
@@ -496,19 +387,84 @@
   text-overflow: ellipsis;
 }
 
-/* Minimal Soundtrack Pill */
-.header-music-pill {
+/* Holographic Music Visualizer Pill */
+.header-hologram-music {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(30, 215, 96, 0.08);
+  border: 1px solid rgba(30, 215, 96, 0.25);
+  padding: 4px 10px;
+  border-radius: var(--radius-full);
+  flex-shrink: 0;
+  transition: all 0.25s ease;
+}
+
+.header-hologram-music.active-sound {
+  background: rgba(30, 215, 96, 0.14);
+  border-color: var(--green);
+  box-shadow: 0 0 15px rgba(30, 215, 96, 0.2);
+}
+
+.holo-disc {
+  color: var(--green-text);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.holo-disc.spinning {
+  animation: spinSlow 3s linear infinite;
+}
+
+@keyframes spinSlow {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.holo-track-info {
   display: flex;
   align-items: center;
   gap: 5px;
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  padding: 3px 8px;
-  border-radius: var(--radius-full);
-  flex-shrink: 0;
 }
 
-.music-pill-btn {
+.holo-title {
+  font-family: var(--font-display);
+  font-size: 10.5px;
+  font-weight: 700;
+  color: var(--white);
+  max-width: 85px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Audio EQ Waveform Bars */
+.holo-eq-bars {
+  display: flex;
+  align-items: flex-end;
+  gap: 2px;
+  height: 10px;
+}
+
+.holo-eq-bars .bar {
+  width: 2px;
+  height: 3px;
+  background: var(--green);
+  border-radius: 1px;
+  transition: height 0.15s ease;
+}
+
+.holo-eq-bars .bar.pulse:nth-child(1) { animation: eqJump 0.6s ease-in-out infinite alternate; }
+.holo-eq-bars .bar.pulse:nth-child(2) { animation: eqJump 0.8s ease-in-out infinite alternate 0.2s; }
+.holo-eq-bars .bar.pulse:nth-child(3) { animation: eqJump 0.5s ease-in-out infinite alternate 0.4s; }
+
+@keyframes eqJump {
+  0% { height: 3px; }
+  100% { height: 10px; }
+}
+
+.holo-btn {
   background: transparent;
   border: none;
   color: var(--silver);
@@ -517,32 +473,22 @@
   justify-content: center;
   cursor: pointer;
   padding: 2px;
-  transition: color 0.2s ease;
+  transition: all 0.2s ease;
 }
 
-.music-pill-btn:hover {
-  color: var(--green-text);
+.holo-btn:hover {
+  color: var(--green);
+  transform: scale(1.15);
 }
 
-.music-pill-title {
-  font-family: var(--font-display);
-  font-size: 10px;
-  font-weight: 700;
-  color: var(--white);
-  max-width: 80px;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-.header-actions {
+.header-controls {
   display: flex;
   align-items: center;
   gap: 6px;
   flex-shrink: 0;
 }
 
-.action-icon-btn {
+.header-ctrl-btn {
   background: rgba(255, 255, 255, 0.06);
   border: 1px solid rgba(255, 255, 255, 0.1);
   color: var(--silver);
@@ -556,42 +502,82 @@
   transition: all 0.2s ease;
 }
 
-.action-icon-btn:hover {
+.header-ctrl-btn:hover {
   background: rgba(255, 255, 255, 0.15);
   color: var(--white);
 }
 
-.action-icon-btn.close:hover {
+.header-ctrl-btn.close-btn:hover {
   background: rgba(239, 68, 68, 0.2);
   border-color: rgba(239, 68, 68, 0.4);
   color: #ef4444;
 }
 
-/* ─── 2. Scrollable Main Help Area ─── */
-.copilot-scroll-area {
+/* ─── 2. Live Credential Telemetry Strip ─── */
+.copilot-telemetry-hud {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 6px 20px;
+  background: rgba(0, 0, 0, 0.45);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.copilot-telemetry-hud::-webkit-scrollbar {
+  display: none;
+}
+
+.telemetry-item {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: var(--silver);
+  white-space: nowrap;
+}
+
+.telemetry-item strong {
+  color: var(--white);
+}
+
+.telemetry-dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+}
+
+.telemetry-dot.green { background: #1ed760; box-shadow: 0 0 5px #1ed760; }
+.telemetry-dot.blue { background: #38bdf8; box-shadow: 0 0 5px #38bdf8; }
+.telemetry-dot.ruby { background: #ef4444; box-shadow: 0 0 5px #ef4444; }
+.telemetry-dot.gold { background: #f59e0b; box-shadow: 0 0 5px #f59e0b; }
+
+/* ─── 3. Scrollable Main Content Area ─── */
+.copilot-luxury-body {
   padding: 18px 20px;
   overflow-y: auto;
   flex: 1;
-  min-height: 240px;
-  max-height: 380px;
+  min-height: 250px;
+  max-height: 390px;
   scrollbar-width: thin;
   scrollbar-color: rgba(255, 255, 255, 0.12) transparent;
 }
 
-/* Welcome Hub (Zero Clutter, Action Focused) */
-.help-hub-welcome {
+.luxury-welcome-view {
   display: flex;
   flex-direction: column;
   gap: 16px;
 }
 
-.welcome-hero {
+.luxury-welcome-hero {
   display: flex;
   flex-direction: column;
   gap: 6px;
 }
 
-.hero-badge {
+.welcome-tag {
   display: inline-flex;
   align-items: center;
   gap: 5px;
@@ -606,55 +592,66 @@
   align-self: flex-start;
 }
 
-.welcome-hero h3 {
+.luxury-welcome-hero h3 {
   font-family: var(--font-display);
-  font-size: 17px;
+  font-size: 16.5px;
   font-weight: 800;
   color: var(--white);
   margin: 0;
   letter-spacing: -0.3px;
 }
 
-.welcome-hero p {
+.luxury-welcome-hero p {
   font-size: 12px;
   line-height: 1.5;
   color: var(--silver);
   margin: 0;
 }
 
-.welcome-hero p strong {
-  color: var(--white);
-}
-
-/* 4 Clean Action Cards (2x2 Grid) */
-.help-cards-grid {
+/* 4 Luxury Bento Cards (2x2 Grid) */
+.luxury-bento-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 10px;
 }
 
-.help-action-card {
+.luxury-bento-card {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   text-align: left;
-  padding: 12px 14px;
+  padding: 14px 14px;
   background: rgba(255, 255, 255, 0.03);
   border: 1px solid rgba(255, 255, 255, 0.08);
-  border-radius: 14px;
+  border-radius: 16px;
   cursor: pointer;
-  transition: all 0.22s ease;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
   position: relative;
+  overflow: hidden;
 }
 
-.help-action-card:hover {
-  background: rgba(30, 215, 96, 0.08);
-  border-color: rgba(30, 215, 96, 0.35);
+.luxury-bento-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 100% 0%, var(--accent-color) 0%, transparent 60%);
+  opacity: 0.08;
+  transition: opacity 0.25s ease;
+  pointer-events: none;
+}
+
+.luxury-bento-card:hover {
+  background: rgba(255, 255, 255, 0.06);
+  border-color: var(--accent-color);
   transform: translateY(-2px);
-  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.4);
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.5), 0 0 20px rgba(30, 215, 96, 0.12);
 }
 
-.card-top {
+.luxury-bento-card:hover::before {
+  opacity: 0.18;
+}
+
+.bento-card-top {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -662,43 +659,47 @@
   margin-bottom: 8px;
 }
 
-.card-icon-box {
-  width: 30px;
-  height: 30px;
-  border-radius: 8px;
-  background: rgba(30, 215, 96, 0.12);
-  border: 1px solid var(--green-border);
-  color: var(--green-text);
+.bento-icon-box {
+  width: 32px;
+  height: 32px;
+  border-radius: 9px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: var(--accent-color);
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
-.card-tag {
+.bento-badge {
   font-family: var(--font-mono);
-  font-size: 9px;
+  font-size: 8.5px;
   font-weight: 700;
-  color: var(--dim);
-  text-transform: uppercase;
+  color: var(--accent-color);
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 2px 6px;
+  border-radius: var(--radius-full);
+  letter-spacing: 0.3px;
 }
 
-.card-title {
+.bento-title {
   font-family: var(--font-display);
-  font-size: 12.5px;
+  font-size: 13px;
   font-weight: 800;
   color: var(--white);
   margin: 0 0 3px 0;
 }
 
-.card-desc {
+.bento-desc {
   font-size: 10.5px;
-  line-height: 1.35;
+  line-height: 1.4;
   color: var(--silver);
   margin: 0 0 8px 0;
   flex: 1;
 }
 
-.card-footer {
+.bento-footer {
   display: flex;
   align-items: center;
   gap: 4px;
@@ -708,77 +709,87 @@
   color: var(--green-text);
 }
 
-.card-arrow {
+.bento-arrow {
   transition: transform 0.2s ease;
 }
 
-.help-action-card:hover .card-arrow {
+.luxury-bento-card:hover .bento-arrow {
   transform: translateX(3px);
 }
 
-/* Popular Quick FAQs */
-.popular-faqs-section {
+/* Instant Quick FAQs */
+.luxury-faqs-row {
   display: flex;
   flex-direction: column;
   gap: 8px;
   padding-top: 4px;
 }
 
-.faqs-label {
+.faqs-header-row {
+  display: flex;
+  align-items: center;
+  gap: 5px;
   font-family: var(--font-mono);
   font-size: 10px;
   font-weight: 700;
   color: var(--dim);
   text-transform: uppercase;
-  letter-spacing: 0.4px;
 }
 
-.faqs-pill-wrap {
+.faqs-chips-container {
   display: flex;
   flex-wrap: wrap;
   gap: 6px;
 }
 
-.faq-pill-btn {
+.luxury-faq-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
   background: rgba(255, 255, 255, 0.04);
   border: 1px solid rgba(255, 255, 255, 0.08);
   color: #e2e8f0;
   font-size: 11px;
-  padding: 5px 10px;
+  padding: 5px 11px;
   border-radius: var(--radius-full);
   cursor: pointer;
   transition: all 0.2s ease;
 }
 
-.faq-pill-btn:hover {
+.chip-symbol {
+  color: var(--green-text);
+  font-size: 9px;
+}
+
+.luxury-faq-chip:hover {
   background: rgba(30, 215, 96, 0.12);
   border-color: var(--green-border);
   color: var(--green-text);
   transform: translateY(-1px);
 }
 
-/* ─── Chat Conversation Stream ─── */
-.chat-stream-wrap {
+/* ─── Live Chat Stream View ─── */
+.luxury-chat-stream {
   display: flex;
   flex-direction: column;
   gap: 12px;
 }
 
-.chat-message {
+.luxury-chat-bubble {
   display: flex;
   gap: 10px;
   max-width: 90%;
 }
 
-.chat-message.user {
+.luxury-chat-bubble.user {
   align-self: flex-end;
 }
 
-.chat-message.copilot {
+.luxury-chat-bubble.copilot {
   align-self: flex-start;
 }
 
-.msg-avatar {
+.chat-avatar-icon {
   width: 26px;
   height: 26px;
   border-radius: 50%;
@@ -792,25 +803,25 @@
   margin-top: 2px;
 }
 
-.msg-content {
+.chat-bubble-card {
   background: rgba(255, 255, 255, 0.04);
   border: 1px solid rgba(255, 255, 255, 0.08);
   border-radius: 14px;
   padding: 10px 14px;
 }
 
-.chat-message.user .msg-content {
+.luxury-chat-bubble.user .chat-bubble-card {
   background: rgba(30, 215, 96, 0.18);
   border-color: var(--green-border);
   color: var(--white);
   border-bottom-right-radius: 2px;
 }
 
-.chat-message.copilot .msg-content {
+.luxury-chat-bubble.copilot .chat-bubble-card {
   border-bottom-left-radius: 2px;
 }
 
-.msg-content p {
+.chat-bubble-card p {
   font-size: 12px;
   line-height: 1.55;
   color: #f1f5f9;
@@ -818,8 +829,8 @@
   white-space: pre-line;
 }
 
-.msg-jump-btn,
-.msg-ext-btn {
+.chat-jump-btn,
+.chat-ext-btn {
   display: inline-flex;
   align-items: center;
   gap: 5px;
@@ -837,20 +848,20 @@
   transition: all 0.2s ease;
 }
 
-.msg-jump-btn:hover,
-.msg-ext-btn:hover {
+.chat-jump-btn:hover,
+.chat-ext-btn:hover {
   background: var(--green);
   color: #031f0d;
 }
 
-.suggested-chips-row {
+.chat-suggested-row {
   display: flex;
   flex-wrap: wrap;
   gap: 5px;
   margin-top: 8px;
 }
 
-.suggested-chip-btn {
+.chat-suggested-btn {
   background: rgba(255, 255, 255, 0.04);
   border: 1px solid rgba(255, 255, 255, 0.08);
   color: var(--silver);
@@ -862,14 +873,14 @@
   transition: all 0.2s ease;
 }
 
-.suggested-chip-btn:hover {
+.chat-suggested-btn:hover {
   background: var(--green);
   border-color: var(--green);
   color: #031f0d;
 }
 
 /* Neural thinking box */
-.chat-message.thinking .thinking-box {
+.luxury-chat-bubble.thinking .thinking-card {
   display: flex;
   align-items: center;
   gap: 6px;
@@ -878,7 +889,7 @@
   padding: 8px 12px;
 }
 
-.thinking-dot {
+.thinking-pulse-dot {
   width: 6px;
   height: 6px;
   border-radius: 50%;
@@ -886,32 +897,23 @@
   animation: pulseDot 1s ease-in-out infinite alternate;
 }
 
-.thinking-label {
+.thinking-status-text {
   font-family: var(--font-mono);
   font-size: 10.5px;
   color: var(--green-text);
 }
 
-.spin-slow {
-  animation: spinClockwise 3s linear infinite;
-}
-
-@keyframes spinClockwise {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
-}
-
-/* ─── 3. Minimal Modern Input Bar ─── */
-.copilot-min-input-bar {
+/* ─── 4. Ultra-Clean Input Console ─── */
+.copilot-luxury-input-bar {
   display: flex;
   align-items: center;
   gap: 8px;
   padding: 12px 18px;
-  background: rgba(18, 20, 26, 0.95);
+  background: rgba(18, 21, 28, 0.96);
   border-top: 1px solid rgba(255, 255, 255, 0.08);
 }
 
-.reset-hub-btn {
+.menu-reset-btn {
   display: inline-flex;
   align-items: center;
   gap: 4px;
@@ -928,12 +930,12 @@
   white-space: nowrap;
 }
 
-.reset-hub-btn:hover {
+.menu-reset-btn:hover {
   background: rgba(255, 255, 255, 0.15);
   color: var(--white);
 }
 
-.min-input-field {
+.luxury-input-field {
   flex: 1;
   background: rgba(0, 0, 0, 0.45);
   border: 1px solid rgba(255, 255, 255, 0.12);
@@ -945,12 +947,12 @@
   transition: all 0.2s ease;
 }
 
-.min-input-field:focus {
+.luxury-input-field:focus {
   border-color: var(--green);
   box-shadow: 0 0 12px rgba(30, 215, 96, 0.25);
 }
 
-.min-send-btn {
+.luxury-send-btn {
   width: 36px;
   height: 36px;
   border-radius: 12px;
@@ -965,18 +967,18 @@
   flex-shrink: 0;
 }
 
-.min-send-btn:hover:not(:disabled) {
+.luxury-send-btn:hover:not(:disabled) {
   transform: scale(1.08);
   box-shadow: 0 0 12px var(--green);
 }
 
-.min-send-btn:disabled {
+.luxury-send-btn:disabled {
   opacity: 0.35;
   cursor: not-allowed;
 }
 
-/* ─── 4. Minimal Compact Footer ─── */
-.copilot-min-footer {
+/* ─── 5. Luxury Compact Footer ─── */
+.copilot-luxury-footer {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -985,15 +987,20 @@
   border-top: 1px solid rgba(255, 255, 255, 0.06);
 }
 
-.footer-links {
+.footer-quick-links {
   display: flex;
   align-items: center;
-  gap: 6px;
+  gap: 8px;
   font-size: 10.5px;
+}
+
+.footer-label {
+  font-family: var(--font-mono);
+  font-size: 9.5px;
   color: var(--dim);
 }
 
-.footer-links button {
+.footer-quick-links button {
   background: transparent;
   border: none;
   color: var(--silver);
@@ -1004,11 +1011,11 @@
   transition: color 0.2s ease;
 }
 
-.footer-links button:hover {
+.footer-quick-links button:hover {
   color: var(--green-text);
 }
 
-.footer-book-btn {
+.luxury-calendly-btn {
   display: inline-flex;
   align-items: center;
   gap: 5px;
@@ -1024,7 +1031,7 @@
   transition: all 0.2s ease;
 }
 
-.footer-book-btn:hover {
+.luxury-calendly-btn:hover {
   background: var(--green);
   color: #031f0d;
 }
@@ -1048,20 +1055,24 @@
     height: 54px;
   }
 
-  .copilot-modal-minimal {
+  .copilot-modal-luxury {
     max-height: 92vh;
     border-radius: 16px;
   }
 
-  .help-cards-grid {
+  .luxury-bento-grid {
     grid-template-columns: 1fr;
   }
 
-  .header-music-pill {
+  .header-hologram-music {
     display: none;
   }
 
-  .footer-links {
+  .copilot-telemetry-hud {
+    display: none;
+  }
+
+  .footer-quick-links {
     display: none;
   }
 }

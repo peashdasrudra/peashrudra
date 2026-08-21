@@ -35,8 +35,6 @@ export function MusicProvider({ children }) {
   const [isReady, setIsReady] = useState(false);
   const [isMuted, setIsMuted] = useState(false);
   const [volume, setVolumeState] = useState(65);
-  const [showVolumePopup, setShowVolumePopup] = useState(false);
-  const [hasShownPopupOnce, setHasShownPopupOnce] = useState(false);
   const playerRef = useRef(null);
 
   // Load YouTube IFrame API script once
@@ -83,7 +81,6 @@ export function MusicProvider({ children }) {
             },
             onError: (e) => {
               console.warn("YouTube Player error, trying next track", e);
-              // If video error (101 or 150 embedding blocked), try next track
               setCurrentTrackIndex((prev) => (prev + 1) % PLAYLIST.length);
             }
           },
@@ -115,37 +112,15 @@ export function MusicProvider({ children }) {
     }
   }, [currentTrackIndex, isReady]);
 
-  // ─── 3-Second Music Playing Quick Action Popup Rule ───
-  useEffect(() => {
-    let timer;
-    if (isPlaying && !hasShownPopupOnce) {
-      timer = setTimeout(() => {
-        setShowVolumePopup(true);
-        setHasShownPopupOnce(true);
-      }, 3000);
+  // Start Playing specifically when triggered (e.g. Copilot Click)
+  const startMusic = () => {
+    if (playerRef.current && isReady && playerRef.current.playVideo) {
+      playerRef.current.playVideo();
+      setIsPlaying(true);
+    } else {
+      setIsPlaying(true);
     }
-    return () => clearTimeout(timer);
-  }, [isPlaying, hasShownPopupOnce]);
-
-  // First User Interaction Autoplay Trigger (Complies with Browser Autoplay Policy)
-  useEffect(() => {
-    const handleFirstInteraction = () => {
-      if (playerRef.current && isReady && playerRef.current.playVideo) {
-        playerRef.current.playVideo();
-        setIsPlaying(true);
-      }
-      window.removeEventListener("click", handleFirstInteraction);
-      window.removeEventListener("touchstart", handleFirstInteraction);
-    };
-
-    window.addEventListener("click", handleFirstInteraction, { once: true });
-    window.addEventListener("touchstart", handleFirstInteraction, { once: true });
-
-    return () => {
-      window.removeEventListener("click", handleFirstInteraction);
-      window.removeEventListener("touchstart", handleFirstInteraction);
-    };
-  }, [isReady]);
+  };
 
   // Play / Pause Toggle
   const togglePlay = () => {
@@ -181,12 +156,6 @@ export function MusicProvider({ children }) {
     }
   };
 
-  // Volume Down Action (e.g. Lower to 25%)
-  const handleVolumeDown = () => {
-    setVolume(25);
-    setShowVolumePopup(false);
-  };
-
   // Mute / Unmute
   const toggleMute = () => {
     if (!playerRef.current || !isReady) return;
@@ -208,16 +177,14 @@ export function MusicProvider({ children }) {
         currentTrackIndex,
         isPlaying,
         isReady,
+        startMusic,
         togglePlay,
         nextTrack,
         prevTrack,
         volume,
         setVolume,
-        handleVolumeDown,
         isMuted,
         setIsMuted: toggleMute,
-        showVolumePopup,
-        setShowVolumePopup,
         playlist: PLAYLIST,
       }}
     >
