@@ -8,7 +8,7 @@
 export const LINKS = {
   // ─── 1. CORE BOOKING & RESUME ───
   calendly: "https://calendly.com/pdrpeash/30min",
-  resumePdf: "https://drive.google.com/file/d/1TE_kF9RsfHjgstnWgpoGGFIBkE5usESq/view?usp=sharing",
+  resumePdf: "https://www.linkedin.com/in/peashdasrudra/",
 
   // ─── 2. CONTACT & SOCIAL PROFILES ───
   email: "peashrudraa@gmail.com",
