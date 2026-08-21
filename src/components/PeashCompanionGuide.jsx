@@ -4,7 +4,7 @@ import {
   Volume2, VolumeX, Sparkles, X, MessageSquare, Bot, 
   Send, Compass, Zap, Award, Calendar, CheckCircle2, 
   ChevronRight, ArrowRight, Play, Pause, SkipForward, Disc3, ExternalLink,
-  Copy, Check, HelpCircle, ArrowUpRight, ShieldCheck, Clock, Flame, Terminal, Cpu, Square
+  Copy, Check, HelpCircle, ArrowUpRight, ShieldCheck, Clock, Flame, Terminal, Cpu, Square, Eye, EyeOff
 } from "lucide-react";
 import { PROFILE } from "../data/portfolio";
 import { useIsMobile } from "../hooks/useIsMobile";
@@ -65,39 +65,39 @@ const SECTION_MESSAGES = {
   },
 };
 
-// 4 Luxury Quick Help Bento Cards
-const LUXURY_HELP_CARDS = [
+// 4 Primary Mobile-Friendly Help Cards
+const NATIVE_HELP_CARDS = [
   {
     icon: Compass,
     title: "Production Case Studies",
-    badge: "3-in-1 ARCHITECTURE",
-    desc: "Autonomous LangGraph agents, CRM data pipelines & 45% operational bandwidth savings.",
+    badge: "LANGGRAPH AGENTS",
+    desc: "3-in-1 real case studies, pgvector RAG & 45% bandwidth savings",
     query: "Explain the 3-in-1 production case studies and LangGraph multi-agent architecture.",
     color: "#38bdf8",
   },
   {
     icon: Award,
-    title: "Certified Credentials",
-    badge: "TRIPLE HUBSPOT",
-    desc: "HubSpot RevOps, Marketing Hub, IBM AI & Microsoft authenticated certifications.",
+    title: "Triple HubSpot Certifications",
+    badge: "VERIFIED REVOPS",
+    desc: "HubSpot RevOps, Marketing Hub, IBM AI & Microsoft certified",
     query: "What certifications does Peash hold and what is his track record in RevOps?",
     color: "#1ed760",
   },
   {
     icon: Calendar,
-    title: "Rates & Hiring",
+    title: "Rates & Hiring Info",
     badge: "$45–$65 / HR",
-    desc: "Contract & freelance availability with direct 30-minute discovery call booking.",
+    desc: "Contract & freelance availability with 30-minute discovery booking",
     query: "What are his hourly/contract rates and freelance availability?",
     color: "#f59e0b",
   },
   {
     icon: Zap,
-    title: "Day-1 Production Fit",
+    title: "Day-1 Production Readiness",
     badge: "ZERO RAMP-UP",
-    desc: "Pre-built modular automation harnesses ready to deploy into live environments on day 1.",
+    desc: "Pre-built modular harnesses ready for immediate live deployment",
     query: "Can you ship Day-1 with zero ramp-up and pre-built modular harnesses?",
-    color: "#ec4899",
+    color: "#ef4444",
   },
 ];
 
@@ -156,14 +156,11 @@ function stopSpeechText() {
 }
 
 /* ═══════════════════════════════════════════════════════════════
-   PREMIUM SPIDER-MAN CYBER ICON
+   AUTHENTIC SPIDER-MAN CYBER ICON
    ═══════════════════════════════════════════════════════════════ */
 function SpiderManCyberIcon({ isSpeaking, isSinging }) {
   return (
     <div className={`spiderman-icon-wrap ${isSpeaking ? "speaking" : ""} ${isSinging ? "singing" : ""}`}>
-      <div className="agent-orbit-ring ring-1 spiderman-ring" />
-      <div className="agent-orbit-ring ring-2 spiderman-ring-2" />
-      
       <div className="spiderman-mask-core">
         <svg viewBox="0 0 100 100" className="spiderman-mask-svg" xmlns="http://www.w3.org/2000/svg">
           <defs>
@@ -181,6 +178,7 @@ function SpiderManCyberIcon({ isSpeaking, isSinging }) {
             </filter>
           </defs>
 
+          {/* Mask Base */}
           <path
             d="M50 8 C26 8, 12 28, 14 56 C16 76, 36 94, 50 96 C64 94, 84 76, 86 56 C88 28, 74 8, 50 8 Z"
             fill="url(#spideyMaskGrad)"
@@ -188,25 +186,26 @@ function SpiderManCyberIcon({ isSpeaking, isSinging }) {
             strokeWidth="2.5"
           />
 
-          <path d="M50 8 L50 96" stroke="rgba(10, 10, 14, 0.65)" strokeWidth="1.2" />
-          <path d="M50 48 L14 56" stroke="rgba(10, 10, 14, 0.65)" strokeWidth="1.2" />
-          <path d="M50 48 L86 56" stroke="rgba(10, 10, 14, 0.65)" strokeWidth="1.2" />
-          <path d="M50 48 L22 24" stroke="rgba(10, 10, 14, 0.65)" strokeWidth="1.2" />
-          <path d="M50 48 L78 24" stroke="rgba(10, 10, 14, 0.65)" strokeWidth="1.2" />
-          <path d="M50 48 L28 84" stroke="rgba(10, 10, 14, 0.65)" strokeWidth="1.2" />
-          <path d="M50 48 L72 84" stroke="rgba(10, 10, 14, 0.65)" strokeWidth="1.2" />
+          {/* Web Strands across Face */}
+          <path d="M50 8 L50 96" stroke="rgba(10, 10, 14, 0.7)" strokeWidth="1.3" />
+          <path d="M50 48 L14 56" stroke="rgba(10, 10, 14, 0.7)" strokeWidth="1.3" />
+          <path d="M50 48 L86 56" stroke="rgba(10, 10, 14, 0.7)" strokeWidth="1.3" />
+          <path d="M50 48 L22 24" stroke="rgba(10, 10, 14, 0.7)" strokeWidth="1.3" />
+          <path d="M50 48 L78 24" stroke="rgba(10, 10, 14, 0.7)" strokeWidth="1.3" />
+          <path d="M50 48 L28 84" stroke="rgba(10, 10, 14, 0.7)" strokeWidth="1.3" />
+          <path d="M50 48 L72 84" stroke="rgba(10, 10, 14, 0.7)" strokeWidth="1.3" />
 
-          <path d="M36 28 Q50 34 64 28" fill="none" stroke="rgba(10, 10, 14, 0.65)" strokeWidth="1.2" />
-          <path d="M26 44 Q50 54 74 44" fill="none" stroke="rgba(10, 10, 14, 0.65)" strokeWidth="1.2" />
-          <path d="M28 66 Q50 78 72 66" fill="none" stroke="rgba(10, 10, 14, 0.65)" strokeWidth="1.2" />
+          {/* Concentric Web Rings */}
+          <path d="M36 28 Q50 34 64 28" fill="none" stroke="rgba(10, 10, 14, 0.7)" strokeWidth="1.3" />
+          <path d="M26 44 Q50 54 74 44" fill="none" stroke="rgba(10, 10, 14, 0.7)" strokeWidth="1.3" />
+          <path d="M28 66 Q50 78 72 66" fill="none" stroke="rgba(10, 10, 14, 0.7)" strokeWidth="1.3" />
 
+          {/* Eyes with Cyber Blue Glow */}
           <path d="M44 40 Q22 42, 22 56 Q30 68, 44 64 Q46 52, 44 40 Z" fill="#09090b" />
           <path d="M42 43 Q25 45, 25 55 Q32 65, 42 62 Q44 52, 42 43 Z" fill="url(#spideyEyeGrad)" filter="url(#spideyEyeGlow)" />
           <path d="M56 40 Q78 42, 78 56 Q70 68, 56 64 Q54 52, 56 40 Z" fill="#09090b" />
           <path d="M58 43 Q75 45, 75 55 Q68 65, 58 62 Q56 52, 58 43 Z" fill="url(#spideyEyeGrad)" filter="url(#spideyEyeGlow)" />
         </svg>
-
-        <span className="spidey-core-glow" />
 
         {isSinging && (
           <div className="spidey-singing-notes">
@@ -216,17 +215,12 @@ function SpiderManCyberIcon({ isSpeaking, isSinging }) {
           </div>
         )}
       </div>
-
-      <div className="agent-corner tl" />
-      <div className="agent-corner tr" />
-      <div className="agent-corner bl" />
-      <div className="agent-corner br" />
     </div>
   );
 }
 
 /* ═══════════════════════════════════════════════════════════════
-   MAIN JAW-DROPPING PEASH AI COPILOT
+   MAIN MOBILE-NATIVE SPIDER-MAN COPILOT
    ═══════════════════════════════════════════════════════════════ */
 export default function PeashCompanionGuide() {
   const isMobile = useIsMobile();
@@ -236,8 +230,6 @@ export default function PeashCompanionGuide() {
     startMusic,
     togglePlay: toggleMusic, 
     nextTrack: nextMusicTrack, 
-    volume: musicVolume,
-    setVolume: setMusicVolume,
   } = useMusic();
   
   const [activeSection, setActiveSection] = useState("hero");
@@ -247,7 +239,8 @@ export default function PeashCompanionGuide() {
   const [isNeonHighlighted, setIsNeonHighlighted] = useState(false);
   const [customPrompt, setCustomPrompt] = useState(null);
   
-  // Interactive Web Shot State
+  // Spider-Man Web Shooters Toggle (Can be turned ON/OFF anytime by user)
+  const [isWebShooterEnabled, setIsWebShooterEnabled] = useState(true);
   const [triggerWebShot, setTriggerWebShot] = useState(null);
 
   // Voice Listening State (Disabled by Default, 1-Click to Play)
@@ -264,13 +257,12 @@ export default function PeashCompanionGuide() {
   useEffect(() => {
     const introTimer = setTimeout(() => {
       setCustomPrompt({
-        tag: "AI ASSISTANT",
-        text: "Hey! I'm Peash's AI Copilot. Click me to explore architecture, credentials & play soundtrack!",
+        tag: "AI COPILOT",
+        text: "Hey! I'm Peash's Spider-Man AI Copilot. Tap to explore architecture & play soundtrack!",
       });
       setIsOpen(true);
       playTechBlip(isMuted);
 
-      // Auto close after 5 seconds and keep neon blinking
       const autoClose = setTimeout(() => {
         setIsOpen(false);
         setIsNeonHighlighted(true);
@@ -326,7 +318,7 @@ export default function PeashCompanionGuide() {
     }
   }, [isCopilotOpen]);
 
-  // Handle Opening Copilot & Starting Song (Bulletproof on Mobile & Desktop)
+  // Handle Opening Copilot & Starting Song (Native Instant Tap)
   const handleOpenCopilot = (e) => {
     if (e && e.stopPropagation) e.stopPropagation();
     setIsCopilotOpen(true);
@@ -343,15 +335,15 @@ export default function PeashCompanionGuide() {
       }
     } catch (err) {}
 
-    // Trigger celebratory web shot
-    setTriggerWebShot({ x: 200, y: 150, ts: Date.now() });
+    if (isWebShooterEnabled) {
+      setTriggerWebShot({ x: 200, y: 150, ts: Date.now() });
+    }
   };
 
   const handleAskQuestion = async (userQuery) => {
     if (!userQuery.trim()) return;
     const qText = userQuery.trim();
 
-    // 1. Add User Message
     const userMsg = { sender: "user", text: qText };
     setChatMessages((prev) => [...prev, userMsg]);
     setInputQuery("");
@@ -359,14 +351,14 @@ export default function PeashCompanionGuide() {
     setThinkingStep("Accessing Peash's RevOps & AI Knowledge Base...");
     playTechBlip(isMuted, 620);
 
-    // Trigger web-shot at chat input location
-    setTriggerWebShot({ x: 180 + Math.random() * 200, y: 350, ts: Date.now() });
+    if (isWebShooterEnabled) {
+      setTriggerWebShot({ x: 180 + Math.random() * 150, y: 320, ts: Date.now() });
+    }
 
     setTimeout(() => {
       setThinkingStep("Synthesizing Architecture & Production Credentials...");
     }, 300);
 
-    // 2. Intelligent AI Answer via OpenAI / Neural Reasoning Engine
     try {
       const response = await answerPeashQuestionAsync(qText, chatMessages);
       const copilotMsg = {
@@ -409,7 +401,8 @@ export default function PeashCompanionGuide() {
 
   return (
     <>
-      <div className={`peash-companion-root ${isMobile ? "mobile-mode" : "desktop-dock"}`}>
+      {/* ─── FLOATING SPIDER-MAN BOT TRIGGER (HIGH TOUCH TARGET ON MOBILE) ─── */}
+      <div className={`peash-companion-root ${isMobile ? "mobile-native-dock" : "desktop-dock"}`}>
         <AnimatePresence>
           {isOpen && !isCopilotOpen && (
             <motion.div
@@ -417,35 +410,27 @@ export default function PeashCompanionGuide() {
               initial={{ opacity: 0, y: 15, scale: 0.92 }}
               animate={{ opacity: 1, y: 0, scale: 1 }}
               exit={{ opacity: 0, y: 15, scale: 0.92 }}
-              transition={{ duration: 0.25, ease: [0.16, 1, 0.3, 1] }}
+              transition={{ duration: 0.22, ease: [0.16, 1, 0.3, 1] }}
               onClick={handleOpenCopilot}
               onTouchEnd={handleOpenCopilot}
-              onPointerUp={handleOpenCopilot}
               style={{ cursor: "pointer", pointerEvents: "auto", touchAction: "manipulation" }}
             >
               {/* Balloon Header */}
               <div className="speech-balloon-header">
                 <div className="speech-tag">
-                  <Sparkles size={11} className="text-green" />
+                  <Sparkles size={12} className="text-green" />
                   <span>{currentMsg.tag}</span>
                 </div>
                 <div className="speech-actions" onClick={(e) => e.stopPropagation()} onTouchEnd={(e) => e.stopPropagation()}>
-                  <button
-                    className="speech-icon-btn"
-                    onClick={() => setIsMuted(!isMuted)}
-                    title={isMuted ? "Unmute Sounds" : "Mute Sounds"}
-                  >
-                    {isMuted ? <VolumeX size={12} /> : <Volume2 size={12} />}
-                  </button>
                   <button
                     className="speech-icon-btn"
                     onClick={() => {
                       setIsOpen(false);
                       setIsNeonHighlighted(true);
                     }}
-                    title="Minimize Guide"
+                    title="Close"
                   >
-                    <X size={12} />
+                    <X size={13} />
                   </button>
                 </div>
               </div>
@@ -455,7 +440,7 @@ export default function PeashCompanionGuide() {
 
               {/* Tap to Chat Cue */}
               <div className="speech-balloon-footer">
-                <span>✦ Click to Open Copilot & Play Soundtrack</span>
+                <span>✦ Tap to Open Copilot & Play Music</span>
               </div>
 
               <div className="speech-balloon-tail" />
@@ -463,18 +448,17 @@ export default function PeashCompanionGuide() {
           )}
         </AnimatePresence>
 
-        {/* Interactive Spider-Man Cyber Agent Icon Capsule */}
+        {/* Spider-Man Cyber Agent Floating Capsule */}
         <motion.div
           className={`peash-avatar-capsule ${isNeonHighlighted ? "neon-active" : ""} ${isMusicPlaying ? "singing-active" : ""}`}
           onClick={handleOpenCopilot}
           onTouchEnd={handleOpenCopilot}
-          onPointerUp={handleOpenCopilot}
-          whileHover={{ scale: 1.12 }}
-          whileTap={{ scale: 0.92 }}
+          whileHover={{ scale: 1.08 }}
+          whileTap={{ scale: 0.94 }}
           role="button"
           tabIndex={0}
           style={{ cursor: "pointer", pointerEvents: "auto", touchAction: "manipulation" }}
-          title={isMusicPlaying ? "Spider-Man AI Copilot — Singing to Soundtrack! (Click to Chat)" : "Peash AI Copilot — Click to Explore & Play Music"}
+          title={isMusicPlaying ? "Spider-Man AI Copilot — Singing to Soundtrack! (Tap to Chat)" : "Peash AI Copilot — Tap to Explore & Play Music"}
         >
           <div className="peash-avatar-inner" style={{ pointerEvents: "none" }}>
             <SpiderManCyberIcon isSpeaking={speakingMsgIndex !== null} isSinging={isMusicPlaying} />
@@ -488,7 +472,7 @@ export default function PeashCompanionGuide() {
         </motion.div>
       </div>
 
-      {/* ─── ABSOLUTE TOP-CLASS CYBER COMMAND COPILOT MODAL WITH SPIDER-MAN SIMULATION ─── */}
+      {/* ─── NATIVE MOBILE-FIRST SPIDER-MAN COPILOT MODAL ─── */}
       <AnimatePresence>
         {isCopilotOpen && (
           <motion.div 
@@ -499,154 +483,159 @@ export default function PeashCompanionGuide() {
             onClick={() => setIsCopilotOpen(false)}
           >
             <motion.div 
-              className="copilot-modal-luxury"
-              initial={{ opacity: 0, scale: 0.95, y: 16 }}
-              animate={{ opacity: 1, scale: 1, y: 0 }}
-              exit={{ opacity: 0, scale: 0.95, y: 16 }}
-              transition={{ duration: 0.22, ease: [0.16, 1, 0.3, 1] }}
+              className="copilot-modal-spiderman"
+              initial={isMobile ? { y: "100%" } : { opacity: 0, scale: 0.95, y: 16 }}
+              animate={isMobile ? { y: 0 } : { opacity: 1, scale: 1, y: 0 }}
+              exit={isMobile ? { y: "100%" } : { opacity: 0, scale: 0.95, y: 16 }}
+              transition={{ duration: 0.28, ease: [0.16, 1, 0.3, 1] }}
               onClick={(e) => e.stopPropagation()}
             >
-              {/* Spider-Man Web-Shooting Interactive Background Simulation */}
-              <SpiderManWebScene triggerWebShot={triggerWebShot} />
+              {/* Optional Spider-Man Web Scene Simulation */}
+              {isWebShooterEnabled && <SpiderManWebScene triggerWebShot={triggerWebShot} />}
 
-              {/* ─── 1. CYBER COMMAND HEADER (WITH MOBILE-READY MINI MUSIC PLAYER) ─── */}
-              <div className="copilot-luxury-header">
+              {/* Native Mobile Sheet Drag Handle */}
+              {isMobile && <div className="mobile-sheet-drag-handle" />}
+
+              {/* ─── 1. TOP HEADER (BRAND, SOUNDTRACK, WEB TOGGLE & CLOSE) ─── */}
+              <div className="copilot-spider-header">
                 <div className="header-brand-wrap">
-                  <div className="header-avatar-box">
+                  <div className="spiderman-badge-icon">
                     <SpiderManCyberIcon isSpeaking={speakingMsgIndex !== null} isSinging={isMusicPlaying} />
                   </div>
-                  <div className="header-brand-text">
-                    <div className="header-name-row">
+                  <div className="header-title-meta">
+                    <div className="title-row">
                       <h4>Peash AI Copilot</h4>
-                      <span className="header-status-badge">
-                        <span className="status-live-dot" /> ACTIVE NEURAL v3.5
-                      </span>
+                      <span className="spider-badge">SPIDER-BOT</span>
                     </div>
-                    <span className="header-sub">RevOps & Autonomous Agent Console</span>
+                    <span className="subtitle">RevOps & AI Agent Architect</span>
                   </div>
                 </div>
 
-                {/* Always-Visible Mini Music Player (Optimized for Mobile & Desktop) */}
+                {/* Mobile & Desktop Mini Music Player */}
                 {currentTrack && (
-                  <div className={`header-hologram-music ${isMusicPlaying ? "active-sound" : ""}`}>
-                    <div className={`holo-disc ${isMusicPlaying ? "spinning" : ""}`}>
+                  <div className={`spider-mini-music ${isMusicPlaying ? "playing" : ""}`}>
+                    <div className={`music-disc ${isMusicPlaying ? "spin" : ""}`}>
                       <Disc3 size={13} />
                     </div>
-                    <div className="holo-track-info">
-                      <span className="holo-title">{currentTrack.title}</span>
-                      <div className="holo-eq-bars">
-                        <span className={`bar ${isMusicPlaying ? "pulse" : ""}`} />
-                        <span className={`bar ${isMusicPlaying ? "pulse" : ""}`} />
-                        <span className={`bar ${isMusicPlaying ? "pulse" : ""}`} />
-                      </div>
-                    </div>
+                    <span className="music-name">{currentTrack.title}</span>
                     <button 
-                      className="holo-btn play-toggle"
+                      className="music-ctrl-btn"
                       onClick={toggleMusic}
-                      title={isMusicPlaying ? "Pause Track" : "Play Track"}
+                      title={isMusicPlaying ? "Pause" : "Play"}
                     >
                       {isMusicPlaying ? <Pause size={12} /> : <Play size={12} />}
                     </button>
                     <button 
-                      className="holo-btn skip"
+                      className="music-ctrl-btn"
                       onClick={nextMusicTrack}
-                      title="Next Track"
+                      title="Next Song"
                     >
                       <SkipForward size={12} />
                     </button>
                   </div>
                 )}
 
-                <div className="header-controls">
-                  <button 
-                    className="header-ctrl-btn close-btn"
-                    onClick={() => setIsCopilotOpen(false)}
-                    title="Close Console (Esc)"
+                <div className="header-action-btns">
+                  {/* Web Shooters Toggle Button */}
+                  <button
+                    className={`spider-web-toggle-btn ${isWebShooterEnabled ? "active" : ""}`}
+                    onClick={() => setIsWebShooterEnabled(!isWebShooterEnabled)}
+                    title={isWebShooterEnabled ? "Web Shooters: ON (Click to turn OFF)" : "Web Shooters: OFF (Click to turn ON)"}
                   >
-                    <X size={15} />
+                    <span>🕸️</span>
+                    <span className="web-toggle-label">{isWebShooterEnabled ? "Webs: ON" : "Webs: OFF"}</span>
+                  </button>
+
+                  <button 
+                    className="spider-close-btn"
+                    onClick={() => setIsCopilotOpen(false)}
+                    title="Close"
+                  >
+                    <X size={18} />
                   </button>
                 </div>
               </div>
 
-              {/* ─── 2. LIVE CREDENTIAL TELEMETRY HUD ─── */}
-              <div className="copilot-telemetry-hud">
-                <div className="telemetry-item">
-                  <span className="telemetry-dot green" />
+              {/* ─── 2. LIVE CREDENTIAL STATUS BAR ─── */}
+              <div className="spider-telemetry-bar">
+                <div className="status-item">
+                  <span className="status-dot red" />
                   <span><strong>Peash Das Rudra</strong></span>
                 </div>
-                <div className="telemetry-item">
-                  <span className="telemetry-dot blue" />
+                <div className="status-item">
+                  <span className="status-dot green" />
                   <span>Triple HubSpot Certified</span>
                 </div>
-                <div className="telemetry-item">
-                  <span className="telemetry-dot ruby" />
-                  <span>LangGraph Agent Architect</span>
+                <div className="status-item">
+                  <span className="status-dot cyan" />
+                  <span>LangGraph & MCP</span>
                 </div>
-                <div className="telemetry-item">
-                  <span className="telemetry-dot gold" />
-                  <span>20+ Shipped B2B Systems</span>
+                <div className="status-item">
+                  <span className="status-dot yellow" />
+                  <span>$45–$65/hr</span>
                 </div>
               </div>
 
-              {/* ─── 3. SCROLLABLE MAIN CONTENT AREA ─── */}
-              <div className="copilot-luxury-body" ref={chatScrollRef}>
+              {/* ─── 3. SCROLLABLE MAIN CONTENT (SPACIOUS & NATIVE) ─── */}
+              <div className="copilot-scrollable-body" ref={chatScrollRef}>
                 {chatMessages.length === 0 ? (
-                  <div className="luxury-welcome-view">
+                  <div className="spider-welcome-container">
                     {/* Welcome Hero Statement */}
-                    <div className="luxury-welcome-hero">
-                      <div className="welcome-tag">
-                        <Sparkles size={12} className="text-green" />
-                        <span>Autonomous RevOps Knowledge Base</span>
+                    <div className="spider-hero-card">
+                      <div className="hero-top-badge">
+                        <Sparkles size={13} className="text-green" />
+                        <span>Interactive AI Recruiter & Client Guide</span>
                       </div>
-                      <h3>How can I accelerate your evaluation today?</h3>
+                      <h3>How can I help you evaluate Peash today?</h3>
                       <p>
-                        Select a category below or ask anything about Peash's Day-1 production readiness, custom LangGraph agents, or booking availability.
+                        Tap any category below for instant answers on <strong>3-in-1 case studies</strong>, <strong>HubSpot credentials</strong>, or <strong>freelance hiring</strong>.
                       </p>
                     </div>
 
-                    {/* 4 Luxury Bento Action Cards */}
-                    <div className="luxury-bento-grid">
-                      {LUXURY_HELP_CARDS.map((card, idx) => {
+                    {/* 4 Spacious Native Action Cards */}
+                    <div className="spider-cards-grid">
+                      {NATIVE_HELP_CARDS.map((card, idx) => {
                         const CardIcon = card.icon;
                         return (
                           <button
                             key={idx}
-                            className="luxury-bento-card"
+                            className="spider-action-card"
                             onClick={() => handleAskQuestion(card.query)}
-                            style={{ "--accent-color": card.color }}
+                            style={{ "--card-accent": card.color }}
                           >
-                            <div className="bento-card-top">
-                              <div className="bento-icon-box">
-                                <CardIcon size={16} />
+                            <div className="card-header-line">
+                              <div className="card-icon-wrapper">
+                                <CardIcon size={18} />
                               </div>
-                              <span className="bento-badge">{card.badge}</span>
+                              <span className="card-badge-pill">{card.badge}</span>
                             </div>
-                            <h5 className="bento-title">{card.title}</h5>
-                            <p className="bento-desc">{card.desc}</p>
-                            <div className="bento-footer">
-                              <span>Ask Copilot</span>
-                              <ArrowRight size={12} className="bento-arrow" />
+                            <h5 className="card-heading">{card.title}</h5>
+                            <p className="card-description">{card.desc}</p>
+                            <div className="card-action-cue">
+                              <span>Ask Question</span>
+                              <ArrowRight size={14} className="card-arrow-icon" />
                             </div>
                           </button>
                         );
                       })}
                     </div>
 
-                    {/* Instant Clickable FAQ Chips */}
-                    <div className="luxury-faqs-row">
-                      <div className="faqs-header-row">
-                        <HelpCircle size={12} className="text-green" />
-                        <span>Instant Quick Questions:</span>
+                    {/* Popular Clickable FAQs */}
+                    <div className="spider-faqs-box">
+                      <div className="faqs-title-row">
+                        <HelpCircle size={14} className="text-green" />
+                        <span>Frequently Asked Questions:</span>
                       </div>
-                      <div className="faqs-chips-container">
+                      <div className="faqs-list">
                         {POPULAR_FAQS.map((faq, fIdx) => (
                           <button
                             key={fIdx}
-                            className="luxury-faq-chip"
+                            className="spider-faq-item"
                             onClick={() => handleAskQuestion(faq)}
                           >
-                            <span className="chip-symbol">✦</span>
-                            <span>{faq}</span>
+                            <span className="faq-spider-icon">🕸️</span>
+                            <span className="faq-text">{faq}</span>
+                            <ArrowRight size={13} className="faq-arrow" />
                           </button>
                         ))}
                       </div>
@@ -654,34 +643,34 @@ export default function PeashCompanionGuide() {
                   </div>
                 ) : (
                   /* ─── LIVE CHAT STREAM VIEW ─── */
-                  <div className="luxury-chat-stream">
+                  <div className="spider-chat-stream">
                     {chatMessages.map((msg, index) => (
-                      <div key={index} className={`luxury-chat-bubble ${msg.sender}`}>
+                      <div key={index} className={`spider-chat-row ${msg.sender}`}>
                         {msg.sender === "copilot" && (
-                          <div className="chat-avatar-icon">
-                            <Bot size={13} />
+                          <div className="spider-chat-avatar">
+                            <Bot size={15} />
                           </div>
                         )}
-                        <div className="chat-bubble-card">
+                        <div className="spider-message-card">
                           <p>{msg.text}</p>
 
                           {/* Copilot Action Toolbar (1-Click Voice Listen & Jumps) */}
                           {msg.sender === "copilot" && (
-                            <div className="chat-action-toolbar">
+                            <div className="spider-message-toolbar">
                               {/* 1-Click Listen Audio Response Button */}
                               <button
-                                className={`chat-listen-btn ${speakingMsgIndex === index ? "playing" : ""}`}
+                                className={`spider-listen-btn ${speakingMsgIndex === index ? "active" : ""}`}
                                 onClick={() => handleToggleVoice(msg.text, index)}
-                                title={speakingMsgIndex === index ? "Stop Audio" : "Listen to Voice Response"}
+                                title={speakingMsgIndex === index ? "Stop Voice" : "Listen to Voice Response"}
                               >
                                 {speakingMsgIndex === index ? (
                                   <>
-                                    <Square size={11} />
+                                    <Square size={12} />
                                     <span>Stop Voice</span>
                                   </>
                                 ) : (
                                   <>
-                                    <Volume2 size={12} />
+                                    <Volume2 size={13} />
                                     <span>Listen</span>
                                   </>
                                 )}
@@ -690,10 +679,10 @@ export default function PeashCompanionGuide() {
                               {/* Interactive Section Jump */}
                               {msg.section && (
                                 <button 
-                                  className="chat-jump-btn"
+                                  className="spider-jump-btn"
                                   onClick={() => handleTourScroll(msg.section)}
                                 >
-                                  <ArrowRight size={12} />
+                                  <ArrowRight size={13} />
                                   <span>{msg.sectionLabel || "Jump to Section"}</span>
                                 </button>
                               )}
@@ -704,10 +693,10 @@ export default function PeashCompanionGuide() {
                                   href={msg.actionUrl}
                                   target="_blank"
                                   rel="noopener noreferrer"
-                                  className="chat-ext-btn"
+                                  className="spider-ext-link"
                                 >
-                                  <ExternalLink size={12} />
-                                  <span>{msg.actionText || "View Source"}</span>
+                                  <ExternalLink size={13} />
+                                  <span>{msg.actionText || "Open Link"}</span>
                                 </a>
                               )}
                             </div>
@@ -715,14 +704,14 @@ export default function PeashCompanionGuide() {
 
                           {/* Suggested Next Questions */}
                           {msg.suggestedQuestions && msg.suggestedQuestions.length > 0 && (
-                            <div className="chat-suggested-row">
+                            <div className="spider-suggested-wrap">
                               {msg.suggestedQuestions.map((sq, sIdx) => (
                                 <button
                                   key={sIdx}
                                   onClick={() => handleAskQuestion(sq)}
-                                  className="chat-suggested-btn"
+                                  className="spider-suggested-chip"
                                 >
-                                  <span>{sq}</span>
+                                  <span>✦ {sq}</span>
                                 </button>
                               ))}
                             </div>
@@ -734,16 +723,16 @@ export default function PeashCompanionGuide() {
                     {/* Live Neural Reasoning Telemetry */}
                     {isThinking && (
                       <motion.div 
-                        className="luxury-chat-bubble copilot thinking"
+                        className="spider-chat-row copilot thinking"
                         initial={{ opacity: 0, y: 8 }}
                         animate={{ opacity: 1, y: 0 }}
                       >
-                        <div className="chat-avatar-icon thinking">
-                          <Bot size={13} className="spin-slow" />
+                        <div className="spider-chat-avatar thinking">
+                          <Bot size={15} className="spin-slow" />
                         </div>
-                        <div className="chat-bubble-card thinking-card">
-                          <span className="thinking-pulse-dot" />
-                          <span className="thinking-status-text">{thinkingStep}</span>
+                        <div className="spider-message-card thinking-box">
+                          <span className="thinking-neon-dot" />
+                          <span className="thinking-text">{thinkingStep}</span>
                         </div>
                       </motion.div>
                     )}
@@ -751,57 +740,58 @@ export default function PeashCompanionGuide() {
                 )}
               </div>
 
-              {/* ─── 4. ULTRA-CLEAN INPUT CONSOLE ─── */}
-              <div className="copilot-luxury-input-bar">
+              {/* ─── 4. NATIVE INPUT CONSOLE (HIGH-CONTRAST & SPACIOUS) ─── */}
+              <div className="spider-input-console">
                 {chatMessages.length > 0 && (
                   <button 
-                    className="menu-reset-btn"
+                    className="spider-reset-btn"
                     onClick={() => setChatMessages([])}
-                    title="Return to Main Menu"
+                    title="Return to Menu"
                   >
-                    <HelpCircle size={13} />
+                    <HelpCircle size={15} />
                     <span>Menu</span>
                   </button>
                 )}
                 
                 <input
                   type="text"
-                  placeholder="Ask about Peash's stack, rates, HubSpot, or case studies..."
+                  placeholder="Ask anything about Peash's stack, rates, or case studies..."
                   value={inputQuery}
                   onChange={(e) => setInputQuery(e.target.value)}
                   onKeyDown={(e) => {
                     if (e.key === "Enter") handleAskQuestion(inputQuery);
                   }}
-                  className="luxury-input-field"
+                  className="spider-input-box"
                 />
                 
                 <button
-                  className="luxury-send-btn"
+                  className="spider-send-button"
                   onClick={() => handleAskQuestion(inputQuery)}
                   disabled={!inputQuery.trim()}
-                  title="Send Query (Enter)"
+                  title="Send (Enter)"
                 >
-                  <Send size={14} />
+                  <Send size={16} />
                 </button>
               </div>
 
-              {/* ─── 5. LUXURY COMPACT FOOTER ─── */}
-              <div className="copilot-luxury-footer">
-                <div className="footer-quick-links">
-                  <span className="footer-label">Jump:</span>
-                  <button onClick={() => handleTourScroll("projects")}>🚀 Case Studies</button>
+              {/* ─── 5. NATIVE FOOTER WITH DISCOVERY BOOKING ─── */}
+              <div className="spider-footer-bar">
+                <div className="footer-links-group">
+                  <button onClick={() => handleTourScroll("projects")}>🚀 Projects</button>
+                  <span>•</span>
                   <button onClick={() => handleTourScroll("skills")}>⚡ Skills</button>
+                  <span>•</span>
                   <button onClick={() => handleTourScroll("certifications")}>🏆 Certs</button>
                 </div>
                 <a
                   href={PROFILE.calendlyUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="luxury-calendly-btn"
+                  className="spider-calendly-action"
                 >
-                  <Calendar size={12} />
+                  <Calendar size={13} />
                   <span>Book Strategy Call</span>
-                  <ArrowUpRight size={11} />
+                  <ArrowUpRight size={12} />
                 </a>
               </div>
             </motion.div>
