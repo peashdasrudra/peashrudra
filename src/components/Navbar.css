@@ -264,8 +264,8 @@
   }
 
   .navbar {
-    width: 100%;
-    max-width: 100%;
+    width: 85vw !important;
+    max-width: 85vw !important;
     margin: 0;
     height: 44px;
     border-radius: var(--radius-full);
@@ -278,8 +278,8 @@
   }
 
   .mobile-menu {
-    width: 100%;
-    max-width: 100%;
+    width: 85vw !important;
+    max-width: 85vw !important;
     margin: 6px 0 0;
     padding: 6px;
     gap: 2px;
