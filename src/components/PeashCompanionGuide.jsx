@@ -250,7 +250,7 @@ export default function PeashCompanionGuide() {
         {isBalloonVisible && !isOpen && (
           <div className="clean-guide-balloon" onClick={handleOpen}>
             <div className="balloon-top-row">
-              <span className="balloon-pill">✦ AI SALES COPILOT</span>
+              <span className="balloon-pill">✦ PEASH AI COPILOT</span>
               <button 
                 className="balloon-x"
                 onClick={(e) => {
