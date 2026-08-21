@@ -697,7 +697,7 @@ html[data-theme="light"] .hubspot-text-path {
   }
 
   .hero-typed {
-    margin-top: 16px;
+    margin-top: 8px;
     /* Increased to avoid stacked look */
     font-size: 13px;
   }
@@ -751,7 +751,7 @@ html[data-theme="light"] .hubspot-text-path {
     align-items: flex-end;
     flex-wrap: nowrap;
     overflow: visible;
-    margin-left: -4px !important;
+    margin-left: -8px !important;
     /* Don't clip the glowing borders */
     gap: 0;
     width: 100%;
