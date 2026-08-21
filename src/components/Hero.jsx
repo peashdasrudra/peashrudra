@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState, useCallback } from "react";
 import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
-import { ArrowRight, Calendar, ShieldCheck, Crown, BadgeCheck, Zap } from "lucide-react";
+import { ArrowRight, Calendar, ShieldCheck, Crown, BadgeCheck, Zap, FileText } from "lucide-react";
 import { useTypingEffect } from "../hooks/useTypingEffect";
 import { PROFILE, TERMINAL_LINES, HUBSPOT_BADGES } from "../data/portfolio";
 import "./Hero.css";
@@ -343,6 +343,15 @@ export default function Hero() {
               whileTap={{ scale: 0.95 }}
             >
               <ArrowRight size={14} /> <span>See Live Case Studies</span>
+            </motion.a>
+            <motion.a
+              href={PROFILE.resumeUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="btn-outline hero-sec-cta"
+              whileTap={{ scale: 0.95 }}
+            >
+              <FileText size={14} /> <span>View Resume</span>
             </motion.a>
           </motion.div>
 
