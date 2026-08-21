@@ -381,8 +381,11 @@ export default function Hero() {
               const isMiddle = i === 1;
               return (
                 <motion.a 
-                  key={badge.id || `hs-badge-${i}`}
-                  href={`#${badge.id}`}
+                  key={badge.title || `hs-badge-${i}`}
+                  href={badge.badgeUrl || LINKS.hubspot.revOps}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  title={`Verify ${badge.title} on HubSpot Academy`}
                   className={`hero-custom-badge ${isMiddle ? 'badge-featured' : ''}`}
                   variants={item}
                 >
