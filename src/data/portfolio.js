@@ -1,45 +1,45 @@
 // ─── All portfolio content centralized here ───
+import { LINKS } from "./links";
+export { LINKS };
 
 // ─── HUBSPOT BADGES ───
-// Template: copy a badge block from HubSpot Academy and add here.
-// Each entry needs: title, badgeUrl (verification link), imageUrl (badge image)
 export const HUBSPOT_BADGES = [
   {
     title: "HubSpot Marketing Hub Software Certified",
-    badgeUrl: "#",
+    badgeUrl: LINKS.hubspot.marketingHub,
     imageUrl: "#",
   },
   {
     title: "HubSpot Revenue Operations Certified",
-    badgeUrl: "https://app-na2.hubspot.com/academy/achievements/fc5k6d45/en/1/peash-das-rudra/hubspot-revenue-operations-certified",
+    badgeUrl: LINKS.hubspot.revOps,
     imageUrl: "https://hubspot-credentials-na1.s3.amazonaws.com/prod/badges/user/73a67e7711fb43dfbf108ab9050e6f56.png",
   },
   {
     title: "HubSpot Reporting Certified",
-    badgeUrl: "https://app-na2.hubspot.com/academy/achievements/b543gs3k/en/1/peash-das-rudra/hubspot-reporting-certified",
+    badgeUrl: LINKS.hubspot.reporting,
     imageUrl: "https://hubspot-credentials-na1.s3.amazonaws.com/prod/badges/user/f7c4226c1ee44f3cae2cb426ce30ca89.png",
   },
-  // ↓ Add more badges here — just copy the pattern above ↓
 ];
 
 export const PROFILE = {
   name: "Peash Das Rudra",
   title: "RevOps & AI Automation Engineer",
   subtitle: "HubSpot Certified · Agentic RAG Systems (LangGraph, MCP)",
-  email: "peashrudraa@gmail.com",
-  phone: "+880 1533679773",
+  email: LINKS.email,
+  phone: LINKS.phone,
   location: "Khulna, Bangladesh",
   availability: "Open to Freelance & Remote Worldwide",
   tagline: "I build AI systems that run your CRM so your team doesn't have to.",
   description:
     "I architect Agentic AI systems and automated CRM workflows that eliminate manual tasks and scale revenue. As a HubSpot RevOps Certified specialist, I've shipped 20+ production automations for live B2B accounts—turning operational bottlenecks into automated growth engines.",
-  resumeUrl: "https://drive.google.com/file/d/1TE_kF9RsfHjgstnWgpoGGFIBkE5usESq/view?usp=sharing",
-  calendlyUrl: "https://calendly.com/pdrpeash/30min",
+  resumeUrl: LINKS.resumePdf,
+  calendlyUrl: LINKS.calendly,
   languages: ["English", "Italian", "French", "German", "Spanish"],
   social: {
-    linkedin: "https://www.linkedin.com/in/peashdasrudra/",
-    github: "https://github.com/peashdasrudra",
-    fiverr: "https://www.fiverr.com/peash_rudra",
+    linkedin: LINKS.linkedin,
+    github: LINKS.github,
+    fiverr: LINKS.fiverr,
+    twitter: LINKS.twitter,
   },
   roles: [
     "RevOps & AI Automation Engineer",
@@ -306,7 +306,7 @@ export const FIVERR_GIGS = [
     tools: ["n8n", "Twilio", "HubSpot", "CRM Platforms", "APIs", "SMS", "WhatsApp", "Zillow", "Realtor.com"],
     pricing: { basic: "$50", standard: "$150", premium: "$500" },
     tags: ["CRM professional", "CRM automation", "CRM workflows", "Real estate leads"],
-    url: "https://www.fiverr.com/peash_rudra",
+    url: "https://www.fiverr.com/s/ye2jK4G",
   },
   {
     title: "AI Chatbot for Your Website or WhatsApp",
@@ -315,7 +315,7 @@ export const FIVERR_GIGS = [
     tools: ["OpenAI", "GPT", "LLM", "Google Sheets", "CRM Integration", "WhatsApp", "Websites"],
     pricing: { basic: "$45", standard: "$145", premium: "$410" },
     tags: ["Website chatbot", "AI customer support", "WhatsApp chatbot", "AI chatbot setup"],
-    url: "https://www.fiverr.com/peash_rudra",
+    url: "https://www.fiverr.com/s/9d2bVgY",
   },
 ];
 

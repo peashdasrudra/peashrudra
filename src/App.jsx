@@ -21,6 +21,9 @@ import StatusBar from "./components/StatusBar";
 import CommandPalette from "./components/CommandPalette";
 import PeashCompanionGuide from "./components/PeashCompanionGuide";
 import RecruiterConfidence from "./components/RecruiterConfidence";
+import InteractiveCursorGlow from "./components/InteractiveCursorGlow";
+import MiniMusicPlayer from "./components/MiniMusicPlayer";
+import { MusicProvider } from "./context/MusicContext";
 
 function DynamicGlowOrb() {
   const mouseX = useMotionValue(typeof window !== "undefined" ? window.innerWidth / 2 : 0);
@@ -73,7 +76,7 @@ export default function App() {
   };
 
   return (
-    <>
+    <MusicProvider>
       {/* Background effects */}
       <div className="grain" aria-hidden="true" />
       <div className="dotgrid" aria-hidden="true" />
@@ -118,11 +121,14 @@ export default function App() {
         <Footer />
       </main>
 
-      {/* Floating Cartoon Peash Companion Guide */}
+      {/* Floating Spider-Man AI Copilot Guide & Built-in Music Player */}
       <PeashCompanionGuide />
+
+      {/* Magnetic Cursor & Fluid Touch Follower */}
+      <InteractiveCursorGlow />
 
       {/* Status bar */}
       <StatusBar />
-    </>
+    </MusicProvider>
   );
 }

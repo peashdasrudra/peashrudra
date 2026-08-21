@@ -348,6 +348,30 @@ export default function Hero() {
             </motion.a>
           </motion.div>
 
+          {/* Live High-End Telemetry HUD Bar */}
+          <motion.div className="hero-live-telemetry-hud" variants={item}>
+            <div className="telemetry-live-pill">
+              <span className="live-radar-dot" />
+              <span className="live-radar-text">LIVE REVOPS ENGINE</span>
+            </div>
+            <div className="telemetry-stat-item">
+              <span className="telemetry-val">99.2%</span>
+              <span className="telemetry-lbl">Pipeline Uptime</span>
+            </div>
+            <div className="telemetry-divider" />
+            <div className="telemetry-stat-item">
+              <span className="telemetry-val">&lt;60s</span>
+              <span className="telemetry-lbl">Speed-to-Lead</span>
+            </div>
+            <div className="telemetry-divider" />
+            <div className="telemetry-equalizer">
+              <span className="eq-bar bar-1" />
+              <span className="eq-bar bar-2" />
+              <span className="eq-bar bar-3" />
+              <span className="eq-bar bar-4" />
+            </div>
+          </motion.div>
+
         </motion.div>
 
         <div className="hero-right">

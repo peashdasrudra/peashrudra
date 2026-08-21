@@ -19,12 +19,30 @@
   padding: 28px;
   position: relative;
   overflow: hidden;
-  transition: border-color 0.3s ease, transform 0.3s var(--ease-out);
+  transition: border-color 0.3s ease, transform 0.3s var(--ease-out), box-shadow 0.3s ease;
+}
+
+.stat::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -150%;
+  width: 60%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.05), transparent);
+  transform: skewX(-25deg);
+  animation: statSheen 7s ease-in-out infinite;
+}
+
+@keyframes statSheen {
+  0%, 80% { left: -150%; }
+  100% { left: 250%; }
 }
 
 .stat:hover {
-  border-color: var(--border-hover);
-  transform: translateY(-2px);
+  border-color: rgba(30, 215, 96, 0.4);
+  transform: translateY(-4px);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.4), 0 0 20px rgba(30, 215, 96, 0.1);
 }
 
 .stat-big {

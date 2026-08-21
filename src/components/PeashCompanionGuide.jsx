@@ -1,7 +1,15 @@
-import { useState, useEffect, useRef, useCallback } from "react";
+import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Volume2, VolumeX, Sparkles, X, MessageSquare } from "lucide-react";
+import { 
+  Volume2, VolumeX, Sparkles, X, MessageSquare, Bot, 
+  Send, Compass, Zap, Award, Calendar, CheckCircle2, 
+  ChevronRight, CornerDownLeft, ArrowRight, Play, Pause, SkipForward, Disc3, ExternalLink,
+  Calculator, FileText, Copy, Check, Sliders, Cpu, Music, User, Flame, Info, HelpCircle
+} from "lucide-react";
+import { PROFILE } from "../data/portfolio";
 import { useIsMobile } from "../hooks/useIsMobile";
+import { answerPeashQuestion } from "../utils/peashAiEngine";
+import { useMusic } from "../context/MusicContext";
 import "./PeashCompanionGuide.css";
 
 // Section-specific one-liners crafted for maximum recruiter impression
@@ -56,8 +64,48 @@ const SECTION_MESSAGES = {
   },
 };
 
+// Categorized Easily Clickable FAQs for Recruiter & Client Exploration
+const FAQ_CATEGORIES = [
+  {
+    id: "ai",
+    label: "⚡ AI & Agents",
+    questions: [
+      "What autonomous agent frameworks do you use?",
+      "Tell me about your LangGraph & MCP architectures",
+      "Can you ship Day-1 with zero ramp-up?",
+    ],
+  },
+  {
+    id: "creds",
+    label: "🏆 Credentials",
+    questions: [
+      "What certifications does Peash hold?",
+      "Show me his HubSpot & IBM credentials",
+      "What is his track record in RevOps?",
+    ],
+  },
+  {
+    id: "rates",
+    label: "💼 Rates & Hiring",
+    questions: [
+      "What are his hourly/contract rates?",
+      "Is he available for freelance or full-time?",
+      "How to book a discovery call?",
+    ],
+  },
+  {
+    id: "cases",
+    label: "🚀 Case Studies",
+    questions: [
+      "Explain the 3-in-1 production case studies",
+      "How did you save 45% operational bandwidth?",
+      "What CRM systems have you integrated?",
+    ],
+  },
+];
+
 // Web Audio API Sound Generator for gentle futuristic micro-blips
-function playTechBlip(isMuted) {
+function playTechBlip(isMuted, freq = 580) {
   if (isMuted || typeof window === "undefined") return;
   try {
     const AudioContext = window.AudioContext || window.webkitAudioContext;
@@ -67,8 +115,8 @@ function playTechBlip(isMuted) {
     const gain = ctx.createGain();
 
     osc.type = "sine";
-    osc.frequency.setValueAtTime(580, ctx.currentTime);
-    osc.frequency.exponentialRampToValueAtTime(880, ctx.currentTime + 0.08);
+    osc.frequency.setValueAtTime(freq, ctx.currentTime);
+    osc.frequency.exponentialRampToValueAtTime(freq * 1.5, ctx.currentTime + 0.08);
 
     gain.gain.setValueAtTime(0.035, ctx.currentTime);
     gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.08);
@@ -83,144 +131,178 @@ function playTechBlip(isMuted) {
   }
 }
 
+// Browser Speech Synthesis for reading answers aloud
+function speakText(text, isMuted) {
+  if (isMuted || typeof window === "undefined" || !("speechSynthesis" in window)) return;
+  try {
+    window.speechSynthesis.cancel();
+    const cleanText = text.replace(/[*•#]/g, "");
+    const utterance = new SpeechSynthesisUtterance(cleanText);
+    utterance.rate = 1.05;
+    utterance.pitch = 1.0;
+    window.speechSynthesis.speak(utterance);
+  } catch (e) {
+    // Speech synthesis blocked
+  }
+}
+
 /* ═══════════════════════════════════════════════════════════════
-   CUSTOM CARTOON PEASH AVATAR SVG (Centered & Scaled)
-   Modelled directly on the user's photo:
-   - Stylish dark voluminous quiff hair
-   - Defined goatee & mustache
-   - Sharp dark suit blazer with crisp white collared shirt
-   - Expressive animated eyes & confident smile
+   PREMIUM SPIDER-MAN CYBER ICON
+   - Signature Spider-Man mask with web pattern
+   - Angular glowing white eyes with specular glint
+   - Cyber emerald halo & speaking/singing pulse
    ═══════════════════════════════════════════════════════════════ */
-function PeashCartoonAvatarSVG({ isSpeaking, isBlinking }) {
+function SpiderManCyberIcon({ isSpeaking, isSinging }) {
   return (
-    <svg viewBox="0 0 100 100" className="peash-cartoon-svg" aria-label="Peash Cartoon Guide">
-      <defs>
-        {/* Skin Tone Gradient */}
-        <linearGradient id="peashSkin" x1="0%" y1="0%" x2="100%" y2="100%">
-          <stop offset="0%" stopColor="#e4b084" />
-          <stop offset="60%" stopColor="#cf9768" />
-          <stop offset="100%" stopColor="#b87f51" />
-        </linearGradient>
-
-        {/* Voluminous Dark Hair Gradient */}
-        <linearGradient id="peashHair" x1="0%" y1="0%" x2="50%" y2="100%">
-          <stop offset="0%" stopColor="#242832" />
-          <stop offset="50%" stopColor="#111318" />
-          <stop offset="100%" stopColor="#08090b" />
-        </linearGradient>
-
-        {/* Suit Blazer Gradient */}
-        <linearGradient id="peashSuit" x1="0%" y1="0%" x2="100%" y2="100%">
-          <stop offset="0%" stopColor="#1e293b" />
-          <stop offset="100%" stopColor="#0f172a" />
-        </linearGradient>
-
-        {/* Glowing Cyber Emerald Aura */}
-        <filter id="avatarGlow" x="-20%" y="-20%" width="140%" height="140%">
-          <feGaussianBlur stdDeviation="3" result="blur" />
-          <feComposite in="SourceGraphic" in2="blur" operator="over" />
-        </filter>
-      </defs>
-
-      {/* Cyber Halo Ring */}
-      <circle cx="50" cy="50" r="47" fill="none" stroke="#1ed760" strokeWidth="1.5" opacity="0.4" />
-
-      {/* ─── Suit Blazer & Collar ─── */}
-      <path d="M 18,88 L 34,70 L 50,78 L 66,70 L 82,88 C 86,94 88,98 88,100 L 12,100 C 12,98 14,94 18,88 Z" fill="url(#peashSuit)" />
+    <div className={`spiderman-icon-wrap ${isSpeaking ? "speaking" : ""} ${isSinging ? "singing" : ""}`}>
+      {/* Outer Orbit Rings */}
+      <div className="agent-orbit-ring ring-1 spiderman-ring" />
+      <div className="agent-orbit-ring ring-2 spiderman-ring-2" />
       
-      {/* White Shirt Collar */}
-      <polygon points="40,71 50,85 34,79" fill="#ffffff" />
-      <polygon points="60,71 50,85 66,79" fill="#ffffff" />
-      <polygon points="50,79 47,94 53,94" fill="#cbd5e1" />
+      {/* Spider-Man Stylized Mask Vector */}
+      <div className="spiderman-mask-core">
+        <svg viewBox="0 0 100 100" className="spiderman-mask-svg" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <radialGradient id="spideyMaskGrad" cx="50%" cy="40%" r="55%">
+              <stop offset="0%" stopColor="#ef4444" />
+              <stop offset="65%" stopColor="#dc2626" />
+              <stop offset="100%" stopColor="#7f1d1d" />
+            </radialGradient>
+            <linearGradient id="spideyEyeGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stopColor="#ffffff" />
+              <stop offset="100%" stopColor="#e0f2fe" />
+            </linearGradient>
+            <filter id="spideyEyeGlow" x="-20%" y="-20%" width="140%" height="140%">
+              <feDropShadow dx="0" dy="0" stdDeviation="3" floodColor="#38bdf8" floodOpacity="0.8" />
+            </filter>
+          </defs>
 
-      {/* ─── Neck ─── */}
-      <path d="M 43,56 L 57,56 L 57,72 L 43,72 Z" fill="url(#peashSkin)" />
+          {/* Mask Base Head Contour */}
+          <path
+            d="M50 8 C26 8, 12 28, 14 56 C16 76, 36 94, 50 96 C64 94, 84 76, 86 56 C88 28, 74 8, 50 8 Z"
+            fill="url(#spideyMaskGrad)"
+            stroke="#0a0a0e"
+            strokeWidth="2.5"
+          />
 
-      {/* ─── Head Base Shape ─── */}
-      <path
-        d="M 32,38 C 32,26 40,24 50,24 C 60,24 68,26 68,38 C 68,52 64,62 50,66 C 36,62 32,52 32,38 Z"
-        fill="url(#peashSkin)"
-      />
+          {/* Web Lines - Vertical Radiating */}
+          <path d="M50 8 L50 96" stroke="rgba(10, 10, 14, 0.65)" strokeWidth="1.2" />
+          <path d="M50 48 L14 56" stroke="rgba(10, 10, 14, 0.65)" strokeWidth="1.2" />
+          <path d="M50 48 L86 56" stroke="rgba(10, 10, 14, 0.65)" strokeWidth="1.2" />
+          <path d="M50 48 L22 24" stroke="rgba(10, 10, 14, 0.65)" strokeWidth="1.2" />
+          <path d="M50 48 L78 24" stroke="rgba(10, 10, 14, 0.65)" strokeWidth="1.2" />
+          <path d="M50 48 L28 84" stroke="rgba(10, 10, 14, 0.65)" strokeWidth="1.2" />
+          <path d="M50 48 L72 84" stroke="rgba(10, 10, 14, 0.65)" strokeWidth="1.2" />
 
-      {/* Ears */}
-      <path d="M 30,40 C 28,40 28,48 31,48 Z" fill="url(#peashSkin)" />
-      <path d="M 70,40 C 72,40 72,48 69,48 Z" fill="url(#peashSkin)" />
+          {/* Web Lines - Concentric Arcs */}
+          <path d="M36 28 Q50 34 64 28" fill="none" stroke="rgba(10, 10, 14, 0.65)" strokeWidth="1.2" />
+          <path d="M26 44 Q50 54 74 44" fill="none" stroke="rgba(10, 10, 14, 0.65)" strokeWidth="1.2" />
+          <path d="M28 66 Q50 78 72 66" fill="none" stroke="rgba(10, 10, 14, 0.65)" strokeWidth="1.2" />
 
-      {/* ─── Dark Voluminous Quiff Hairstyle ─── */}
-      <path
-        d="M 26,36 C 24,24 26,12 34,7 C 41,3 48,2 54,4 C 63,6 70,8 74,16 C 78,23 75,32 71,38 C 69,32 64,22 51,22 C 38,22 32,29 26,36 Z"
-        fill="url(#peashHair)"
-      />
-      {/* Hair Highlights */}
-      <path d="M 36,11 Q 46,5 55,8 Q 65,11 67,19" stroke="#334155" strokeWidth="1.4" fill="none" strokeLinecap="round" />
-      <path d="M 42,9 Q 50,6 58,10" stroke="#475569" strokeWidth="1.2" fill="none" strokeLinecap="round" />
+          {/* Left Eye Black Outer Border */}
+          <path
+            d="M44 40 Q22 42, 22 56 Q30 68, 44 64 Q46 52, 44 40 Z"
+            fill="#09090b"
+          />
+          {/* Left Eye White Lens */}
+          <path
+            d="M42 43 Q25 45, 25 55 Q32 65, 42 62 Q44 52, 42 43 Z"
+            fill="url(#spideyEyeGrad)"
+            filter="url(#spideyEyeGlow)"
+          />
 
-      {/* Eyebrows */}
-      <path d="M 37,34 Q 42,31 46,34" stroke="#111827" strokeWidth="2" strokeLinecap="round" fill="none" />
-      <path d="M 54,34 Q 58,31 63,34" stroke="#111827" strokeWidth="2" strokeLinecap="round" fill="none" />
+          {/* Right Eye Black Outer Border */}
+          <path
+            d="M56 40 Q78 42, 78 56 Q70 68, 56 64 Q54 52, 56 40 Z"
+            fill="#09090b"
+          />
+          {/* Right Eye White Lens */}
+          <path
+            d="M58 43 Q75 45, 75 55 Q68 65, 58 62 Q56 52, 58 43 Z"
+            fill="url(#spideyEyeGrad)"
+            filter="url(#spideyEyeGlow)"
+          />
+        </svg>
 
-      {/* Eyes */}
-      {isBlinking ? (
-        <>
-          <line x1="38" y1="39" x2="45" y2="39" stroke="#111827" strokeWidth="2" strokeLinecap="round" />
-          <line x1="55" y1="39" x2="62" y2="39" stroke="#111827" strokeWidth="2" strokeLinecap="round" />
-        </>
-      ) : (
-        <>
-          {/* Left Eye */}
-          <circle cx="42" cy="39" r="3.5" fill="#ffffff" />
-          <circle cx="42.5" cy="39" r="2.2" fill="#111827" />
-          <circle cx="43.2" cy="38.2" r="0.9" fill="#ffffff" />
-          
-          {/* Right Eye */}
-          <circle cx="58" cy="39" r="3.5" fill="#ffffff" />
-          <circle cx="57.5" cy="39" r="2.2" fill="#111827" />
-          <circle cx="58.2" cy="38.2" r="0.9" fill="#ffffff" />
-        </>
-      )}
+        <span className="spidey-core-glow" />
 
-      {/* Nose */}
-      <path d="M 49,39 L 51,47 L 48,48" stroke="#9a603a" strokeWidth="1.4" strokeLinecap="round" fill="none" />
+        {/* Floating Musical Notes when singing */}
+        {isSinging && (
+          <div className="spidey-singing-notes">
+            <span className="note-1">♪</span>
+            <span className="note-2">♫</span>
+            <span className="note-3">♩</span>
+          </div>
+        )}
+      </div>
 
-      {/* ─── Mustache & Goatee ─── */}
-      {/* Mustache */}
-      <path d="M 43,52 Q 50,50 57,52 Q 50,54 43,52 Z" fill="#1e2229" />
-
-      {/* Mouth */}
-      {isSpeaking ? (
-        <path d="M 45,55 Q 50,60 55,55 Z" fill="#881337" stroke="#111827" strokeWidth="0.8" />
-      ) : (
-        <path d="M 45,55 Q 50,57 55,55" stroke="#713f12" strokeWidth="1.4" strokeLinecap="round" fill="none" />
-      )}
-
-      {/* Goatee / Chin Patch */}
-      <path d="M 48,59 C 47,63 53,63 52,59 Z" fill="#1e2229" />
-      <path d="M 45,64 C 48,66 52,66 55,64 C 53,62 47,62 45,64 Z" fill="#1e2229" />
-    </svg>
+      {/* Cyber Corner Reticles */}
+      <div className="agent-corner tl" />
+      <div className="agent-corner tr" />
+      <div className="agent-corner bl" />
+      <div className="agent-corner br" />
+    </div>
   );
 }
 
 /* ═══════════════════════════════════════════════════════════════
-   MAIN PEASH COMPANION GUIDE COMPONENT
+   MAIN PEASH COMPANION & FULL INTELLIGENT AI COPILOT
    ═══════════════════════════════════════════════════════════════ */
 export default function PeashCompanionGuide() {
   const isMobile = useIsMobile();
+  const { 
+    currentTrack, 
+    isPlaying: isMusicPlaying, 
+    togglePlay: toggleMusic, 
+    nextTrack: nextMusicTrack, 
+    volume: musicVolume,
+    setVolume: setMusicVolume,
+    isMuted: isMusicMuted, 
+    setIsMuted: toggleMusicMute 
+  } = useMusic();
   const [activeSection, setActiveSection] = useState("hero");
   const [isMuted, setIsMuted] = useState(false);
-  const [isOpen, setIsOpen] = useState(true);
-  const [isBlinking, setIsBlinking] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
+  const [isCopilotOpen, setIsCopilotOpen] = useState(false);
+  const [isNeonHighlighted, setIsNeonHighlighted] = useState(false);
+  const [activeTab, setActiveTab] = useState("chat"); // 'chat' | 'roi' | 'pitch'
+  const [selectedFaqCat, setSelectedFaqCat] = useState("ai");
   const [isSpeaking, setIsSpeaking] = useState(false);
+  const [customPrompt, setCustomPrompt] = useState(null);
+  
+  // Interactive Chat State
+  const [inputQuery, setInputQuery] = useState("");
+  const [chatMessages, setChatMessages] = useState([
+    {
+      sender: "copilot",
+      text: "Hi! I'm Peash's intelligent AI Copilot. Ask me anything about his LangGraph multi-agent systems, Triple HubSpot certifications, production ROI, or freelance/full-time availability!",
+      timestamp: "Now",
+    }
+  ]);
+  const chatScrollRef = useRef(null);
 
-  // Periodic Eye Blinking
+  // ROI Calculator State
+  const [teamSize, setTeamSize] = useState(5);
+  const [hoursPerDay, setHoursPerDay] = useState(3);
+  const [copiedPitch, setCopiedPitch] = useState(false);
+
+  // ─── Immediate Pop-Up with Volume Bar & Pause when Music Starts ───
   useEffect(() => {
-    const blinkInterval = setInterval(() => {
-      setIsBlinking(true);
-      setTimeout(() => setIsBlinking(false), 180);
-    }, 4200);
-    return () => clearInterval(blinkInterval);
-  }, []);
+    if (isMusicPlaying) {
+      setIsOpen(true);
+      playTechBlip(isMuted);
 
-  // Section Observer to trigger dynamic commentary
+      // Auto close after 7 seconds if not interacted
+      const autoCloseTimer = setTimeout(() => {
+        setIsOpen(false);
+        setIsNeonHighlighted(true);
+      }, 7000);
+
+      return () => clearTimeout(autoCloseTimer);
+    }
+  }, [isMusicPlaying, isMuted]);
+
+  // Section Observer for live guide speech bubbles
   useEffect(() => {
     const sections = Object.keys(SECTION_MESSAGES);
     const observerCallback = (entries) => {
@@ -229,6 +311,7 @@ export default function PeashCompanionGuide() {
           const sectionId = entry.target.id;
           if (SECTION_MESSAGES[sectionId]) {
             setActiveSection(sectionId);
+            setCustomPrompt(null);
             setIsSpeaking(true);
             playTechBlip(isMuted);
             setTimeout(() => setIsSpeaking(false), 1500);
@@ -250,76 +333,589 @@ export default function PeashCompanionGuide() {
     return () => observer.disconnect();
   }, [isMuted]);
 
-  const currentMsg = SECTION_MESSAGES[activeSection] || SECTION_MESSAGES.hero;
+  // Auto-scroll chat body on new messages
+  useEffect(() => {
+    if (chatScrollRef.current) {
+      chatScrollRef.current.scrollTop = chatScrollRef.current.scrollHeight;
+    }
+  }, [chatMessages, activeTab]);
 
-  const handleCompanionClick = () => {
-    setIsSpeaking(true);
-    playTechBlip(isMuted);
-    setTimeout(() => setIsSpeaking(false), 1200);
+  const [isThinking, setIsThinking] = useState(false);
+  const [thinkingStep, setThinkingStep] = useState("");
+
+  const handleAskQuestion = (userQuery) => {
+    if (!userQuery.trim()) return;
+    const qText = userQuery.trim();
+
+    // 1. Add User Message
+    const userMsg = { sender: "user", text: qText };
+    setChatMessages((prev) => [...prev, userMsg]);
+    setInputQuery("");
+    setIsThinking(true);
+    setThinkingStep("Analyzing RevOps Knowledge Base...");
+    playTechBlip(isMuted, 620);
+
+    setTimeout(() => {
+      setThinkingStep("Synthesizing Architecture & Verification...");
+    }, 350);
+
+    // 2. Intelligent AI Answer via reasoning engine
+    setTimeout(() => {
+      const response = answerPeashQuestion(qText);
+      const copilotMsg = {
+        sender: "copilot",
+        text: response.text,
+        section: response.section,
+        sectionLabel: response.sectionLabel,
+        actionUrl: response.actionUrl,
+        actionText: response.actionText,
+        suggestedQuestions: response.suggestedQuestions,
+      };
+
+      setIsThinking(false);
+      setChatMessages((prev) => [...prev, copilotMsg]);
+      setIsSpeaking(true);
+      playTechBlip(isMuted, 880);
+      speakText(response.text, isMuted);
+      setTimeout(() => setIsSpeaking(false), 2200);
+    }, 700);
   };
 
+  const handleTourScroll = (sectionId) => {
+    const el = document.getElementById(sectionId);
+    if (el) {
+      el.scrollIntoView({ behavior: "smooth" });
+      setIsCopilotOpen(false);
+    }
+  };
+
+  // ROI Calculator Math: (Team Size * Hours Saved * $55/hr * 250 work days)
+  const annualSavingsHours = teamSize * hoursPerDay * 5 * 50;
+  const annualSavingsDollars = annualSavingsHours * 50;
+
+  const handleCopyPitch = () => {
+    const pitch = `Candidate Overview: Peash Das Rudra
+Specialization: AI Automation & RevOps Engineer
+Certifications: Triple HubSpot Certified (RevOps, Marketing Hub, Reporting), IBM, Microsoft
+Key Capabilities:
+• Production LangGraph multi-agent architectures & MCP Tool-Calling
+• 20+ live B2B automations shipped | 45% operational bandwidth savings
+• Day-1 deployment capability with pre-built modular harnesses
+Portfolio & Calendly: ${PROFILE.calendlyUrl}
+Direct Email: ${PROFILE.email}`;
+
+    navigator.clipboard?.writeText(pitch);
+    setCopiedPitch(true);
+    setTimeout(() => setCopiedPitch(false), 2200);
+  };
+
+  const currentMsg = customPrompt || SECTION_MESSAGES[activeSection] || SECTION_MESSAGES.hero;
+  const activeFaqCategory = FAQ_CATEGORIES.find((c) => c.id === selectedFaqCat) || FAQ_CATEGORIES[0];
+
   return (
-    <div className={`peash-companion-root ${isMobile ? "mobile-mode" : "desktop-dock"}`}>
+    <>
+      <div className={`peash-companion-root ${isMobile ? "mobile-mode" : "desktop-dock"}`}>
+        <AnimatePresence>
+          {isOpen && !isCopilotOpen && (
+            <motion.div
+              className="peash-speech-balloon"
+              initial={{ opacity: 0, y: 15, scale: 0.92 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              exit={{ opacity: 0, y: 15, scale: 0.92 }}
+              transition={{ duration: 0.25, ease: [0.16, 1, 0.3, 1] }}
+              onClick={() => {
+                setIsCopilotOpen(true);
+                setIsNeonHighlighted(false);
+              }}
+            >
+              {/* Balloon Header */}
+              <div className="speech-balloon-header">
+                <div className="speech-tag">
+                  <Sparkles size={11} className="text-green" />
+                  <span>{isMusicPlaying ? "SOUNDTRACK ACTIVE" : currentMsg.tag}</span>
+                </div>
+                <div className="speech-actions" onClick={(e) => e.stopPropagation()}>
+                  <button
+                    className="speech-icon-btn"
+                    onClick={() => setIsMuted(!isMuted)}
+                    title={isMuted ? "Unmute Sounds" : "Mute Sounds"}
+                  >
+                    {isMuted ? <VolumeX size={12} /> : <Volume2 size={12} />}
+                  </button>
+                  <button
+                    className="speech-icon-btn"
+                    onClick={() => {
+                      setIsOpen(false);
+                      setIsNeonHighlighted(true);
+                    }}
+                    title="Minimize Guide"
+                  >
+                    <X size={12} />
+                  </button>
+                </div>
+              </div>
+
+              {/* Balloon Message or Live Music Quick Bar */}
+              {isMusicPlaying && currentTrack ? (
+                <div className="balloon-music-panel" onClick={(e) => e.stopPropagation()}>
+                  <div className="balloon-music-track">
+                    <span className="balloon-track-name">🎵 {currentTrack.title}</span>
+                    <span className="balloon-artist-name">{currentTrack.artist}</span>
+                  </div>
+
+                  {/* Volume Slider & Controls */}
+                  <div className="balloon-music-controls">
+                    <button
+                      className="balloon-music-btn play-pause"
+                      onClick={toggleMusic}
+                      title={isMusicPlaying ? "Pause Music" : "Play Music"}
+                    >
+                      {isMusicPlaying ? <Pause size={13} /> : <Play size={13} />}
+                      <span>{isMusicPlaying ? "Pause" : "Play"}</span>
+                    </button>
+
+                    <button
+                      className="balloon-music-btn skip"
+                      onClick={nextMusicTrack}
+                      title="Next Track"
+                    >
+                      <SkipForward size={13} />
+                    </button>
+
+                    {/* Quick Volume Slider Bar */}
+                    <div className="balloon-volume-slider-wrap">
+                      <Volume2 size={12} className="balloon-vol-icon" />
+                      <input
+                        type="range"
+                        min="0"
+                        max="100"
+                        value={musicVolume}
+                        onChange={(e) => setMusicVolume(Number(e.target.value))}
+                        className="balloon-volume-slider"
+                        title={`Volume: ${musicVolume}%`}
+                      />
+                      <span className="balloon-vol-pct">{musicVolume}%</span>
+                    </div>
+                  </div>
+                </div>
+              ) : (
+                <p className="speech-balloon-text">{currentMsg.text}</p>
+              )}
+
+              {/* Tap to Chat Cue */}
+              <div className="speech-balloon-footer">
+                <span>✦ Click to Open Copilot (Who, What, FAQs & Music)</span>
+              </div>
+
+              {/* Speech Tail */}
+              <div className="speech-balloon-tail" />
+            </motion.div>
+          )}
+        </AnimatePresence>
+
+        {/* Interactive Spider-Man Cyber Agent Icon Capsule */}
+        <motion.div
+          className={`peash-avatar-capsule ${isSpeaking ? "speaking" : ""} ${isNeonHighlighted ? "neon-active" : ""} ${isMusicPlaying ? "singing-active" : ""}`}
+          onClick={() => {
+            setIsCopilotOpen(true);
+            setIsNeonHighlighted(false);
+            playTechBlip(isMuted, 650);
+          }}
+          whileHover={{ scale: 1.1 }}
+          whileTap={{ scale: 0.92 }}
+          title={isMusicPlaying ? "Spider-Man AI Copilot — Singing to Soundtrack! (Click to Chat)" : "Peash AI Copilot — Click to Ask Anything"}
+        >
+          <div className="peash-avatar-inner">
+            <SpiderManCyberIcon isSpeaking={isSpeaking} isSinging={isMusicPlaying} />
+          </div>
+
+          {/* Neon Highlight Pulse Waves */}
+          {(isNeonHighlighted || isMusicPlaying) && (
+            <span className="peash-neon-ripple" />
+          )}
+
+          <span className="peash-guide-beacon" />
+        </motion.div>
+      </div>
+
+      {/* ─── EXPANDABLE FULL INTELLIGENT AI COPILOT MODAL (REDESIGNED LUXURY HUD) ─── */}
       <AnimatePresence>
-        {isOpen && (
-          <motion.div
-            className="peash-speech-balloon"
-            initial={{ opacity: 0, y: 15, scale: 0.92 }}
-            animate={{ opacity: 1, y: 0, scale: 1 }}
-            exit={{ opacity: 0, y: 15, scale: 0.92 }}
-            transition={{ duration: 0.25, ease: [0.16, 1, 0.3, 1] }}
+        {isCopilotOpen && (
+          <motion.div 
+            className="copilot-backdrop"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            onClick={() => setIsCopilotOpen(false)}
           >
-            {/* Balloon Header */}
-            <div className="speech-balloon-header">
-              <div className="speech-tag">
-                <Sparkles size={11} className="text-green" />
-                <span>{currentMsg.tag}</span>
+            <motion.div 
+              className="copilot-panel redesigned-hud"
+              initial={{ opacity: 0, scale: 0.94, y: 20 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.94, y: 20 }}
+              transition={{ duration: 0.25, ease: [0.16, 1, 0.3, 1] }}
+              onClick={(e) => e.stopPropagation()}
+            >
+              {/* ─── COPILOT TOP COMMAND BAR ─── */}
+              <div className="copilot-header-redesign">
+                <div className="copilot-brand-lockup">
+                  <div className="copilot-avatar-mini">
+                    <SpiderManCyberIcon isSpeaking={isSpeaking} isSinging={isMusicPlaying} />
+                  </div>
+                  <div className="copilot-title-group">
+                    <div className="copilot-title-row">
+                      <h3>Peash AI Copilot</h3>
+                      <span className="copilot-online-status">
+                        <span className="status-live-dot" /> LIVE NEURAL v3.2
+                      </span>
+                    </div>
+                    <p className="copilot-subtitle">RevOps Intelligence & Autonomous Agent Architect</p>
+                  </div>
+                </div>
+
+                {/* Compact Soundtrack HUD Controller in Header */}
+                {currentTrack && (
+                  <div className="copilot-header-music-hud">
+                    <div className={`header-disc ${isMusicPlaying ? "spinning" : ""}`}>
+                      <Disc3 size={14} />
+                    </div>
+                    <div className="header-track-info">
+                      <span className="header-track-title">{currentTrack.title}</span>
+                      <span className="header-track-artist">{currentTrack.artist}</span>
+                    </div>
+                    <button 
+                      className="header-music-toggle"
+                      onClick={toggleMusic}
+                      title={isMusicPlaying ? "Pause Soundtrack" : "Play Soundtrack"}
+                    >
+                      {isMusicPlaying ? <Pause size={12} /> : <Play size={12} />}
+                    </button>
+                    <button 
+                      className="header-music-skip"
+                      onClick={nextMusicTrack}
+                      title="Next Track"
+                    >
+                      <SkipForward size={12} />
+                    </button>
+                  </div>
+                )}
+
+                <div className="copilot-header-actions">
+                  <button
+                    className="copilot-mute-btn"
+                    onClick={() => {
+                      setIsMuted(!isMuted);
+                      if (typeof window !== "undefined" && "speechSynthesis" in window) {
+                        window.speechSynthesis.cancel();
+                      }
+                    }}
+                    title={isMuted ? "Unmute Voice" : "Mute Voice"}
+                  >
+                    {isMuted ? <VolumeX size={14} /> : <Volume2 size={14} />}
+                  </button>
+                  <button 
+                    className="copilot-close-btn"
+                    onClick={() => setIsCopilotOpen(false)}
+                    title="Close Copilot (Esc)"
+                  >
+                    <X size={16} />
+                  </button>
+                </div>
               </div>
-              <div className="speech-actions">
+
+              {/* ─── SLIM CANDIDATE KEY STATS STRIP ─── */}
+              <div className="copilot-stats-strip">
+                <div className="stat-pill">
+                  <span className="pill-dot green" />
+                  <span><strong>Peash Das Rudra</strong></span>
+                </div>
+                <div className="stat-pill">
+                  <span className="pill-dot blue" />
+                  <span>Triple HubSpot Certified</span>
+                </div>
+                <div className="stat-pill">
+                  <span className="pill-dot ruby" />
+                  <span>LangGraph & MCP Architect</span>
+                </div>
+                <div className="stat-pill">
+                  <span className="pill-dot gold" />
+                  <span>20+ Shipped Automations</span>
+                </div>
+              </div>
+
+              {/* ─── NAVIGATION & MODE TABS ─── */}
+              <div className="copilot-mode-tabs-redesign">
                 <button
-                  className="speech-icon-btn"
-                  onClick={() => setIsMuted(!isMuted)}
-                  title={isMuted ? "Unmute Sounds" : "Mute Sounds"}
+                  className={`tab-btn-modern ${activeTab === "chat" ? "active" : ""}`}
+                  onClick={() => setActiveTab("chat")}
                 >
-                  {isMuted ? <VolumeX size={12} /> : <Volume2 size={12} />}
+                  <MessageSquare size={13} />
+                  <span>AI Copilot & FAQs</span>
                 </button>
                 <button
-                  className="speech-icon-btn"
-                  onClick={() => setIsOpen(false)}
-                  title="Minimize Guide"
+                  className={`tab-btn-modern ${activeTab === "roi" ? "active" : ""}`}
+                  onClick={() => setActiveTab("roi")}
                 >
-                  <X size={12} />
+                  <Calculator size={13} />
+                  <span>ROI Calculator</span>
+                </button>
+                <button
+                  className={`tab-btn-modern ${activeTab === "pitch" ? "active" : ""}`}
+                  onClick={() => setActiveTab("pitch")}
+                >
+                  <FileText size={13} />
+                  <span>Recruiter Pitch</span>
                 </button>
               </div>
-            </div>
 
-            {/* Balloon Message */}
-            <p className="speech-balloon-text">{currentMsg.text}</p>
+              {/* ─── TAB 1: INTERACTIVE CHAT & INTERACTIVE FAQ HUB ─── */}
+              {activeTab === "chat" && (
+                <div className="copilot-main-body">
+                  {/* ─── INTERACTIVE CLICKABLE FAQS SECTION ─── */}
+                  <div className="copilot-faq-dock">
+                    <div className="faq-dock-header">
+                      <div className="faq-dock-title">
+                        <HelpCircle size={13} className="text-green" />
+                        <span>Instant Recruiter & Client FAQs (Click to Ask):</span>
+                      </div>
+                      {/* FAQ Category Switcher */}
+                      <div className="faq-cat-selector">
+                        {FAQ_CATEGORIES.map((cat) => (
+                          <button
+                            key={cat.id}
+                            className={`faq-cat-btn ${selectedFaqCat === cat.id ? "active" : ""}`}
+                            onClick={() => setSelectedFaqCat(cat.id)}
+                          >
+                            <span>{cat.label}</span>
+                          </button>
+                        ))}
+                      </div>
+                    </div>
 
-            {/* Speech Tail */}
-            <div className="speech-balloon-tail" />
+                    {/* FAQ Clickable Chips Grid */}
+                    <div className="faq-chips-grid">
+                      {activeFaqCategory.questions.map((question, qIdx) => (
+                        <button
+                          key={qIdx}
+                          className="faq-interactive-chip"
+                          onClick={() => handleAskQuestion(question)}
+                        >
+                          <span className="faq-chip-prefix">✦</span>
+                          <span className="faq-chip-text">{question}</span>
+                          <ArrowRight size={11} className="faq-chip-arrow" />
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+
+                  {/* ─── CHAT MESSAGES STREAM ─── */}
+                  <div className="copilot-chat-body modern-scroll" ref={chatScrollRef}>
+                    {chatMessages.map((msg, index) => (
+                      <div key={index} className={`copilot-msg-bubble ${msg.sender}`}>
+                        {msg.sender === "copilot" && (
+                          <div className="copilot-msg-icon">
+                            <Bot size={13} />
+                          </div>
+                        )}
+                        <div className="copilot-msg-content">
+                          <p>{msg.text}</p>
+
+                          {/* Interactive Section Deep Link */}
+                          {msg.section && (
+                            <button 
+                              className="copilot-jump-btn"
+                              onClick={() => handleTourScroll(msg.section)}
+                            >
+                              <ArrowRight size={12} />
+                              <span>{msg.sectionLabel || "Jump to Section"}</span>
+                            </button>
+                          )}
+
+                          {/* External Action Button */}
+                          {msg.actionUrl && (
+                            <a
+                              href={msg.actionUrl}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="copilot-action-btn"
+                            >
+                              <ExternalLink size={12} />
+                              <span>{msg.actionText || "View Link"}</span>
+                            </a>
+                          )}
+
+                          {/* Dynamic Next Suggested Questions */}
+                          {msg.suggestedQuestions && msg.suggestedQuestions.length > 0 && (
+                            <div className="copilot-suggested-chips">
+                              {msg.suggestedQuestions.map((sq, sIdx) => (
+                                <button
+                                  key={sIdx}
+                                  onClick={() => handleAskQuestion(sq)}
+                                  className="suggested-chip"
+                                >
+                                  <span>{sq}</span>
+                                </button>
+                              ))}
+                            </div>
+                          )}
+                        </div>
+                      </div>
+                    ))}
+
+                    {/* Live Neural Reasoning Stream Bubble */}
+                    {isThinking && (
+                      <motion.div 
+                        className="copilot-msg-bubble copilot thinking"
+                        initial={{ opacity: 0, y: 8 }}
+                        animate={{ opacity: 1, y: 0 }}
+                      >
+                        <div className="copilot-msg-icon thinking-icon">
+                          <Bot size={13} className="spin-slow" />
+                        </div>
+                        <div className="copilot-msg-content thinking-content">
+                          <div className="thinking-row">
+                            <span className="thinking-pulse-dot" />
+                            <span className="thinking-text">{thinkingStep}</span>
+                          </div>
+                        </div>
+                      </motion.div>
+                    )}
+                  </div>
+
+                  {/* ─── INPUT BAR & SUBMIT ─── */}
+                  <div className="copilot-input-bar-redesign">
+                    <input
+                      type="text"
+                      placeholder="Ask anything about architecture, rates, certifications, or Day-1 readiness..."
+                      value={inputQuery}
+                      onChange={(e) => setInputQuery(e.target.value)}
+                      onKeyDown={(e) => {
+                        if (e.key === "Enter") handleAskQuestion(inputQuery);
+                      }}
+                      className="copilot-input-modern"
+                    />
+                    <button
+                      className="copilot-send-btn-modern"
+                      onClick={() => handleAskQuestion(inputQuery)}
+                      disabled={!inputQuery.trim()}
+                      title="Send Query (Enter)"
+                    >
+                      <Send size={14} />
+                    </button>
+                  </div>
+                </div>
+              )}
+
+              {/* ─── TAB 2: INTERACTIVE ROI CALCULATOR ─── */}
+              {activeTab === "roi" && (
+                <div className="copilot-roi-panel">
+                  <h4>⚡ Estimate Your Team's Automation Savings</h4>
+                  <p className="copilot-roi-sub">
+                    See how much time & money Peash's autonomous pipelines recover for your team annually.
+                  </p>
+
+                  <div className="roi-slider-group">
+                    <div className="roi-slider-label">
+                      <span>Team Size (Reps / Ops):</span>
+                      <strong>{teamSize} people</strong>
+                    </div>
+                    <input
+                      type="range"
+                      min="1"
+                      max="30"
+                      value={teamSize}
+                      onChange={(e) => setTeamSize(Number(e.target.value))}
+                      className="roi-slider"
+                    />
+                  </div>
+
+                  <div className="roi-slider-group">
+                    <div className="roi-slider-label">
+                      <span>Manual CRM/Triage Hours / Person / Day:</span>
+                      <strong>{hoursPerDay} hrs/day</strong>
+                    </div>
+                    <input
+                      type="range"
+                      min="1"
+                      max="6"
+                      value={hoursPerDay}
+                      onChange={(e) => setHoursPerDay(Number(e.target.value))}
+                      className="roi-slider"
+                    />
+                  </div>
+
+                  <div className="roi-results-card">
+                    <div className="roi-result-stat">
+                      <span className="roi-stat-val text-green">{annualSavingsHours.toLocaleString()} hrs</span>
+                      <span className="roi-stat-label">Hours Saved / Year</span>
+                    </div>
+                    <div className="roi-result-stat">
+                      <span className="roi-stat-val">${annualSavingsDollars.toLocaleString()}</span>
+                      <span className="roi-stat-label">Estimated Annual Value</span>
+                    </div>
+                  </div>
+                </div>
+              )}
+
+              {/* ─── TAB 3: EXECUTIVE RECRUITER PITCH ─── */}
+              {activeTab === "pitch" && (
+                <div className="copilot-pitch-panel">
+                  <h4>📄 Executive Candidate Brief</h4>
+                  <p className="copilot-roi-sub">
+                    1-Click copy-pasteable summary formatted for Engineering Directors and Hiring Managers.
+                  </p>
+
+                  <div className="pitch-card-box">
+                    <pre className="pitch-code-block">
+{`Candidate: Peash Das Rudra
+Role: RevOps & AI Automation Engineer
+Certifications: Triple HubSpot Certified (RevOps, Marketing, Reporting), IBM, Google Cloud
+Core Strengths:
+• Shipped 20+ live production automations for UK B2B accounts
+• Production LangGraph RAG architectures & MCP tool-calling
+• Day-1 deployment readiness with 45% measured operational savings
+Direct Booking: ${PROFILE.calendlyUrl}`}
+                    </pre>
+                  </div>
+
+                  <button className="btn btn-outline pitch-copy-btn" onClick={handleCopyPitch}>
+                    {copiedPitch ? (
+                      <>
+                        <Check size={14} className="text-green" />
+                        <span>Copied to Clipboard!</span>
+                      </>
+                    ) : (
+                      <>
+                        <Copy size={14} />
+                        <span>Copy Candidate Summary</span>
+                      </>
+                    )}
+                  </button>
+                </div>
+              )}
+
+              {/* ─── COPILOT FOOTER ACTIONS ─── */}
+              <div className="copilot-footer-redesign">
+                <div className="footer-quick-jumps">
+                  <span className="quick-jump-label">Jump:</span>
+                  <button onClick={() => handleTourScroll("projects")}>🚀 Case Studies</button>
+                  <button onClick={() => handleTourScroll("skills")}>⚡ Skills</button>
+                  <button onClick={() => handleTourScroll("certifications")}>🏆 Certs</button>
+                </div>
+                <a
+                  href={PROFILE.calendlyUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="btn btn-primary copilot-call-btn-compact"
+                >
+                  <Calendar size={13} />
+                  <span>Book Strategy Call</span>
+                </a>
+              </div>
+            </motion.div>
           </motion.div>
         )}
       </AnimatePresence>
-
-      {/* Interactive Cartoon Avatar Capsule */}
-      <motion.div
-        className={`peash-avatar-capsule ${isSpeaking ? "speaking" : ""}`}
-        onClick={() => {
-          if (!isOpen) setIsOpen(true);
-          handleCompanionClick();
-        }}
-        whileHover={{ scale: 1.08 }}
-        whileTap={{ scale: 0.92 }}
-        title="Peash Das Rudra — Interactive Guide"
-      >
-        <div className="peash-avatar-inner">
-          <PeashCartoonAvatarSVG isSpeaking={isSpeaking} isBlinking={isBlinking} />
-        </div>
-
-        {/* Status indicator beacon */}
-        <span className="peash-guide-beacon" />
-      </motion.div>
-    </div>
+    </>
   );
 }
