@@ -758,6 +758,7 @@
 }
 
 .btn-voice-listen,
+.btn-copy-msg,
 .btn-jump-section,
 .btn-ext-resource {
   display: inline-flex;
@@ -773,6 +774,7 @@
   font-weight: 700;
   cursor: pointer;
   text-decoration: none;
+  transition: all 0.15s ease;
 }
 
 .btn-voice-listen:hover,
@@ -782,6 +784,11 @@
   border-color: #38bdf8;
 }
 
+.btn-copy-msg:hover {
+  background: rgba(255, 255, 255, 0.2);
+  color: #ffffff;
+}
+
 .btn-jump-section:hover,
 .btn-ext-resource:hover {
   background: #ef4444;
@@ -789,36 +796,92 @@
   border-color: #ef4444;
 }
 
+.msg-markdown-content {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.msg-spacing {
+  height: 4px;
+}
+
+/* ✦ AI Suggestions HUD */
+.msg-suggestions-wrapper {
+  margin-top: 12px;
+  padding-top: 10px;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.suggestions-badge {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 9.5px;
+  font-weight: 800;
+  color: #38bdf8;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 6px;
+}
+
 .msg-suggestions-grid {
   display: flex;
   flex-wrap: wrap;
   gap: 6px;
-  margin-top: 10px;
 }
 
 .btn-suggestion-chip {
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  color: var(--silver);
+  background: rgba(56, 189, 248, 0.08);
+  border: 1px solid rgba(56, 189, 248, 0.25);
+  color: #bae6fd;
   font-family: var(--font-mono);
-  font-size: 11px;
-  padding: 4px 10px;
+  font-size: 10.5px;
+  font-weight: 700;
+  padding: 5px 12px;
   border-radius: var(--radius-full);
   cursor: pointer;
+  transition: all 0.15s ease;
 }
 
 .btn-suggestion-chip:hover {
-  background: #ef4444;
-  color: #ffffff;
+  background: #38bdf8;
+  color: #03141f;
+  border-color: #38bdf8;
+  transform: translateY(-1px);
 }
 
 .thinking-box {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 10px;
   font-family: var(--font-mono);
   font-size: 11.5px;
-  color: #fca5a5;
+  color: #38bdf8;
+}
+
+/* Neural Wave Pulse Animation */
+.neural-wave-loader {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  height: 14px;
+}
+
+.neural-wave-loader .n-bar {
+  width: 3px;
+  height: 12px;
+  background: #38bdf8;
+  border-radius: 2px;
+  animation: neuralWave 1s infinite ease-in-out;
+}
+
+.neural-wave-loader .n-bar.b1 { animation-delay: 0s; }
+.neural-wave-loader .n-bar.b2 { animation-delay: 0.2s; }
+.neural-wave-loader .n-bar.b3 { animation-delay: 0.4s; }
+
+@keyframes neuralWave {
+  0%, 100% { height: 4px; opacity: 0.4; }
+  50% { height: 14px; opacity: 1; }
 }
 
 .thinking-pulse {

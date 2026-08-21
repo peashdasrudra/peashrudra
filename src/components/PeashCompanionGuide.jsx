@@ -3,7 +3,7 @@ import {
   Sparkles, X, Bot, Send, Compass, Zap, Award, Calendar, 
   ArrowRight, Play, Pause, SkipForward, Disc3, ExternalLink,
   HelpCircle, ArrowUpRight, Volume2, Square, Menu, ChevronRight, 
-  Radio, MessageCircle, Mail, FileText
+  Radio, MessageCircle, Mail, FileText, Copy, Check
 } from "lucide-react";
 import { PROFILE } from "../data/portfolio";
 import { LINKS } from "../data/links";
@@ -11,7 +11,7 @@ import { answerPeashQuestionAsync } from "../utils/peashAiEngine";
 import { useMusic } from "../context/MusicContext";
 import "./PeashCompanionGuide.css";
 
-// 3 Curated Ultra-Clean FAQs
+// 3 Curated Ultra-Clean High-Conversion Prompts
 const PRIMARY_FAQS = [
   {
     title: "What does Peash build?",
@@ -19,9 +19,9 @@ const PRIMARY_FAQS = [
     query: "What is Peash's core specialization in AI agents and RevOps?",
   },
   {
-    title: "Case Studies & ROI",
-    desc: "3-in-1 production case studies with 45% operational bandwidth savings.",
-    query: "Explain the 3-in-1 production case studies and LangGraph multi-agent architecture.",
+    title: "Why hire Peash vs Agency?",
+    desc: "Day-1 deployment, 99.2% uptime, 0 ramp-up lag vs brittle Zapier hacks.",
+    query: "Why should we hire Peash instead of a standard agency or junior freelancer?",
   },
   {
     title: "Rates & Hiring Availability",
@@ -38,14 +38,19 @@ const MENU_TOPICS = [
     query: "What certifications does Peash hold and what is his track record in RevOps?",
   },
   {
-    title: "LangGraph & MCP Architecture",
-    badge: "MULTI-AGENT HARNESS",
-    query: "Tell me about his LangGraph & MCP tools and day-1 deployment harnesses.",
+    title: "DealSense RAG Architecture",
+    badge: "LANGGRAPH • PGVECTOR",
+    query: "Explain the DealSense Agentic RAG case study and its 88% precision ROI.",
   },
   {
-    title: "Fiverr Top-Rated Client Work",
-    badge: "GLOBAL B2B",
-    query: "Tell me about his real estate automation and Fiverr client portfolio.",
+    title: "Real Estate Speed-to-Lead",
+    badge: "<0.3s SMS • TWILIO",
+    query: "Tell me about LeakStop real estate lead automation and live client results.",
+  },
+  {
+    title: "Full-Stack Tech Matrix",
+    badge: "PYTHON • REACT • DOCKER",
+    query: "What is Peash's complete tech stack and multi-agent harness architecture?",
   },
 ];
 
@@ -116,7 +121,7 @@ function SpiderManSleekMascot({ isSinging }) {
 }
 
 /* ═══════════════════════════════════════════════════════════════
-   HIGH-CONVERTING INBOUND SPIDER-MAN COPILOT
+   HIGH-CONVERTING INBOUND SPIDER-MAN COPILOT (LLM AGENT UI)
    ═══════════════════════════════════════════════════════════════ */
 export default function PeashCompanionGuide() {
   const { 
@@ -131,6 +136,7 @@ export default function PeashCompanionGuide() {
   const [isBalloonVisible, setIsBalloonVisible] = useState(false);
   const [isMenuDrawerOpen, setIsMenuDrawerOpen] = useState(false);
   const [speakingMsgIndex, setSpeakingMsgIndex] = useState(null);
+  const [copiedMsgIndex, setCopiedMsgIndex] = useState(null);
   
   const [inputQuery, setInputQuery] = useState("");
   const [chatMessages, setChatMessages] = useState([]);
@@ -221,6 +227,14 @@ export default function PeashCompanionGuide() {
     }
   };
 
+  const handleCopyText = (text, index) => {
+    if (typeof navigator !== "undefined" && navigator.clipboard) {
+      navigator.clipboard.writeText(text);
+      setCopiedMsgIndex(index);
+      setTimeout(() => setCopiedMsgIndex(null), 2000);
+    }
+  };
+
   const handleScrollTo = (sectionId) => {
     const el = document.getElementById(sectionId);
     if (el) {
@@ -236,7 +250,7 @@ export default function PeashCompanionGuide() {
         {isBalloonVisible && !isOpen && (
           <div className="clean-guide-balloon" onClick={handleOpen}>
             <div className="balloon-top-row">
-              <span className="balloon-pill">✦ AI COPILOT</span>
+              <span className="balloon-pill">✦ AI SALES COPILOT</span>
               <button 
                 className="balloon-x"
                 onClick={(e) => {
@@ -247,7 +261,7 @@ export default function PeashCompanionGuide() {
                 <X size={13} />
               </button>
             </div>
-            <p>Tap to explore case studies & play soundtrack 🎵</p>
+            <p>Tap to explore case studies, calculate ROI & play soundtrack 🎵</p>
           </div>
         )}
 
@@ -278,9 +292,9 @@ export default function PeashCompanionGuide() {
                 <div className="brand-meta">
                   <div className="brand-title-line">
                     <h4>Peash Copilot</h4>
-                    <span className="badge-spider">AI ASSISTANT</span>
+                    <span className="badge-spider">AI REVOPS AGENT</span>
                   </div>
-                  <span className="brand-subtitle">RevOps & Autonomous Systems</span>
+                  <span className="brand-subtitle">Autonomous Systems & Revenue Closer</span>
                 </div>
               </div>
 
@@ -345,7 +359,7 @@ export default function PeashCompanionGuide() {
             {isMenuDrawerOpen && (
               <div className="clean-menu-drawer">
                 <div className="drawer-header">
-                  <span>Explore More Topics:</span>
+                  <span>Explore Direct Topics:</span>
                   <button onClick={() => setIsMenuDrawerOpen(false)}><X size={14} /></button>
                 </div>
 
@@ -375,10 +389,10 @@ export default function PeashCompanionGuide() {
                   <div className="clean-headline-card">
                     <div className="headline-badge">
                       <Sparkles size={13} />
-                      <span>Instant Recruiter & Client Guide</span>
+                      <span>Autonomous AI Sales Gatekeeper</span>
                     </div>
                     <h3>How can I help you evaluate Peash?</h3>
-                    <p>Select any question below or book a direct strategy call.</p>
+                    <p>Ask about RevOps ROI, case studies, or grab a direct strategy call.</p>
                   </div>
 
                   {/* ⚡ High-Conversion Inbound Quick Links Hub */}
@@ -450,7 +464,7 @@ export default function PeashCompanionGuide() {
                   </div>
                 </div>
               ) : (
-                /* Chat Conversation Stream */
+                /* Chat Conversation Stream (LLM Agent Minimal Format) */
                 <div className="clean-chat-messages">
                   {chatMessages.map((msg, index) => (
                     <div key={index} className={`clean-msg-row ${msg.sender}`}>
@@ -460,13 +474,19 @@ export default function PeashCompanionGuide() {
                         </div>
                       )}
                       <div className="msg-bubble-box">
-                        <p>{msg.text}</p>
+                        <div className="msg-markdown-content">
+                          {msg.text.split("\n").map((paragraph, pIdx) => {
+                            if (!paragraph.trim()) return <div key={pIdx} className="msg-spacing" />;
+                            return <p key={pIdx}>{paragraph}</p>;
+                          })}
+                        </div>
 
                         {msg.sender === "copilot" && (
                           <div className="msg-tools-row">
                             <button
                               className={`btn-voice-listen ${speakingMsgIndex === index ? "active" : ""}`}
                               onClick={() => handleToggleVoice(msg.text, index)}
+                              title="Listen to response"
                             >
                               {speakingMsgIndex === index ? (
                                 <>
@@ -477,6 +497,24 @@ export default function PeashCompanionGuide() {
                                 <>
                                   <Volume2 size={14} />
                                   <span>Listen</span>
+                                </>
+                              )}
+                            </button>
+
+                            <button
+                              className="btn-copy-msg"
+                              onClick={() => handleCopyText(msg.text, index)}
+                              title="Copy Answer"
+                            >
+                              {copiedMsgIndex === index ? (
+                                <>
+                                  <Check size={13} className="text-green" />
+                                  <span>Copied!</span>
+                                </>
+                              ) : (
+                                <>
+                                  <Copy size={13} />
+                                  <span>Copy</span>
                                 </>
                               )}
                             </button>
@@ -499,23 +537,27 @@ export default function PeashCompanionGuide() {
                                 className="btn-ext-resource"
                               >
                                 <ExternalLink size={13} />
-                                <span>{msg.actionText || "View Source"}</span>
+                                <span>{msg.actionText || "Schedule Call"}</span>
                               </a>
                             )}
                           </div>
                         )}
 
+                        {/* AI Contextual Suggested Prompts */}
                         {msg.suggestedQuestions && msg.suggestedQuestions.length > 0 && (
-                          <div className="msg-suggestions-grid">
-                            {msg.suggestedQuestions.map((sq, sIdx) => (
-                              <button
-                                key={sIdx}
-                                onClick={() => handleAsk(sq)}
-                                className="btn-suggestion-chip"
-                              >
-                                <span>✦ {sq}</span>
-                              </button>
-                            ))}
+                          <div className="msg-suggestions-wrapper">
+                            <span className="suggestions-badge">✦ AI Suggested Next Prompts:</span>
+                            <div className="msg-suggestions-grid">
+                              {msg.suggestedQuestions.map((sq, sIdx) => (
+                                <button
+                                  key={sIdx}
+                                  onClick={() => handleAsk(sq)}
+                                  className="btn-suggestion-chip"
+                                >
+                                  <span>✦ {sq}</span>
+                                </button>
+                              ))}
+                            </div>
                           </div>
                         )}
                       </div>
@@ -528,8 +570,12 @@ export default function PeashCompanionGuide() {
                         <Bot size={15} />
                       </div>
                       <div className="msg-bubble-box thinking-box">
-                        <span className="thinking-pulse" />
-                        <span>Searching Peash's Knowledge Base...</span>
+                        <div className="neural-wave-loader">
+                          <span className="n-bar b1" />
+                          <span className="n-bar b2" />
+                          <span className="n-bar b3" />
+                        </div>
+                        <span>Synthesizing Strategy via Groq 120B Neural Core...</span>
                       </div>
                     </div>
                   )}
@@ -537,7 +583,7 @@ export default function PeashCompanionGuide() {
               )}
             </div>
 
-            {/* ─── 5. SPACIOUS INPUT BAR ─── */}
+            {/* ─── 5. SPACIOUS INPUT BAR WITH AGENT PROMPT HUD ─── */}
             <div className="clean-input-bar">
               {chatMessages.length > 0 && (
                 <button 
@@ -552,7 +598,7 @@ export default function PeashCompanionGuide() {
               
               <input
                 type="text"
-                placeholder="Ask about stack, rates, HubSpot, or case studies..."
+                placeholder="Ask about stack, rates, DealSense RAG, or hiring terms..."
                 value={inputQuery}
                 onChange={(e) => setInputQuery(e.target.value)}
                 onKeyDown={(e) => {
@@ -575,7 +621,7 @@ export default function PeashCompanionGuide() {
             <div className="clean-cta-footer">
               <div className="cta-live-status-pill">
                 <span className="live-status-green-dot" />
-                <span className="status-copy">AVAILABLE FOR CONTRACT & FULL-TIME</span>
+                <span className="status-copy">ACCEPTING 1–2 HIGH-ROI SPRINT PARTNERSHIPS</span>
               </div>
 
               {/* Dual Inbound Actions */}
