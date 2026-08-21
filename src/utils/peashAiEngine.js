@@ -65,14 +65,16 @@ Your persona is inspired by a sharp, charismatic, and highly technical Spider-Ma
 // Asynchronous Hybrid Engine: OpenAI with Automatic Deterministic Fallback
 export async function answerPeashQuestionAsync(rawQuery, conversationHistory = []) {
   const userQuery = rawQuery.trim();
-  const apiKey = import.meta.env.VITE_OPENAI_API_KEY || (typeof window !== "undefined" && window.__PEASH_OPENAI_KEY__);
+  const apiKey = 
+    import.meta.env.VITE_OPENAI_API_KEY || 
+    (typeof window !== "undefined" && (window.__PEASH_OPENAI_KEY__ || localStorage.getItem("peash_openai_api_key")));
 
   // If OpenAI API key is present, execute via OpenAI GPT-4o-mini
   if (apiKey && apiKey.startsWith("sk-")) {
     try {
       const messages = [
         { role: "system", content: PEASH_SYSTEM_PROMPT },
-        ...conversationHistory.slice(-4).map(m => ({
+        ...conversationHistory.slice(-8).map(m => ({
           role: m.sender === "user" ? "user" : "assistant",
           content: m.text,
         })),
@@ -89,7 +91,7 @@ export async function answerPeashQuestionAsync(rawQuery, conversationHistory = [
           model: "gpt-4o-mini",
           messages,
           temperature: 0.7,
-          max_tokens: 350,
+          max_tokens: 600,
         }),
       });
 
