@@ -456,13 +456,15 @@ function SpiderPlaygroundCanvas({ activeCategory, hoveredSkill, setHoveredSkill,
 
         ctx.save();
 
-        // 1. Ambient Glow Drop Shadow
-        if (isHovered) {
-          ctx.shadowBlur = isLight ? 18 : 28;
-          ctx.shadowColor = node.color;
-        } else {
-          ctx.shadowBlur = isLight ? 8 : 14;
-          ctx.shadowColor = isLight ? "rgba(15, 23, 42, 0.08)" : "rgba(0, 0, 0, 0.6)";
+        // 1. Ambient Glow Drop Shadow (Skipped on mobile for 120fps native performance)
+        if (!isMobile) {
+          if (isHovered) {
+            ctx.shadowBlur = isLight ? 18 : 28;
+            ctx.shadowColor = node.color;
+          } else {
+            ctx.shadowBlur = isLight ? 8 : 14;
+            ctx.shadowColor = isLight ? "rgba(15, 23, 42, 0.08)" : "rgba(0, 0, 0, 0.6)";
+          }
         }
 
         // 2. High-End Glass Pill Body Fill
@@ -500,8 +502,10 @@ function SpiderPlaygroundCanvas({ activeCategory, hoveredSkill, setHoveredSkill,
         ctx.beginPath();
         ctx.arc(px + 16, node.y, isHovered ? 4.5 : 3.5, 0, Math.PI * 2);
         ctx.fillStyle = node.color;
-        ctx.shadowBlur = isHovered ? 10 : 5;
-        ctx.shadowColor = node.color;
+        if (!isMobile && isHovered) {
+          ctx.shadowBlur = 10;
+          ctx.shadowColor = node.color;
+        }
         ctx.fill();
         ctx.shadowBlur = 0;
 
@@ -680,12 +684,23 @@ function SpiderGridPill({ skillName, color }) {
    MAIN SKILLS SECTION COMPONENT
    ═══════════════════════════════════════════════════════════════ */
 export default function Skills() {
-  const [activeCategory, setActiveCategory] = useState("ALL");
+  const isMobile = useIsMobile();
+  // Default to AI & Agentic Systems on mobile for focused high-impact presentation
+  const [activeCategory, setActiveCategory] = useState(
+    typeof window !== "undefined" && window.innerWidth <= 768 ? "AI & Agentic Systems" : "ALL"
+  );
   const [hoveredSkill, setHoveredSkill] = useState(null);
   const [viewMode, setViewMode] = useState("playground"); // 'playground' | 'grid'
   const [mousePos, setMousePos] = useState({ x: -1000, y: -1000, active: false });
   const [shockwaves, setShockwaves] = useState([]);
   const sectionRef = useRef(null);
+
+  // Sync mobile category on resize
+  useEffect(() => {
+    if (isMobile && activeCategory === "ALL") {
+      setActiveCategory("AI & Agentic Systems");
+    }
+  }, [isMobile]);
 
   const totalSkillsCount = useMemo(() => {
     return SKILLS.reduce((acc, g) => acc + g.items.length, 0);

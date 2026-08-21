@@ -151,7 +151,7 @@ function ProjectCard({ project, index, isMobile }) {
           )}
         </motion.button>
 
-        {/* Expandable Tabbed Case Study Drawer */}
+        {/* Expandable 3-in-1 Simultaneous Case Study Deck */}
         <AnimatePresence>
           {expanded && (
             <motion.div
@@ -159,102 +159,59 @@ function ProjectCard({ project, index, isMobile }) {
               initial={{ height: 0, opacity: 0 }}
               animate={{ height: "auto", opacity: 1 }}
               exit={{ height: 0, opacity: 0 }}
-              transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
+              transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
             >
-              <div className="case-study-interactive-wrap">
-                {/* Case Study Phase Tabs */}
-                <div className="case-study-nav-tabs">
-                  <button
-                    className={`case-tab-btn ${activeCaseTab === "problem" ? "active" : ""}`}
-                    onClick={() => setActiveCaseTab("problem")}
-                  >
-                    <AlertTriangle size={13} />
-                    <span>01. The Problem</span>
-                  </button>
-                  <button
-                    className={`case-tab-btn ${activeCaseTab === "solution" ? "active" : ""}`}
-                    onClick={() => setActiveCaseTab("solution")}
-                  >
-                    <Cpu size={13} />
-                    <span>02. Architecture & Solution</span>
-                  </button>
-                  <button
-                    className={`case-tab-btn ${activeCaseTab === "impact" ? "active" : ""}`}
-                    onClick={() => setActiveCaseTab("impact")}
-                  >
-                    <Zap size={13} />
-                    <span>03. Impact & Results</span>
-                  </button>
+              <div className="case-study-3in1-grid">
+                {/* 01. The Problem */}
+                <div className="case-col-card problem-card">
+                  <div className="case-col-accent problem" />
+                  <div className="case-col-header">
+                    <div className="case-icon-wrap problem">
+                      <AlertTriangle size={16} />
+                    </div>
+                    <div>
+                      <span className="case-step-num">01. CHALLENGE</span>
+                      <h4>The Problem</h4>
+                    </div>
+                  </div>
+                  <p className="case-col-body">{project.problem}</p>
                 </div>
 
-                {/* Tab Contents */}
-                <div className="case-tab-content">
-                  {activeCaseTab === "problem" && (
-                    <motion.div
-                      className="case-pane problem-pane"
-                      initial={{ opacity: 0, x: -10 }}
-                      animate={{ opacity: 1, x: 0 }}
-                      transition={{ duration: 0.25 }}
-                    >
-                      <div className="case-pane-header">
-                        <div className="case-icon-wrap problem">
-                          <AlertTriangle size={18} />
-                        </div>
-                        <div>
-                          <h4>Operational Bottlenecks & Challenges</h4>
-                          <span className="case-pane-sub">Identified core business friction points</span>
-                        </div>
-                      </div>
-                      <p className="case-card-body">{project.problem}</p>
-                    </motion.div>
-                  )}
+                {/* 02. The Solution */}
+                <div className="case-col-card solution-card">
+                  <div className="case-col-accent solution" />
+                  <div className="case-col-header">
+                    <div className="case-icon-wrap solution">
+                      <Cpu size={16} />
+                    </div>
+                    <div>
+                      <span className="case-step-num">02. ARCHITECTURE</span>
+                      <h4>Engineered Solution</h4>
+                    </div>
+                  </div>
+                  <p className="case-col-body">{project.solution}</p>
+                </div>
 
-                  {activeCaseTab === "solution" && (
-                    <motion.div
-                      className="case-pane solution-pane"
-                      initial={{ opacity: 0, x: -10 }}
-                      animate={{ opacity: 1, x: 0 }}
-                      transition={{ duration: 0.25 }}
-                    >
-                      <div className="case-pane-header">
-                        <div className="case-icon-wrap solution">
-                          <Cpu size={18} />
-                        </div>
-                        <div>
-                          <h4>Engineered Solution & Autonomous Logic</h4>
-                          <span className="case-pane-sub">Tech stack, agentic workflows, and integrations</span>
-                        </div>
-                      </div>
-                      <p className="case-card-body">{project.solution}</p>
-                    </motion.div>
-                  )}
-
-                  {activeCaseTab === "impact" && (
-                    <motion.div
-                      className="case-pane impact-pane"
-                      initial={{ opacity: 0, x: -10 }}
-                      animate={{ opacity: 1, x: 0 }}
-                      transition={{ duration: 0.25 }}
-                    >
-                      <div className="case-pane-header">
-                        <div className="case-icon-wrap impact">
-                          <Zap size={18} />
-                        </div>
-                        <div>
-                          <h4>Measurable Production Outcomes</h4>
-                          <span className="case-pane-sub">Verified efficiency and revenue scaling metrics</span>
-                        </div>
-                      </div>
-                      <ul className="impact-list-v2">
-                        {project.impact.map((item, j) => (
-                          <li key={j}>
-                            <CheckCircle2 size={15} className="impact-check" />
-                            <span>{item}</span>
-                          </li>
-                        ))}
-                      </ul>
-                    </motion.div>
-                  )}
+                {/* 03. Impact & Results */}
+                <div className="case-col-card impact-card">
+                  <div className="case-col-accent impact" />
+                  <div className="case-col-header">
+                    <div className="case-icon-wrap impact">
+                      <Zap size={16} />
+                    </div>
+                    <div>
+                      <span className="case-step-num">03. VERIFIED ROI</span>
+                      <h4>Impact & Results</h4>
+                    </div>
+                  </div>
+                  <ul className="impact-col-list">
+                    {project.impact.map((item, j) => (
+                      <li key={j}>
+                        <CheckCircle2 size={13} className="impact-check" />
+                        <span>{item}</span>
+                      </li>
+                    ))}
+                  </ul>
                 </div>
               </div>
             </motion.div>

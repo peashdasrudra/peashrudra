@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState, useCallback } from "react";
 import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
-import { ArrowRight, Download, Calendar, ShieldCheck, Crown, BadgeCheck } from "lucide-react";
+import { ArrowRight, Download, Calendar, ShieldCheck, Crown, BadgeCheck, Zap } from "lucide-react";
 import { useTypingEffect } from "../hooks/useTypingEffect";
 import { PROFILE, TERMINAL_LINES, HUBSPOT_BADGES } from "../data/portfolio";
 import "./Hero.css";
@@ -326,17 +326,25 @@ export default function Hero() {
           </motion.p>
 
           <motion.div className="hero-ctas" variants={item}>
-            <motion.a href="#contact" className="btn-primary" whileTap={{ scale: 0.95 }}>
-              start a project <ArrowRight size={14} />
+            <motion.a
+              href={PROFILE.calendlyUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="btn-primary hero-main-cta"
+              whileTap={{ scale: 0.95 }}
+            >
+              <Zap size={15} />
+              <span>Book Strategy Call</span>
+              <ArrowRight size={14} />
             </motion.a>
             <motion.a
               href={PROFILE.resumeUrl}
-              className="btn-outline"
+              className="btn-outline hero-sec-cta"
               target="_blank"
               rel="noopener noreferrer"
               whileTap={{ scale: 0.95 }}
             >
-              <Download size={14} /> download resume
+              <Download size={14} /> <span>Verified Resume (PDF)</span>
             </motion.a>
           </motion.div>
 
@@ -349,7 +357,7 @@ export default function Hero() {
               const isMiddle = i === 1;
               return (
                 <motion.a 
-                  key={badge.id}
+                  key={badge.id || `hs-badge-${i}`}
                   href={`#${badge.id}`}
                   className={`hero-custom-badge ${isMiddle ? 'badge-featured' : ''}`}
                   variants={item}

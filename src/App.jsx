@@ -1,7 +1,6 @@
-import { useState, useCallback, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { motion, useMotionValue, useSpring } from "framer-motion";
 import "./App.css";
-import LoadingScreen from "./components/LoadingScreen";
 import ScrollProgress from "./components/ScrollProgress";
 import Navbar from "./components/Navbar";
 import Hero from "./components/Hero";
@@ -20,6 +19,8 @@ import Contact from "./components/Contact";
 import Footer from "./components/Footer";
 import StatusBar from "./components/StatusBar";
 import CommandPalette from "./components/CommandPalette";
+import PeashCompanionGuide from "./components/PeashCompanionGuide";
+import RecruiterConfidence from "./components/RecruiterConfidence";
 
 function DynamicGlowOrb() {
   const mouseX = useMotionValue(typeof window !== "undefined" ? window.innerWidth / 2 : 0);
@@ -31,7 +32,6 @@ function DynamicGlowOrb() {
 
   useEffect(() => {
     const handleMouseMove = (e) => {
-      // Account for scroll position so the orb tracks absolute document position
       mouseX.set(e.clientX);
       mouseY.set(e.clientY + window.scrollY);
     };
@@ -55,7 +55,6 @@ function DynamicGlowOrb() {
 }
 
 export default function App() {
-  const [loaded, setLoaded] = useState(false);
   const [isCmdOpen, setIsCmdOpen] = useState(false);
   const [theme, setTheme] = useState("dark");
 
@@ -63,6 +62,7 @@ export default function App() {
     const savedTheme = localStorage.getItem("theme") || "dark";
     setTheme(savedTheme);
     document.documentElement.setAttribute("data-theme", savedTheme);
+    document.documentElement.classList.add("loaded");
   }, []);
 
   const toggleTheme = () => {
@@ -72,64 +72,57 @@ export default function App() {
     document.documentElement.setAttribute("data-theme", newTheme);
   };
 
-  const handleLoadComplete = useCallback(() => {
-    setLoaded(true);
-    document.documentElement.classList.add("loaded");
-  }, []);
-
   return (
     <>
-      {!loaded && <LoadingScreen onComplete={handleLoadComplete} />}
+      {/* Background effects */}
+      <div className="grain" aria-hidden="true" />
+      <div className="dotgrid" aria-hidden="true" />
+      <DynamicGlowOrb />
 
-      {loaded && (
-        <>
-          {/* Background effects */}
-          <div className="grain" aria-hidden="true" />
-          <div className="dotgrid" aria-hidden="true" />
-          <DynamicGlowOrb />
+      {/* Scroll progress */}
+      <ScrollProgress />
 
-          {/* Scroll progress */}
-          <ScrollProgress />
+      {/* Navigation */}
+      <Navbar 
+        onOpenCmd={() => setIsCmdOpen(true)}
+        theme={theme}
+        toggleTheme={toggleTheme}
+      />
 
-          {/* Navigation */}
-          <Navbar 
-            onOpenCmd={() => setIsCmdOpen(true)}
-            theme={theme}
-            toggleTheme={toggleTheme}
-          />
+      {/* Command Palette HUD */}
+      <CommandPalette 
+        isOpen={isCmdOpen}
+        setIsOpen={setIsCmdOpen}
+        theme={theme}
+        toggleTheme={toggleTheme}
+      />
 
-          {/* Command Palette HUD */}
-          <CommandPalette 
-            isOpen={isCmdOpen}
-            setIsOpen={setIsCmdOpen}
-            theme={theme}
-            toggleTheme={toggleTheme}
-          />
+      {/* Main content */}
+      <main className="app-content">
+        <div className="wrap">
+          <Hero />
+          <Stats />
+        </div>
+        <RecruiterConfidence />
+        <Experience />
+        <HubSpotCertified />
+        <Projects />
+        <Education />
+        <Services />
+        <Skills />
+        <FiverrGigs />
+        <Certifications />
+        <Achievements />
+        <Gallery />
+        <Contact />
+        <Footer />
+      </main>
 
-          {/* Main content */}
-          <main className="app-content">
-            <div className="wrap">
-              <Hero />
-              <Stats />
-            </div>
-            <Experience />
-            <HubSpotCertified />
-            <Projects />
-            <Education />
-            <Services />
-            <Skills />
-            <FiverrGigs />
-            <Certifications />
-            <Achievements />
-            <Gallery />
-            <Contact />
-            <Footer />
-          </main>
+      {/* Floating Cartoon Peash Companion Guide */}
+      <PeashCompanionGuide />
 
-          {/* Status bar */}
-          <StatusBar />
-        </>
-      )}
+      {/* Status bar */}
+      <StatusBar />
     </>
   );
 }

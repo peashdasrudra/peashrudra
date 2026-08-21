@@ -380,85 +380,118 @@
   color: var(--green-text);
 }
 
-/* ─── Case Study Drawer ─── */
+/* ─── 3-in-1 Simultaneous Case Study Deck ─── */
 .proj-case-study {
   margin-top: 24px;
   overflow: hidden;
 }
 
-.case-study-interactive-wrap {
-  background: rgba(12, 12, 16, 0.8);
+.case-study-3in1-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 16px;
+}
+
+.case-col-card {
+  position: relative;
+  background: rgba(12, 12, 16, 0.85);
   border: 1px solid rgba(255, 255, 255, 0.08);
   border-radius: var(--radius-l);
+  padding: 22px 20px;
   overflow: hidden;
-}
-
-.case-study-nav-tabs {
   display: flex;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-  background: rgba(0, 0, 0, 0.3);
-  overflow-x: auto;
+  flex-direction: column;
+  transition: transform 0.25s ease, border-color 0.25s ease;
 }
 
-.case-tab-btn {
-  display: inline-flex;
-  align-items: center;
-  gap: 7px;
-  padding: 12px 18px;
-  background: transparent;
-  border: none;
-  border-bottom: 2px solid transparent;
-  color: var(--dim);
-  font-family: var(--font-mono);
-  font-size: 12px;
-  font-weight: 600;
-  cursor: pointer;
-  white-space: nowrap;
-  transition: all 0.2s ease;
+.case-col-card:hover {
+  transform: translateY(-3px);
+  border-color: rgba(255, 255, 255, 0.16);
 }
 
-.case-tab-btn:hover {
-  color: var(--white);
+.case-col-accent {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
 }
 
-.case-tab-btn.active {
-  color: var(--green-text);
-  border-bottom-color: var(--green);
-  background: rgba(255, 255, 255, 0.02);
+.case-col-accent.problem {
+  background: #ef4444;
 }
 
-.case-tab-content {
-  padding: 24px;
+.case-col-accent.solution {
+  background: #38bdf8;
 }
 
-.case-pane-header {
+.case-col-accent.impact {
+  background: #1ed760;
+}
+
+.case-col-header {
   display: flex;
   align-items: center;
   gap: 12px;
   margin-bottom: 14px;
 }
 
-.case-pane-header h4 {
-  font-family: var(--font-display);
-  font-size: 16px;
+.case-step-num {
+  font-family: var(--font-mono);
+  font-size: 10px;
   font-weight: 700;
-  color: var(--white);
-  margin-bottom: 2px;
+  color: var(--dim);
+  letter-spacing: 0.5px;
+  display: block;
 }
 
-.case-pane-sub {
-  font-family: var(--font-mono);
-  font-size: 11px;
-  color: var(--dim);
+.case-col-header h4 {
+  font-family: var(--font-display);
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--white);
+  margin: 0;
+}
+
+.case-col-body {
+  font-size: 13.5px;
+  line-height: 1.6;
+  color: var(--silver);
+  margin: 0;
+}
+
+.impact-col-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.impact-col-list li {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  font-size: 13px;
+  color: var(--silver);
+  line-height: 1.45;
+}
+
+.impact-check {
+  color: var(--green);
+  flex-shrink: 0;
+  margin-top: 2px;
 }
 
 .case-icon-wrap {
-  width: 36px;
-  height: 36px;
+  width: 32px;
+  height: 32px;
   border-radius: var(--radius-m);
   display: flex;
   align-items: center;
   justify-content: center;
+  flex-shrink: 0;
 }
 
 .case-icon-wrap.problem {
@@ -474,36 +507,6 @@
 .case-icon-wrap.impact {
   background: rgba(30, 215, 96, 0.12);
   color: var(--green);
-}
-
-.case-card-body {
-  font-size: 14px;
-  line-height: 1.6;
-  color: var(--silver);
-}
-
-.impact-list-v2 {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-}
-
-.impact-list-v2 li {
-  display: flex;
-  align-items: flex-start;
-  gap: 10px;
-  font-size: 14px;
-  color: var(--silver);
-  line-height: 1.5;
-}
-
-.impact-check {
-  color: var(--green);
-  flex-shrink: 0;
-  margin-top: 3px;
 }
 
 /* ─── Links ─── */

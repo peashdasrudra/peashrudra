@@ -173,6 +173,52 @@
   flex-wrap: wrap;
 }
 
+.hero-main-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  font-weight: 700;
+  box-shadow: 0 8px 24px rgba(30, 215, 96, 0.35);
+  transition: all 0.25s ease;
+}
+
+.hero-main-cta:hover {
+  box-shadow: 0 12px 32px rgba(30, 215, 96, 0.5);
+  transform: translateY(-2px);
+}
+
+.hero-sec-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.hero-recruiter-trust-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 18px;
+  font-family: var(--font-mono);
+  font-size: 11.5px;
+  color: var(--green-text);
+  background: rgba(30, 215, 96, 0.08);
+  border: 1px solid rgba(30, 215, 96, 0.22);
+  padding: 6px 14px;
+  border-radius: var(--radius-full);
+  max-width: 580px;
+}
+
+.trust-sparkle {
+  color: var(--green);
+  font-size: 13px;
+}
+
+[data-theme="light"] .hero-recruiter-trust-pill {
+  background: #f0fdf4;
+  border-color: #bbf7d0;
+  color: #16a34a;
+}
+
 /* ─── HubSpot Badges ─── */
 .hero-badges {
   display: flex;
