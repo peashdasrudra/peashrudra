@@ -2,7 +2,7 @@ import { useState, useEffect, useRef } from "react";
 import { 
   Sparkles, X, Bot, Send, Compass, Zap, Award, Calendar, 
   ArrowRight, Play, Pause, SkipForward, Disc3, ExternalLink,
-  HelpCircle, ArrowUpRight, Volume2, Square, Menu, ChevronRight
+  HelpCircle, ArrowUpRight, Volume2, Square, Menu, ChevronRight, Radio
 } from "lucide-react";
 import { PROFILE } from "../data/portfolio";
 import { answerPeashQuestionAsync } from "../utils/peashAiEngine";
@@ -68,33 +68,50 @@ function stopSpeechText() {
   }
 }
 
-/* ─── Ultra-Clean Spider-Man Mascot ─── */
-function SpiderManMascot({ isSinging }) {
+/* ─── Compact, Animated High-End Spider-Man Mascot ─── */
+function SpiderManCompactMascot({ isSinging }) {
   return (
-    <div className={`spidey-mascot-box ${isSinging ? "singing" : ""}`}>
+    <div className={`spidey-compact-icon ${isSinging ? "singing" : ""}`}>
+      {/* Animated Orbit Ring */}
+      <div className="compact-orbit-ring" />
+
+      {/* Floating Singing Notes */}
       {isSinging && (
-        <div className="spidey-musical-notes">
-          <span className="m-note n1">♪</span>
-          <span className="m-note n2">♫</span>
+        <div className="compact-singing-notes">
+          <span className="c-note n1">♪</span>
+          <span className="c-note n2">♫</span>
         </div>
       )}
-      <svg viewBox="0 0 100 100" className="spidey-head-svg" xmlns="http://www.w3.org/2000/svg">
-        <path
-          d="M50 10 C28 10, 16 28, 18 56 C20 76, 38 92, 50 94 C62 92, 80 76, 82 56 C84 28, 72 10, 50 10 Z"
-          fill="#ef4444"
-          stroke="#090a0f"
-          strokeWidth="2.5"
-        />
-        <path d="M50 10 L50 94" stroke="rgba(0,0,0,0.5)" strokeWidth="1.2" />
-        <path d="M50 50 L18 56" stroke="rgba(0,0,0,0.5)" strokeWidth="1.2" />
-        <path d="M50 50 L82 56" stroke="rgba(0,0,0,0.5)" strokeWidth="1.2" />
-        <path d="M50 50 L26 26" stroke="rgba(0,0,0,0.5)" strokeWidth="1.2" />
-        <path d="M50 50 L74 26" stroke="rgba(0,0,0,0.5)" strokeWidth="1.2" />
-        <path d="M38 32 Q50 36 62 32" fill="none" stroke="rgba(0,0,0,0.5)" strokeWidth="1.2" />
-        <path d="M30 48 Q50 56 70 48" fill="none" stroke="rgba(0,0,0,0.5)" strokeWidth="1.2" />
-        <path d="M44 42 Q24 44, 24 54 Q32 64, 44 60 Z" fill="#ffffff" stroke="#090a0f" strokeWidth="1.5" />
-        <path d="M56 42 Q76 44, 76 54 Q68 64, 56 60 Z" fill="#ffffff" stroke="#090a0f" strokeWidth="1.5" />
-      </svg>
+
+      {/* High-Resolution Mask SVG */}
+      <div className="compact-mask-holder">
+        <svg viewBox="0 0 100 100" className="compact-mask-svg" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <radialGradient id="spideyMaskShade" cx="40%" cy="30%" r="65%">
+              <stop offset="0%" stopColor="#f43f5e" />
+              <stop offset="60%" stopColor="#e11d48" />
+              <stop offset="100%" stopColor="#881337" />
+            </radialGradient>
+          </defs>
+          <path
+            d="M50 10 C28 10, 16 28, 18 56 C20 76, 38 92, 50 94 C62 92, 80 76, 82 56 C84 28, 72 10, 50 10 Z"
+            fill="url(#spideyMaskShade)"
+            stroke="#0a0a0e"
+            strokeWidth="2.5"
+          />
+          {/* Web Strands */}
+          <path d="M50 10 L50 94" stroke="rgba(0,0,0,0.6)" strokeWidth="1.2" />
+          <path d="M50 50 L18 56" stroke="rgba(0,0,0,0.6)" strokeWidth="1.2" />
+          <path d="M50 50 L82 56" stroke="rgba(0,0,0,0.6)" strokeWidth="1.2" />
+          <path d="M50 50 L26 26" stroke="rgba(0,0,0,0.6)" strokeWidth="1.2" />
+          <path d="M50 50 L74 26" stroke="rgba(0,0,0,0.6)" strokeWidth="1.2" />
+          <path d="M38 32 Q50 36 62 32" fill="none" stroke="rgba(0,0,0,0.6)" strokeWidth="1.2" />
+          <path d="M30 48 Q50 56 70 48" fill="none" stroke="rgba(0,0,0,0.6)" strokeWidth="1.2" />
+          {/* Illuminated Glowing Spider Eyes */}
+          <path d="M44 42 Q24 44, 24 54 Q32 64, 44 60 Z" fill="#ffffff" stroke="#09090b" strokeWidth="1.4" />
+          <path d="M56 42 Q76 44, 76 54 Q68 64, 56 60 Z" fill="#ffffff" stroke="#09090b" strokeWidth="1.4" />
+        </svg>
+      </div>
     </div>
   );
 }
@@ -215,7 +232,7 @@ export default function PeashCompanionGuide() {
 
   return (
     <>
-      {/* ─── FLOATING SPIDER-MAN BOT TRIGGER ─── */}
+      {/* ─── FLOATING COMPACT CIRCULAR SPIDER-MAN BOT TRIGGER ─── */}
       <div className="peash-clean-trigger-dock">
         {isBalloonVisible && !isOpen && (
           <div className="clean-guide-balloon" onClick={handleOpen}>
@@ -236,21 +253,21 @@ export default function PeashCompanionGuide() {
         )}
 
         <button 
-          className={`clean-bot-capsule ${isMusicPlaying ? "singing" : ""}`}
+          className={`compact-bot-circle ${isMusicPlaying ? "singing" : ""}`}
           onClick={handleOpen}
           aria-label="Open AI Copilot"
         >
-          <SpiderManMascot isSinging={isMusicPlaying} />
+          <SpiderManCompactMascot isSinging={isMusicPlaying} />
           
-          {/* Live EQ Bars on Button */}
+          {/* Live Dynamic Equalizer Bars */}
           {isMusicPlaying ? (
-            <div className="bot-eq-badge">
-              <span className="eq-bar b1" />
-              <span className="eq-bar b2" />
-              <span className="eq-bar b3" />
+            <div className="compact-eq-pill">
+              <span className="c-bar b1" />
+              <span className="c-bar b2" />
+              <span className="c-bar b3" />
             </div>
           ) : (
-            <span className="bot-status-beacon" />
+            <span className="compact-status-dot" />
           )}
         </button>
       </div>
@@ -266,7 +283,7 @@ export default function PeashCompanionGuide() {
             {/* ─── 1. TOP HEADER (BRAND + MENU + CLOSE) ─── */}
             <div className="clean-modal-header">
               <div className="header-brand-box">
-                <SpiderManMascot isSinging={isMusicPlaying} />
+                <SpiderManCompactMascot isSinging={isMusicPlaying} />
                 <div className="brand-meta">
                   <div className="brand-title-line">
                     <h4>Peash Copilot</h4>
@@ -282,7 +299,7 @@ export default function PeashCompanionGuide() {
                   onClick={() => setIsMenuDrawerOpen(!isMenuDrawerOpen)}
                   title="Menu"
                 >
-                  <Menu size={18} />
+                  <Menu size={17} />
                   <span>Menu</span>
                 </button>
 
@@ -291,37 +308,49 @@ export default function PeashCompanionGuide() {
                   onClick={handleClose} 
                   title="Close"
                 >
-                  <X size={20} />
+                  <X size={19} />
                 </button>
               </div>
             </div>
 
-            {/* ─── 2. PROMINENT & SPACIOUS MUSIC PLAYER BAR ─── */}
+            {/* ─── 2. COOL CYBERPUNK / SPIDER-VERSE SOUNDTRACK HUD ─── */}
             {currentTrack && (
-              <div className={`clean-soundtrack-strip ${isMusicPlaying ? "playing" : ""}`}>
-                <div className="soundtrack-info-side">
-                  <div className="disc-wrap">
-                    <Disc3 size={18} className={isMusicPlaying ? "spin-disc" : ""} />
+              <div className={`cyber-soundtrack-hud ${isMusicPlaying ? "active-groove" : ""}`}>
+                <div className="hud-left-track">
+                  <div className="cyber-disc-container">
+                    <Disc3 size={20} className={`cyber-vinyl ${isMusicPlaying ? "spinning" : ""}`} />
+                    <span className="vinyl-spider-core" />
                   </div>
-                  <div className="track-details">
-                    <span className="track-playing-label">NOW PLAYING:</span>
-                    <span className="track-main-title">{currentTrack.title}</span>
+                  <div className="hud-track-meta">
+                    <div className="hud-live-tag">
+                      <Radio size={10} className="pulse-radio" />
+                      <span>{isMusicPlaying ? "PLAYING SOUNDTRACK" : "SOUNDTRACK PAUSED"}</span>
+                    </div>
+                    <span className="hud-song-name">{currentTrack.title}</span>
                   </div>
                 </div>
 
-                <div className="soundtrack-btns-side">
+                {/* Multi-Color Live Equalizer Frequency Wave */}
+                <div className="hud-multi-eq">
+                  <span className={`wave-bar cyan ${isMusicPlaying ? "active" : ""}`} />
+                  <span className={`wave-bar red ${isMusicPlaying ? "active" : ""}`} />
+                  <span className={`wave-bar green ${isMusicPlaying ? "active" : ""}`} />
+                  <span className={`wave-bar yellow ${isMusicPlaying ? "active" : ""}`} />
+                </div>
+
+                <div className="hud-controls-group">
                   <button 
                     onClick={toggleMusic} 
-                    className="btn-spacious-play"
+                    className="btn-cyber-play"
                     title={isMusicPlaying ? "Pause Soundtrack" : "Play Soundtrack"}
                   >
-                    {isMusicPlaying ? <Pause size={16} /> : <Play size={16} />}
+                    {isMusicPlaying ? <Pause size={15} /> : <Play size={15} />}
                     <span>{isMusicPlaying ? "PAUSE" : "PLAY"}</span>
                   </button>
 
                   <button 
                     onClick={nextMusicTrack} 
-                    className="btn-spacious-skip"
+                    className="btn-cyber-skip"
                     title="Next Song"
                   >
                     <SkipForward size={16} />
@@ -521,7 +550,6 @@ export default function PeashCompanionGuide() {
                 <button onClick={() => handleScrollTo("certifications")}>🏆 Certs</button>
               </div>
 
-              {/* Large High-Contrast CTA Button */}
               <a
                 href={PROFILE.calendlyUrl}
                 target="_blank"
