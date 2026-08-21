@@ -117,9 +117,7 @@ export default function App() {
             <Projects />
             <Education />
             <Services />
-            <div className="wrap">
-              <Skills />
-            </div>
+            <Skills />
             <FiverrGigs />
             <Certifications />
             <Achievements />
