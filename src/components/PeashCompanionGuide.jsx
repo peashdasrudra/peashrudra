@@ -2,7 +2,7 @@ import { useState, useEffect, useRef } from "react";
 import { 
   Sparkles, X, Bot, Send, Compass, Zap, Award, Calendar, 
   ArrowRight, Play, Pause, SkipForward, Disc3, ExternalLink,
-  HelpCircle, ArrowUpRight, Volume2, Square
+  HelpCircle, ArrowUpRight, Volume2, Square, Music
 } from "lucide-react";
 import { PROFILE } from "../data/portfolio";
 import { answerPeashQuestionAsync } from "../utils/peashAiEngine";
@@ -75,29 +75,41 @@ function stopSpeechText() {
   }
 }
 
-/* ─── Ultra-Minimal Clean Spider-Man Mascot ─── */
-function SpiderManMinimalIcon() {
+/* ─── Animated Spider-Man Mascot with Singing Mode ─── */
+function SpiderManSingingIcon({ isSinging, isSpeaking }) {
   return (
-    <div className="spidey-vibe-icon">
-      <svg viewBox="0 0 100 100" className="spidey-vibe-svg" xmlns="http://www.w3.org/2000/svg">
-        <path
-          d="M50 10 C28 10, 16 28, 18 56 C20 76, 38 92, 50 94 C62 92, 80 76, 82 56 C84 28, 72 10, 50 10 Z"
-          fill="#ef4444"
-          stroke="#090a0f"
-          strokeWidth="2.5"
-        />
-        {/* Subtle Web Lines */}
-        <path d="M50 10 L50 94" stroke="rgba(0,0,0,0.5)" strokeWidth="1.2" />
-        <path d="M50 50 L18 56" stroke="rgba(0,0,0,0.5)" strokeWidth="1.2" />
-        <path d="M50 50 L82 56" stroke="rgba(0,0,0,0.5)" strokeWidth="1.2" />
-        <path d="M50 50 L26 26" stroke="rgba(0,0,0,0.5)" strokeWidth="1.2" />
-        <path d="M50 50 L74 26" stroke="rgba(0,0,0,0.5)" strokeWidth="1.2" />
-        <path d="M38 32 Q50 36 62 32" fill="none" stroke="rgba(0,0,0,0.5)" strokeWidth="1.2" />
-        <path d="M30 48 Q50 56 70 48" fill="none" stroke="rgba(0,0,0,0.5)" strokeWidth="1.2" />
-        {/* Glowing Eyes */}
-        <path d="M44 42 Q24 44, 24 54 Q32 64, 44 60 Z" fill="#ffffff" stroke="#090a0f" strokeWidth="1.5" />
-        <path d="M56 42 Q76 44, 76 54 Q68 64, 56 60 Z" fill="#ffffff" stroke="#090a0f" strokeWidth="1.5" />
-      </svg>
+    <div className={`spidey-vibe-icon-wrap ${isSinging ? "singing" : ""} ${isSpeaking ? "speaking" : ""}`}>
+      {/* Floating Singing Music Notes */}
+      {isSinging && (
+        <div className="floating-singing-notes">
+          <span className="sing-note n1">♪</span>
+          <span className="sing-note n2">♫</span>
+          <span className="sing-note n3">♩</span>
+        </div>
+      )}
+
+      {/* Spider-Man Mask SVG */}
+      <div className="spidey-mask-svg-holder">
+        <svg viewBox="0 0 100 100" className="spidey-vibe-svg" xmlns="http://www.w3.org/2000/svg">
+          <path
+            d="M50 10 C28 10, 16 28, 18 56 C20 76, 38 92, 50 94 C62 92, 80 76, 82 56 C84 28, 72 10, 50 10 Z"
+            fill="#ef4444"
+            stroke="#090a0f"
+            strokeWidth="2.5"
+          />
+          {/* Subtle Web Lines */}
+          <path d="M50 10 L50 94" stroke="rgba(0,0,0,0.5)" strokeWidth="1.2" />
+          <path d="M50 50 L18 56" stroke="rgba(0,0,0,0.5)" strokeWidth="1.2" />
+          <path d="M50 50 L82 56" stroke="rgba(0,0,0,0.5)" strokeWidth="1.2" />
+          <path d="M50 50 L26 26" stroke="rgba(0,0,0,0.5)" strokeWidth="1.2" />
+          <path d="M50 50 L74 26" stroke="rgba(0,0,0,0.5)" strokeWidth="1.2" />
+          <path d="M38 32 Q50 36 62 32" fill="none" stroke="rgba(0,0,0,0.5)" strokeWidth="1.2" />
+          <path d="M30 48 Q50 56 70 48" fill="none" stroke="rgba(0,0,0,0.5)" strokeWidth="1.2" />
+          {/* Glowing Eyes */}
+          <path d="M44 42 Q24 44, 24 54 Q32 64, 44 60 Z" fill="#ffffff" stroke="#090a0f" strokeWidth="1.5" />
+          <path d="M56 42 Q76 44, 76 54 Q68 64, 56 60 Z" fill="#ffffff" stroke="#090a0f" strokeWidth="1.5" />
+        </svg>
+      </div>
     </div>
   );
 }
@@ -235,12 +247,22 @@ export default function PeashCompanionGuide() {
         )}
 
         <button 
-          className={`peash-vibe-capsule ${isMusicPlaying ? "playing" : ""}`}
+          className={`peash-vibe-capsule ${isMusicPlaying ? "singing-active" : ""}`}
           onClick={handleOpen}
           aria-label="Open Peash AI Copilot"
         >
-          <SpiderManMinimalIcon />
-          <span className="vibe-beacon" />
+          <SpiderManSingingIcon isSinging={isMusicPlaying} isSpeaking={speakingMsgIndex !== null} />
+          
+          {/* Animated Audio Wave Beacon */}
+          {isMusicPlaying ? (
+            <div className="vibe-equalizer-beacon">
+              <span className="eq-bar b1" />
+              <span className="eq-bar b2" />
+              <span className="eq-bar b3" />
+            </div>
+          ) : (
+            <span className="vibe-beacon" />
+          )}
         </button>
       </div>
 
@@ -252,10 +274,10 @@ export default function PeashCompanionGuide() {
             {/* Top Drag Pill on Mobile */}
             <div className="vibe-drag-bar" onClick={handleClose} />
 
-            {/* Header: Title + Mini Music Player + Close */}
+            {/* Header: Title + Animated Mini Soundtrack Player + Close */}
             <div className="peash-vibe-header">
               <div className="header-left">
-                <SpiderManMinimalIcon />
+                <SpiderManSingingIcon isSinging={isMusicPlaying} isSpeaking={speakingMsgIndex !== null} />
                 <div>
                   <div className="header-title-flex">
                     <h4>Peash Copilot</h4>
@@ -265,15 +287,24 @@ export default function PeashCompanionGuide() {
                 </div>
               </div>
 
-              {/* Responsive Mini Music Strip */}
+              {/* Animated Singing Mini Music Player Strip */}
               {currentTrack && (
-                <div className={`vibe-music-pill ${isMusicPlaying ? "active" : ""}`}>
-                  <Disc3 size={13} className={isMusicPlaying ? "music-spin" : ""} />
+                <div className={`vibe-music-pill ${isMusicPlaying ? "active-singing" : ""}`}>
+                  <div className="music-icon-group">
+                    <Disc3 size={13} className={isMusicPlaying ? "music-spin" : ""} />
+                    {isMusicPlaying && (
+                      <div className="header-eq-bars">
+                        <span className="h-bar h1" />
+                        <span className="h-bar h2" />
+                        <span className="h-bar h3" />
+                      </div>
+                    )}
+                  </div>
                   <span className="music-track-name">{currentTrack.title}</span>
-                  <button onClick={toggleMusic} className="vibe-player-btn">
+                  <button onClick={toggleMusic} className="vibe-player-btn" title={isMusicPlaying ? "Pause" : "Play"}>
                     {isMusicPlaying ? <Pause size={12} /> : <Play size={12} />}
                   </button>
-                  <button onClick={nextMusicTrack} className="vibe-player-btn">
+                  <button onClick={nextMusicTrack} className="vibe-player-btn" title="Next Track">
                     <SkipForward size={12} />
                   </button>
                 </div>
