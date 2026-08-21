@@ -1,31 +1,5 @@
 import { createContext, useContext, useState, useEffect, useRef } from "react";
-
-export const PLAYLIST = [
-  {
-    id: "sunflower",
-    title: "Sunflower",
-    artist: "Post Malone & Swae Lee",
-    tag: "Spider-Verse OST",
-    youtubeId: "ApXoWvfEYVU", // Post Malone, Swae Lee - Sunflower
-    color: "#f59e0b",
-  },
-  {
-    id: "dracula",
-    title: "Dracula",
-    artist: "Tame Impala & JENNIE",
-    tag: "Psychedelic Pop",
-    youtubeId: "JHl1L0rBeOE", // Official Tame Impala & JENNIE - Dracula
-    color: "#ec4899",
-  },
-  {
-    id: "nirvana",
-    title: "Something In The Way",
-    artist: "Nirvana",
-    tag: "The Batman OST",
-    youtubeId: "4VxdufqB9zg", // Nirvana - Something In The Way
-    color: "#06b6d4",
-  },
-];
+import { PLAYLIST } from "../data/playlist";
 
 const MusicContext = createContext(null);
 

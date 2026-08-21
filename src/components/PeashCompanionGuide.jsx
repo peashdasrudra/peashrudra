@@ -4,12 +4,13 @@ import {
   Volume2, VolumeX, Sparkles, X, MessageSquare, Bot, 
   Send, Compass, Zap, Award, Calendar, CheckCircle2, 
   ChevronRight, ArrowRight, Play, Pause, SkipForward, Disc3, ExternalLink,
-  Copy, Check, HelpCircle, ArrowUpRight, ShieldCheck, Clock, Flame, Terminal, Cpu
+  Copy, Check, HelpCircle, ArrowUpRight, ShieldCheck, Clock, Flame, Terminal, Cpu, Square
 } from "lucide-react";
 import { PROFILE } from "../data/portfolio";
 import { useIsMobile } from "../hooks/useIsMobile";
-import { answerPeashQuestion } from "../utils/peashAiEngine";
+import { answerPeashQuestionAsync } from "../utils/peashAiEngine";
 import { useMusic } from "../context/MusicContext";
+import SpiderManWebScene from "./SpiderManWebScene";
 import "./PeashCompanionGuide.css";
 
 // Section-specific guide messages
@@ -134,17 +135,24 @@ function playTechBlip(isMuted, freq = 580) {
   } catch (e) {}
 }
 
-// Browser Speech Synthesis
-function speakText(text, isMuted) {
-  if (isMuted || typeof window === "undefined" || !("speechSynthesis" in window)) return;
+// Browser Speech Synthesis (On Demand only)
+function playSpeechText(text, onEnd) {
+  if (typeof window === "undefined" || !("speechSynthesis" in window)) return;
   try {
     window.speechSynthesis.cancel();
     const cleanText = text.replace(/[*•#]/g, "");
     const utterance = new SpeechSynthesisUtterance(cleanText);
     utterance.rate = 1.05;
     utterance.pitch = 1.0;
+    if (onEnd) utterance.onend = onEnd;
     window.speechSynthesis.speak(utterance);
   } catch (e) {}
+}
+
+function stopSpeechText() {
+  if (typeof window !== "undefined" && "speechSynthesis" in window) {
+    window.speechSynthesis.cancel();
+  }
 }
 
 /* ═══════════════════════════════════════════════════════════════
@@ -230,17 +238,21 @@ export default function PeashCompanionGuide() {
     nextTrack: nextMusicTrack, 
     volume: musicVolume,
     setVolume: setMusicVolume,
-    isMuted: isMusicMuted, 
-    setIsMuted: toggleMusicMute 
   } = useMusic();
+  
   const [activeSection, setActiveSection] = useState("hero");
   const [isMuted, setIsMuted] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
   const [isCopilotOpen, setIsCopilotOpen] = useState(false);
   const [isNeonHighlighted, setIsNeonHighlighted] = useState(false);
-  const [isSpeaking, setIsSpeaking] = useState(false);
   const [customPrompt, setCustomPrompt] = useState(null);
   
+  // Interactive Web Shot State
+  const [triggerWebShot, setTriggerWebShot] = useState(null);
+
+  // Voice Listening State (Disabled by Default, 1-Click to Play)
+  const [speakingMsgIndex, setSpeakingMsgIndex] = useState(null);
+
   // Interactive Chat State
   const [inputQuery, setInputQuery] = useState("");
   const [chatMessages, setChatMessages] = useState([]);
@@ -280,9 +292,7 @@ export default function PeashCompanionGuide() {
           if (SECTION_MESSAGES[sectionId]) {
             setActiveSection(sectionId);
             setCustomPrompt(null);
-            setIsSpeaking(true);
             playTechBlip(isMuted);
-            setTimeout(() => setIsSpeaking(false), 1500);
           }
         }
       });
@@ -308,6 +318,14 @@ export default function PeashCompanionGuide() {
     }
   }, [chatMessages, isThinking]);
 
+  // Clean up speech synthesis when modal closes
+  useEffect(() => {
+    if (!isCopilotOpen) {
+      stopSpeechText();
+      setSpeakingMsgIndex(null);
+    }
+  }, [isCopilotOpen]);
+
   // Handle Opening Copilot & Starting Song (Bulletproof on Mobile & Desktop)
   const handleOpenCopilot = (e) => {
     if (e && e.stopPropagation) e.stopPropagation();
@@ -315,7 +333,6 @@ export default function PeashCompanionGuide() {
     setIsNeonHighlighted(false);
     setIsOpen(false);
 
-    // Safely trigger audio in isolated try-catch so it NEVER blocks modal opening
     try {
       playTechBlip(isMuted, 650);
     } catch (err) {}
@@ -325,9 +342,12 @@ export default function PeashCompanionGuide() {
         startMusic();
       }
     } catch (err) {}
+
+    // Trigger celebratory web shot
+    setTriggerWebShot({ x: 200, y: 150, ts: Date.now() });
   };
 
-  const handleAskQuestion = (userQuery) => {
+  const handleAskQuestion = async (userQuery) => {
     if (!userQuery.trim()) return;
     const qText = userQuery.trim();
 
@@ -339,13 +359,16 @@ export default function PeashCompanionGuide() {
     setThinkingStep("Accessing Peash's RevOps & AI Knowledge Base...");
     playTechBlip(isMuted, 620);
 
+    // Trigger web-shot at chat input location
+    setTriggerWebShot({ x: 180 + Math.random() * 200, y: 350, ts: Date.now() });
+
     setTimeout(() => {
       setThinkingStep("Synthesizing Architecture & Production Credentials...");
     }, 300);
 
-    // 2. Intelligent AI Answer via reasoning engine
-    setTimeout(() => {
-      const response = answerPeashQuestion(qText);
+    // 2. Intelligent AI Answer via OpenAI / Neural Reasoning Engine
+    try {
+      const response = await answerPeashQuestionAsync(qText, chatMessages);
       const copilotMsg = {
         sender: "copilot",
         text: response.text,
@@ -358,11 +381,20 @@ export default function PeashCompanionGuide() {
 
       setIsThinking(false);
       setChatMessages((prev) => [...prev, copilotMsg]);
-      setIsSpeaking(true);
       playTechBlip(isMuted, 880);
-      speakText(response.text, isMuted);
-      setTimeout(() => setIsSpeaking(false), 2200);
-    }, 600);
+    } catch (err) {
+      setIsThinking(false);
+    }
+  };
+
+  const handleToggleVoice = (text, index) => {
+    if (speakingMsgIndex === index) {
+      stopSpeechText();
+      setSpeakingMsgIndex(null);
+    } else {
+      setSpeakingMsgIndex(index);
+      playSpeechText(text, () => setSpeakingMsgIndex(null));
+    }
   };
 
   const handleTourScroll = (sectionId) => {
@@ -433,7 +465,7 @@ export default function PeashCompanionGuide() {
 
         {/* Interactive Spider-Man Cyber Agent Icon Capsule */}
         <motion.div
-          className={`peash-avatar-capsule ${isSpeaking ? "speaking" : ""} ${isNeonHighlighted ? "neon-active" : ""} ${isMusicPlaying ? "singing-active" : ""}`}
+          className={`peash-avatar-capsule ${isNeonHighlighted ? "neon-active" : ""} ${isMusicPlaying ? "singing-active" : ""}`}
           onClick={handleOpenCopilot}
           onTouchEnd={handleOpenCopilot}
           onPointerUp={handleOpenCopilot}
@@ -445,7 +477,7 @@ export default function PeashCompanionGuide() {
           title={isMusicPlaying ? "Spider-Man AI Copilot — Singing to Soundtrack! (Click to Chat)" : "Peash AI Copilot — Click to Explore & Play Music"}
         >
           <div className="peash-avatar-inner" style={{ pointerEvents: "none" }}>
-            <SpiderManCyberIcon isSpeaking={isSpeaking} isSinging={isMusicPlaying} />
+            <SpiderManCyberIcon isSpeaking={speakingMsgIndex !== null} isSinging={isMusicPlaying} />
           </div>
 
           {(isNeonHighlighted || isMusicPlaying) && (
@@ -456,7 +488,7 @@ export default function PeashCompanionGuide() {
         </motion.div>
       </div>
 
-      {/* ─── ABSOLUTE TOP-CLASS CYBER COMMAND COPILOT MODAL ─── */}
+      {/* ─── ABSOLUTE TOP-CLASS CYBER COMMAND COPILOT MODAL WITH SPIDER-MAN SIMULATION ─── */}
       <AnimatePresence>
         {isCopilotOpen && (
           <motion.div 
@@ -474,11 +506,14 @@ export default function PeashCompanionGuide() {
               transition={{ duration: 0.22, ease: [0.16, 1, 0.3, 1] }}
               onClick={(e) => e.stopPropagation()}
             >
-              {/* ─── 1. CYBER COMMAND HEADER ─── */}
+              {/* Spider-Man Web-Shooting Interactive Background Simulation */}
+              <SpiderManWebScene triggerWebShot={triggerWebShot} />
+
+              {/* ─── 1. CYBER COMMAND HEADER (WITH MOBILE-READY MINI MUSIC PLAYER) ─── */}
               <div className="copilot-luxury-header">
                 <div className="header-brand-wrap">
                   <div className="header-avatar-box">
-                    <SpiderManCyberIcon isSpeaking={isSpeaking} isSinging={isMusicPlaying} />
+                    <SpiderManCyberIcon isSpeaking={speakingMsgIndex !== null} isSinging={isMusicPlaying} />
                   </div>
                   <div className="header-brand-text">
                     <div className="header-name-row">
@@ -487,11 +522,11 @@ export default function PeashCompanionGuide() {
                         <span className="status-live-dot" /> ACTIVE NEURAL v3.5
                       </span>
                     </div>
-                    <span className="header-sub">RevOps & Autonomous Agent Architecture Console</span>
+                    <span className="header-sub">RevOps & Autonomous Agent Console</span>
                   </div>
                 </div>
 
-                {/* Holographic Music Visualizer Pill */}
+                {/* Always-Visible Mini Music Player (Optimized for Mobile & Desktop) */}
                 {currentTrack && (
                   <div className={`header-hologram-music ${isMusicPlaying ? "active-sound" : ""}`}>
                     <div className={`holo-disc ${isMusicPlaying ? "spinning" : ""}`}>
@@ -510,31 +545,19 @@ export default function PeashCompanionGuide() {
                       onClick={toggleMusic}
                       title={isMusicPlaying ? "Pause Track" : "Play Track"}
                     >
-                      {isMusicPlaying ? <Pause size={11} /> : <Play size={11} />}
+                      {isMusicPlaying ? <Pause size={12} /> : <Play size={12} />}
                     </button>
                     <button 
                       className="holo-btn skip"
                       onClick={nextMusicTrack}
                       title="Next Track"
                     >
-                      <SkipForward size={11} />
+                      <SkipForward size={12} />
                     </button>
                   </div>
                 )}
 
                 <div className="header-controls">
-                  <button
-                    className="header-ctrl-btn"
-                    onClick={() => {
-                      setIsMuted(!isMuted);
-                      if (typeof window !== "undefined" && "speechSynthesis" in window) {
-                        window.speechSynthesis.cancel();
-                      }
-                    }}
-                    title={isMuted ? "Unmute Voice Audio" : "Mute Voice Audio"}
-                  >
-                    {isMuted ? <VolumeX size={14} /> : <Volume2 size={14} />}
-                  </button>
                   <button 
                     className="header-ctrl-btn close-btn"
                     onClick={() => setIsCopilotOpen(false)}
@@ -642,28 +665,52 @@ export default function PeashCompanionGuide() {
                         <div className="chat-bubble-card">
                           <p>{msg.text}</p>
 
-                          {/* Interactive Section Jump */}
-                          {msg.section && (
-                            <button 
-                              className="chat-jump-btn"
-                              onClick={() => handleTourScroll(msg.section)}
-                            >
-                              <ArrowRight size={12} />
-                              <span>{msg.sectionLabel || "Jump to Section"}</span>
-                            </button>
-                          )}
+                          {/* Copilot Action Toolbar (1-Click Voice Listen & Jumps) */}
+                          {msg.sender === "copilot" && (
+                            <div className="chat-action-toolbar">
+                              {/* 1-Click Listen Audio Response Button */}
+                              <button
+                                className={`chat-listen-btn ${speakingMsgIndex === index ? "playing" : ""}`}
+                                onClick={() => handleToggleVoice(msg.text, index)}
+                                title={speakingMsgIndex === index ? "Stop Audio" : "Listen to Voice Response"}
+                              >
+                                {speakingMsgIndex === index ? (
+                                  <>
+                                    <Square size={11} />
+                                    <span>Stop Voice</span>
+                                  </>
+                                ) : (
+                                  <>
+                                    <Volume2 size={12} />
+                                    <span>Listen</span>
+                                  </>
+                                )}
+                              </button>
 
-                          {/* External Resource Link */}
-                          {msg.actionUrl && (
-                            <a
-                              href={msg.actionUrl}
-                              target="_blank"
-                              rel="noopener noreferrer"
-                              className="chat-ext-btn"
-                            >
-                              <ExternalLink size={12} />
-                              <span>{msg.actionText || "View Source"}</span>
-                            </a>
+                              {/* Interactive Section Jump */}
+                              {msg.section && (
+                                <button 
+                                  className="chat-jump-btn"
+                                  onClick={() => handleTourScroll(msg.section)}
+                                >
+                                  <ArrowRight size={12} />
+                                  <span>{msg.sectionLabel || "Jump to Section"}</span>
+                                </button>
+                              )}
+
+                              {/* External Resource Link */}
+                              {msg.actionUrl && (
+                                <a
+                                  href={msg.actionUrl}
+                                  target="_blank"
+                                  rel="noopener noreferrer"
+                                  className="chat-ext-btn"
+                                >
+                                  <ExternalLink size={12} />
+                                  <span>{msg.actionText || "View Source"}</span>
+                                </a>
+                              )}
+                            </div>
                           )}
 
                           {/* Suggested Next Questions */}
@@ -719,7 +766,7 @@ export default function PeashCompanionGuide() {
                 
                 <input
                   type="text"
-                  placeholder="Ask anything about architecture, rates, HubSpot, or Day-1 readiness..."
+                  placeholder="Ask about Peash's stack, rates, HubSpot, or case studies..."
                   value={inputQuery}
                   onChange={(e) => setInputQuery(e.target.value)}
                   onKeyDown={(e) => {
