@@ -2,56 +2,49 @@ import { useState, useEffect, useRef } from "react";
 import { 
   Sparkles, X, Bot, Send, Compass, Zap, Award, Calendar, 
   ArrowRight, Play, Pause, SkipForward, Disc3, ExternalLink,
-  HelpCircle, ArrowUpRight, Volume2, Square, Music
+  HelpCircle, ArrowUpRight, Volume2, Square, Menu, ChevronRight
 } from "lucide-react";
 import { PROFILE } from "../data/portfolio";
 import { answerPeashQuestionAsync } from "../utils/peashAiEngine";
 import { useMusic } from "../context/MusicContext";
 import "./PeashCompanionGuide.css";
 
-// 4 Primary Minimal Vibe Cards
-const VIBE_HELP_CARDS = [
+// 3 Curated Ultra-Clean FAQs
+const PRIMARY_FAQS = [
   {
-    icon: Compass,
-    title: "Production Case Studies",
-    badge: "LANGGRAPH AGENTS",
-    desc: "3-in-1 real case studies, pgvector RAG & 45% bandwidth savings",
+    title: "What does Peash build?",
+    desc: "Autonomous AI agents, HubSpot RevOps pipelines & CRM automations.",
+    query: "What is Peash's core specialization in AI agents and RevOps?",
+  },
+  {
+    title: "Case Studies & ROI",
+    desc: "3-in-1 production case studies with 45% operational bandwidth savings.",
     query: "Explain the 3-in-1 production case studies and LangGraph multi-agent architecture.",
-    color: "#38bdf8",
   },
   {
-    icon: Award,
-    title: "Triple HubSpot Certified",
-    badge: "VERIFIED REVOPS",
-    desc: "HubSpot RevOps, Marketing Hub, IBM AI & Microsoft certified",
-    query: "What certifications does Peash hold and what is his track record in RevOps?",
-    color: "#1ed760",
-  },
-  {
-    icon: Calendar,
-    title: "Rates & Hiring Info",
-    badge: "$45–$65 / HR",
-    desc: "Contract & freelance availability with 30-minute discovery booking",
+    title: "Rates & Hiring Availability",
+    desc: "$45–$65/hr contract availability with zero ramp-up time.",
     query: "What are his hourly/contract rates and freelance availability?",
-    color: "#f59e0b",
-  },
-  {
-    icon: Zap,
-    title: "Day-1 Production Readiness",
-    badge: "ZERO RAMP-UP",
-    desc: "Pre-built modular harnesses ready for immediate live deployment",
-    query: "Can you ship Day-1 with zero ramp-up and pre-built modular harnesses?",
-    color: "#ef4444",
   },
 ];
 
-// Popular Instant FAQ Chips
-const POPULAR_FAQS = [
-  "What is Peash's core specialization?",
-  "Tell me about his LangGraph & MCP tools",
-  "What are his hourly/contract rates?",
-  "Show me his HubSpot credentials",
-  "How to book a discovery call?",
+// Expanded Menu Items (Accessible via Menu Button)
+const MENU_TOPICS = [
+  {
+    title: "HubSpot & AI Credentials",
+    badge: "IBM • MICROSOFT • HUBSPOT",
+    query: "What certifications does Peash hold and what is his track record in RevOps?",
+  },
+  {
+    title: "LangGraph & MCP Architecture",
+    badge: "MULTI-AGENT HARNESS",
+    query: "Tell me about his LangGraph & MCP tools and day-1 deployment harnesses.",
+  },
+  {
+    title: "Fiverr Top-Rated Client Work",
+    badge: "GLOBAL B2B",
+    query: "Tell me about his real estate automation and Fiverr client portfolio.",
+  },
 ];
 
 // Speech Synthesis (On Demand only)
@@ -75,47 +68,39 @@ function stopSpeechText() {
   }
 }
 
-/* ─── Animated Spider-Man Mascot with Singing Mode ─── */
-function SpiderManSingingIcon({ isSinging, isSpeaking }) {
+/* ─── Ultra-Clean Spider-Man Mascot ─── */
+function SpiderManMascot({ isSinging }) {
   return (
-    <div className={`spidey-vibe-icon-wrap ${isSinging ? "singing" : ""} ${isSpeaking ? "speaking" : ""}`}>
-      {/* Floating Singing Music Notes */}
+    <div className={`spidey-mascot-box ${isSinging ? "singing" : ""}`}>
       {isSinging && (
-        <div className="floating-singing-notes">
-          <span className="sing-note n1">♪</span>
-          <span className="sing-note n2">♫</span>
-          <span className="sing-note n3">♩</span>
+        <div className="spidey-musical-notes">
+          <span className="m-note n1">♪</span>
+          <span className="m-note n2">♫</span>
         </div>
       )}
-
-      {/* Spider-Man Mask SVG */}
-      <div className="spidey-mask-svg-holder">
-        <svg viewBox="0 0 100 100" className="spidey-vibe-svg" xmlns="http://www.w3.org/2000/svg">
-          <path
-            d="M50 10 C28 10, 16 28, 18 56 C20 76, 38 92, 50 94 C62 92, 80 76, 82 56 C84 28, 72 10, 50 10 Z"
-            fill="#ef4444"
-            stroke="#090a0f"
-            strokeWidth="2.5"
-          />
-          {/* Subtle Web Lines */}
-          <path d="M50 10 L50 94" stroke="rgba(0,0,0,0.5)" strokeWidth="1.2" />
-          <path d="M50 50 L18 56" stroke="rgba(0,0,0,0.5)" strokeWidth="1.2" />
-          <path d="M50 50 L82 56" stroke="rgba(0,0,0,0.5)" strokeWidth="1.2" />
-          <path d="M50 50 L26 26" stroke="rgba(0,0,0,0.5)" strokeWidth="1.2" />
-          <path d="M50 50 L74 26" stroke="rgba(0,0,0,0.5)" strokeWidth="1.2" />
-          <path d="M38 32 Q50 36 62 32" fill="none" stroke="rgba(0,0,0,0.5)" strokeWidth="1.2" />
-          <path d="M30 48 Q50 56 70 48" fill="none" stroke="rgba(0,0,0,0.5)" strokeWidth="1.2" />
-          {/* Glowing Eyes */}
-          <path d="M44 42 Q24 44, 24 54 Q32 64, 44 60 Z" fill="#ffffff" stroke="#090a0f" strokeWidth="1.5" />
-          <path d="M56 42 Q76 44, 76 54 Q68 64, 56 60 Z" fill="#ffffff" stroke="#090a0f" strokeWidth="1.5" />
-        </svg>
-      </div>
+      <svg viewBox="0 0 100 100" className="spidey-head-svg" xmlns="http://www.w3.org/2000/svg">
+        <path
+          d="M50 10 C28 10, 16 28, 18 56 C20 76, 38 92, 50 94 C62 92, 80 76, 82 56 C84 28, 72 10, 50 10 Z"
+          fill="#ef4444"
+          stroke="#090a0f"
+          strokeWidth="2.5"
+        />
+        <path d="M50 10 L50 94" stroke="rgba(0,0,0,0.5)" strokeWidth="1.2" />
+        <path d="M50 50 L18 56" stroke="rgba(0,0,0,0.5)" strokeWidth="1.2" />
+        <path d="M50 50 L82 56" stroke="rgba(0,0,0,0.5)" strokeWidth="1.2" />
+        <path d="M50 50 L26 26" stroke="rgba(0,0,0,0.5)" strokeWidth="1.2" />
+        <path d="M50 50 L74 26" stroke="rgba(0,0,0,0.5)" strokeWidth="1.2" />
+        <path d="M38 32 Q50 36 62 32" fill="none" stroke="rgba(0,0,0,0.5)" strokeWidth="1.2" />
+        <path d="M30 48 Q50 56 70 48" fill="none" stroke="rgba(0,0,0,0.5)" strokeWidth="1.2" />
+        <path d="M44 42 Q24 44, 24 54 Q32 64, 44 60 Z" fill="#ffffff" stroke="#090a0f" strokeWidth="1.5" />
+        <path d="M56 42 Q76 44, 76 54 Q68 64, 56 60 Z" fill="#ffffff" stroke="#090a0f" strokeWidth="1.5" />
+      </svg>
     </div>
   );
 }
 
 /* ═══════════════════════════════════════════════════════════════
-   MINIMAL VIBES SPIDER-MAN COPILOT
+   CLEAN, ZERO-BLINK, FAST 2G-COMPATIBLE COPILOT
    ═══════════════════════════════════════════════════════════════ */
 export default function PeashCompanionGuide() {
   const { 
@@ -128,6 +113,7 @@ export default function PeashCompanionGuide() {
   
   const [isOpen, setIsOpen] = useState(false);
   const [isBalloonVisible, setIsBalloonVisible] = useState(false);
+  const [isMenuDrawerOpen, setIsMenuDrawerOpen] = useState(false);
   const [speakingMsgIndex, setSpeakingMsgIndex] = useState(null);
   
   const [inputQuery, setInputQuery] = useState("");
@@ -135,7 +121,7 @@ export default function PeashCompanionGuide() {
   const [isThinking, setIsThinking] = useState(false);
   const chatScrollRef = useRef(null);
 
-  // 5-Second Greeting Balloon
+  // 5-Second Initial Greeting Balloon
   useEffect(() => {
     const timer = setTimeout(() => {
       setIsBalloonVisible(true);
@@ -159,6 +145,7 @@ export default function PeashCompanionGuide() {
     if (!isOpen) {
       stopSpeechText();
       setSpeakingMsgIndex(null);
+      setIsMenuDrawerOpen(false);
     }
   }, [isOpen]);
 
@@ -176,6 +163,7 @@ export default function PeashCompanionGuide() {
     setIsOpen(false);
     stopSpeechText();
     setSpeakingMsgIndex(null);
+    setIsMenuDrawerOpen(false);
   };
 
   const handleAsk = async (queryText) => {
@@ -185,6 +173,7 @@ export default function PeashCompanionGuide() {
     setChatMessages((prev) => [...prev, { sender: "user", text }]);
     setInputQuery("");
     setIsThinking(true);
+    setIsMenuDrawerOpen(false);
 
     try {
       const response = await answerPeashQuestionAsync(text, chatMessages);
@@ -226,180 +215,207 @@ export default function PeashCompanionGuide() {
 
   return (
     <>
-      {/* ─── FLOATING SPIDER-MAN TRIGGER ICON ─── */}
-      <div className="peash-vibe-trigger-root">
+      {/* ─── FLOATING SPIDER-MAN BOT TRIGGER ─── */}
+      <div className="peash-clean-trigger-dock">
         {isBalloonVisible && !isOpen && (
-          <div className="peash-vibe-balloon" onClick={handleOpen}>
-            <div className="balloon-header">
-              <span className="balloon-tag">✦ SPIDER COPILOT</span>
+          <div className="clean-guide-balloon" onClick={handleOpen}>
+            <div className="balloon-top-row">
+              <span className="balloon-pill">✦ AI COPILOT</span>
               <button 
-                className="balloon-close"
+                className="balloon-x"
                 onClick={(e) => {
                   e.stopPropagation();
                   setIsBalloonVisible(false);
                 }}
               >
-                <X size={12} />
+                <X size={13} />
               </button>
             </div>
-            <p>Hey! Tap to explore Peash's case studies & play soundtrack 🎵</p>
+            <p>Tap to explore case studies & play soundtrack 🎵</p>
           </div>
         )}
 
         <button 
-          className={`peash-vibe-capsule ${isMusicPlaying ? "singing-active" : ""}`}
+          className={`clean-bot-capsule ${isMusicPlaying ? "singing" : ""}`}
           onClick={handleOpen}
-          aria-label="Open Peash AI Copilot"
+          aria-label="Open AI Copilot"
         >
-          <SpiderManSingingIcon isSinging={isMusicPlaying} isSpeaking={speakingMsgIndex !== null} />
+          <SpiderManMascot isSinging={isMusicPlaying} />
           
-          {/* Animated Audio Wave Beacon */}
+          {/* Live EQ Bars on Button */}
           {isMusicPlaying ? (
-            <div className="vibe-equalizer-beacon">
+            <div className="bot-eq-badge">
               <span className="eq-bar b1" />
               <span className="eq-bar b2" />
               <span className="eq-bar b3" />
             </div>
           ) : (
-            <span className="vibe-beacon" />
+            <span className="bot-status-beacon" />
           )}
         </button>
       </div>
 
-      {/* ─── ULTRA-MINIMAL FEATHERWEIGHT COPILOT MODAL ─── */}
+      {/* ─── FAST, ZERO-BLINK COPILOT MODAL ─── */}
       {isOpen && (
-        <div className="peash-vibe-backdrop" onClick={handleClose}>
-          <div className="peash-vibe-modal" onClick={(e) => e.stopPropagation()}>
+        <div className="clean-modal-backdrop" onClick={handleClose}>
+          <div className="clean-copilot-container" onClick={(e) => e.stopPropagation()}>
             
-            {/* Top Drag Pill on Mobile */}
-            <div className="vibe-drag-bar" onClick={handleClose} />
+            {/* Top Sheet Drag Line on Mobile */}
+            <div className="clean-drag-indicator" onClick={handleClose} />
 
-            {/* Header: Title + Animated Mini Soundtrack Player + Close */}
-            <div className="peash-vibe-header">
-              <div className="header-left">
-                <SpiderManSingingIcon isSinging={isMusicPlaying} isSpeaking={speakingMsgIndex !== null} />
-                <div>
-                  <div className="header-title-flex">
+            {/* ─── 1. TOP HEADER (BRAND + MENU + CLOSE) ─── */}
+            <div className="clean-modal-header">
+              <div className="header-brand-box">
+                <SpiderManMascot isSinging={isMusicPlaying} />
+                <div className="brand-meta">
+                  <div className="brand-title-line">
                     <h4>Peash Copilot</h4>
-                    <span className="spidey-vibe-tag">v3.5</span>
+                    <span className="badge-spider">AI ASSISTANT</span>
                   </div>
-                  <span className="header-subtitle">RevOps & AI Architect</span>
+                  <span className="brand-subtitle">RevOps & Autonomous Systems</span>
                 </div>
               </div>
 
-              {/* Animated Singing Mini Music Player Strip */}
-              {currentTrack && (
-                <div className={`vibe-music-pill ${isMusicPlaying ? "active-singing" : ""}`}>
-                  <div className="music-icon-group">
-                    <Disc3 size={13} className={isMusicPlaying ? "music-spin" : ""} />
-                    {isMusicPlaying && (
-                      <div className="header-eq-bars">
-                        <span className="h-bar h1" />
-                        <span className="h-bar h2" />
-                        <span className="h-bar h3" />
-                      </div>
-                    )}
-                  </div>
-                  <span className="music-track-name">{currentTrack.title}</span>
-                  <button onClick={toggleMusic} className="vibe-player-btn" title={isMusicPlaying ? "Pause" : "Play"}>
-                    {isMusicPlaying ? <Pause size={12} /> : <Play size={12} />}
-                  </button>
-                  <button onClick={nextMusicTrack} className="vibe-player-btn" title="Next Track">
-                    <SkipForward size={12} />
-                  </button>
-                </div>
-              )}
+              <div className="header-controls-row">
+                <button 
+                  className={`btn-menu-drawer ${isMenuDrawerOpen ? "active" : ""}`}
+                  onClick={() => setIsMenuDrawerOpen(!isMenuDrawerOpen)}
+                  title="Menu"
+                >
+                  <Menu size={18} />
+                  <span>Menu</span>
+                </button>
 
-              <button className="vibe-close-btn" onClick={handleClose} aria-label="Close">
-                <X size={18} />
-              </button>
+                <button 
+                  className="btn-modal-close" 
+                  onClick={handleClose} 
+                  title="Close"
+                >
+                  <X size={20} />
+                </button>
+              </div>
             </div>
 
-            {/* Scrollable Content Body */}
-            <div className="peash-vibe-body" ref={chatScrollRef}>
+            {/* ─── 2. PROMINENT & SPACIOUS MUSIC PLAYER BAR ─── */}
+            {currentTrack && (
+              <div className={`clean-soundtrack-strip ${isMusicPlaying ? "playing" : ""}`}>
+                <div className="soundtrack-info-side">
+                  <div className="disc-wrap">
+                    <Disc3 size={18} className={isMusicPlaying ? "spin-disc" : ""} />
+                  </div>
+                  <div className="track-details">
+                    <span className="track-playing-label">NOW PLAYING:</span>
+                    <span className="track-main-title">{currentTrack.title}</span>
+                  </div>
+                </div>
+
+                <div className="soundtrack-btns-side">
+                  <button 
+                    onClick={toggleMusic} 
+                    className="btn-spacious-play"
+                    title={isMusicPlaying ? "Pause Soundtrack" : "Play Soundtrack"}
+                  >
+                    {isMusicPlaying ? <Pause size={16} /> : <Play size={16} />}
+                    <span>{isMusicPlaying ? "PAUSE" : "PLAY"}</span>
+                  </button>
+
+                  <button 
+                    onClick={nextMusicTrack} 
+                    className="btn-spacious-skip"
+                    title="Next Song"
+                  >
+                    <SkipForward size={16} />
+                  </button>
+                </div>
+              </div>
+            )}
+
+            {/* ─── 3. COLLAPSIBLE TOPICS MENU DRAWER ─── */}
+            {isMenuDrawerOpen && (
+              <div className="clean-menu-drawer">
+                <div className="drawer-header">
+                  <span>Explore More Topics:</span>
+                  <button onClick={() => setIsMenuDrawerOpen(false)}><X size={14} /></button>
+                </div>
+                <div className="drawer-items-list">
+                  {MENU_TOPICS.map((item, mIdx) => (
+                    <button
+                      key={mIdx}
+                      className="drawer-topic-card"
+                      onClick={() => handleAsk(item.query)}
+                    >
+                      <div className="drawer-topic-text">
+                        <span className="drawer-badge">{item.badge}</span>
+                        <h5>{item.title}</h5>
+                      </div>
+                      <ChevronRight size={16} className="drawer-arrow" />
+                    </button>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {/* ─── 4. MINIMAL CLEAN BODY (FEW PROMINENT FAQS) ─── */}
+            <div className="clean-modal-body" ref={chatScrollRef}>
               {chatMessages.length === 0 ? (
-                <div className="vibe-welcome-stack">
-                  <div className="vibe-greeting-card">
-                    <div className="greeting-badge">
-                      <Sparkles size={12} />
-                      <span>Ready to Evaluate</span>
+                <div className="clean-welcome-layout">
+                  {/* Clean Greeting Headline */}
+                  <div className="clean-headline-card">
+                    <div className="headline-badge">
+                      <Sparkles size={13} />
+                      <span>Instant Recruiter & Client Guide</span>
                     </div>
-                    <h3>Explore Architecture, Rates & Credentials</h3>
-                    <p>Tap a topic below or ask any direct question about Peash's Day-1 capabilities.</p>
+                    <h3>How can I help you evaluate Peash?</h3>
+                    <p>Select any question below or type your custom inquiry.</p>
                   </div>
 
-                  {/* 4 Clean Bento Cards */}
-                  <div className="vibe-cards-grid">
-                    {VIBE_HELP_CARDS.map((card, idx) => {
-                      const Icon = card.icon;
-                      return (
-                        <button
-                          key={idx}
-                          className="vibe-card-btn"
-                          onClick={() => handleAsk(card.query)}
-                          style={{ "--accent": card.color }}
-                        >
-                          <div className="card-top-line">
-                            <div className="card-icon-pill">
-                              <Icon size={16} />
-                            </div>
-                            <span className="card-badge">{card.badge}</span>
-                          </div>
-                          <h5>{card.title}</h5>
-                          <p>{card.desc}</p>
-                          <div className="card-cue">
-                            <span>Ask</span>
-                            <ArrowRight size={13} />
-                          </div>
-                        </button>
-                      );
-                    })}
-                  </div>
-
-                  {/* FAQ Chips */}
-                  <div className="vibe-faqs-wrap">
-                    <span className="faqs-label">Quick Questions:</span>
-                    <div className="faqs-list">
-                      {POPULAR_FAQS.map((faq, fIdx) => (
-                        <button
-                          key={fIdx}
-                          className="vibe-faq-chip"
-                          onClick={() => handleAsk(faq)}
-                        >
-                          <span>🕸️ {faq}</span>
-                          <ArrowRight size={12} />
-                        </button>
-                      ))}
-                    </div>
+                  {/* 3 Prominent Minimal Clean FAQ Cards */}
+                  <div className="clean-faq-cards-stack">
+                    {PRIMARY_FAQS.map((faq, fIdx) => (
+                      <button
+                        key={fIdx}
+                        className="clean-faq-action-card"
+                        onClick={() => handleAsk(faq.query)}
+                      >
+                        <div className="faq-card-content">
+                          <h5>🕸️ {faq.title}</h5>
+                          <p>{faq.desc}</p>
+                        </div>
+                        <div className="faq-card-action">
+                          <span>Ask</span>
+                          <ArrowRight size={14} />
+                        </div>
+                      </button>
+                    ))}
                   </div>
                 </div>
               ) : (
-                /* Chat Stream */
-                <div className="vibe-chat-stack">
+                /* Chat Conversation Stream */
+                <div className="clean-chat-messages">
                   {chatMessages.map((msg, index) => (
-                    <div key={index} className={`vibe-chat-bubble ${msg.sender}`}>
+                    <div key={index} className={`clean-msg-row ${msg.sender}`}>
                       {msg.sender === "copilot" && (
-                        <div className="copilot-avatar-icon">
-                          <Bot size={14} />
+                        <div className="bot-avatar-pill">
+                          <Bot size={15} />
                         </div>
                       )}
-                      <div className="bubble-card">
+                      <div className="msg-bubble-box">
                         <p>{msg.text}</p>
 
                         {msg.sender === "copilot" && (
-                          <div className="bubble-actions">
+                          <div className="msg-tools-row">
                             <button
-                              className={`voice-listen-pill ${speakingMsgIndex === index ? "active" : ""}`}
+                              className={`btn-voice-listen ${speakingMsgIndex === index ? "active" : ""}`}
                               onClick={() => handleToggleVoice(msg.text, index)}
                             >
                               {speakingMsgIndex === index ? (
                                 <>
-                                  <Square size={11} />
-                                  <span>Stop</span>
+                                  <Square size={13} />
+                                  <span>Stop Voice</span>
                                 </>
                               ) : (
                                 <>
-                                  <Volume2 size={12} />
+                                  <Volume2 size={14} />
                                   <span>Listen</span>
                                 </>
                               )}
@@ -407,10 +423,10 @@ export default function PeashCompanionGuide() {
 
                             {msg.section && (
                               <button 
-                                className="jump-section-pill"
+                                className="btn-jump-section"
                                 onClick={() => handleScrollTo(msg.section)}
                               >
-                                <ArrowRight size={12} />
+                                <ArrowRight size={13} />
                                 <span>{msg.sectionLabel || "Jump to Section"}</span>
                               </button>
                             )}
@@ -420,22 +436,22 @@ export default function PeashCompanionGuide() {
                                 href={msg.actionUrl}
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                className="ext-link-pill"
+                                className="btn-ext-resource"
                               >
-                                <ExternalLink size={12} />
-                                <span>{msg.actionText || "View"}</span>
+                                <ExternalLink size={13} />
+                                <span>{msg.actionText || "View Source"}</span>
                               </a>
                             )}
                           </div>
                         )}
 
                         {msg.suggestedQuestions && msg.suggestedQuestions.length > 0 && (
-                          <div className="suggested-chips-wrap">
+                          <div className="msg-suggestions-grid">
                             {msg.suggestedQuestions.map((sq, sIdx) => (
                               <button
                                 key={sIdx}
                                 onClick={() => handleAsk(sq)}
-                                className="suggested-chip"
+                                className="btn-suggestion-chip"
                               >
                                 <span>✦ {sq}</span>
                               </button>
@@ -447,12 +463,12 @@ export default function PeashCompanionGuide() {
                   ))}
 
                   {isThinking && (
-                    <div className="vibe-chat-bubble copilot thinking">
-                      <div className="copilot-avatar-icon">
-                        <Bot size={14} />
+                    <div className="clean-msg-row copilot thinking">
+                      <div className="bot-avatar-pill">
+                        <Bot size={15} />
                       </div>
-                      <div className="bubble-card thinking-card">
-                        <span className="thinking-dot" />
+                      <div className="msg-bubble-box thinking-box">
+                        <span className="thinking-pulse" />
                         <span>Searching Peash's Knowledge Base...</span>
                       </div>
                     </div>
@@ -461,14 +477,15 @@ export default function PeashCompanionGuide() {
               )}
             </div>
 
-            {/* Input Bar */}
-            <div className="peash-vibe-input-bar">
+            {/* ─── 5. SPACIOUS INPUT BAR ─── */}
+            <div className="clean-input-bar">
               {chatMessages.length > 0 && (
                 <button 
-                  className="vibe-reset-btn"
+                  className="btn-chat-reset"
                   onClick={() => setChatMessages([])}
+                  title="Main Menu"
                 >
-                  <HelpCircle size={14} />
+                  <HelpCircle size={15} />
                   <span>Menu</span>
                 </button>
               )}
@@ -481,36 +498,39 @@ export default function PeashCompanionGuide() {
                 onKeyDown={(e) => {
                   if (e.key === "Enter") handleAsk(inputQuery);
                 }}
-                className="vibe-input"
+                className="clean-input-box"
               />
               
               <button
-                className="vibe-send-btn"
+                className="btn-send-message"
                 onClick={() => handleAsk(inputQuery)}
                 disabled={!inputQuery.trim()}
+                title="Send"
               >
-                <Send size={15} />
+                <Send size={16} />
               </button>
             </div>
 
-            {/* Footer */}
-            <div className="peash-vibe-footer">
-              <div className="footer-jumps">
+            {/* ─── 6. PROMINENT STRATEGY CALL CTA FOOTER ─── */}
+            <div className="clean-cta-footer">
+              <div className="cta-quick-nav">
                 <button onClick={() => handleScrollTo("projects")}>🚀 Projects</button>
                 <span>•</span>
                 <button onClick={() => handleScrollTo("skills")}>⚡ Skills</button>
                 <span>•</span>
                 <button onClick={() => handleScrollTo("certifications")}>🏆 Certs</button>
               </div>
+
+              {/* Large High-Contrast CTA Button */}
               <a
                 href={PROFILE.calendlyUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="vibe-calendly-btn"
+                className="btn-large-strategy-call"
               >
-                <Calendar size={12} />
-                <span>Book Call</span>
-                <ArrowUpRight size={11} />
+                <Calendar size={15} />
+                <span>Book 30-Min Strategy Call</span>
+                <ArrowUpRight size={14} />
               </a>
             </div>
 
