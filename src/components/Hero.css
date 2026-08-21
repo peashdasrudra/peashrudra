@@ -751,11 +751,12 @@ html[data-theme="light"] .hubspot-text-path {
     align-items: flex-end;
     flex-wrap: nowrap;
     overflow: visible;
-    margin-left: -8px !important;
+    margin-left: -10px !important;
     /* Don't clip the glowing borders */
     gap: 0;
     width: 100%;
   }
+
 
   .hero-badges>.hero-custom-badge {
     margin: 0;
