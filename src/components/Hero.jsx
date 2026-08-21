@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState, useCallback } from "react";
 import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
-import { ArrowRight, Download, Calendar, ShieldCheck, Crown, BadgeCheck, Zap } from "lucide-react";
+import { ArrowRight, Calendar, ShieldCheck, Crown, BadgeCheck, Zap, FileText } from "lucide-react";
 import { useTypingEffect } from "../hooks/useTypingEffect";
 import { PROFILE, TERMINAL_LINES, HUBSPOT_BADGES } from "../data/portfolio";
 import "./Hero.css";
@@ -152,7 +152,7 @@ function Terminal() {
         <div className="term-bar">
           <div className="term-traffic-lights">
             <span className="tl r" onClick={handleRestart} title="Restart Stream" />
-            <span className="tl y" onClick={handleTogglePause} title={isPaused ? "Resume" : "Pause"} />
+            <span className="tl y" onClick={handleTogglePause} title={isPaused ? "Continue" : "Pause"} />
             <span className="tl g" onClick={handleToggleSpeed} title={`Speed: ${speed}x`} />
           </div>
 
@@ -173,7 +173,7 @@ function Terminal() {
             <button 
               className="term-btn" 
               onClick={handleTogglePause} 
-              title={isPaused ? "Resume Stream" : "Pause Stream"}
+              title={isPaused ? "Continue Stream" : "Pause Stream"}
             >
               {isPaused ? "▶" : "⏸"}
             </button>
@@ -338,13 +338,20 @@ export default function Hero() {
               <ArrowRight size={14} />
             </motion.a>
             <motion.a
-              href={PROFILE.resumeUrl}
+              href="#projects"
               className="btn-outline hero-sec-cta"
-              target="_blank"
-              rel="noopener noreferrer"
               whileTap={{ scale: 0.95 }}
             >
-              <Download size={14} /> <span>Verified Resume (PDF)</span>
+              <ArrowRight size={14} /> <span>See Live Case Studies</span>
+            </motion.a>
+            <motion.a
+              href={PROFILE.resumeUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="btn-outline hero-sec-cta"
+              whileTap={{ scale: 0.95 }}
+            >
+              <FileText size={14} /> <span>View Resume</span>
             </motion.a>
           </motion.div>
 

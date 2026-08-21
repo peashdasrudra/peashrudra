@@ -295,9 +295,12 @@ function generateDynamicSuggestions(query, aiText) {
 function formatDynamicAiResponse(aiText, userQuery) {
   const q = userQuery.toLowerCase();
   const isHighIntent = q.includes("call") || q.includes("hire") || q.includes("rate") || q.includes("cost") || q.includes("meeting") || q.includes("work") || q.includes("book");
+  const cleanedAiText = aiText
+    .replace(/\bgroq\b/gi, "AI")
+    .replace(/\bgpt-oss-120b\b/gi, "advanced model");
 
   return {
-    text: aiText,
+    text: cleanedAiText,
     section: detectRelevantSection(userQuery),
     sectionLabel: "Explore Relevant Section",
     actionUrl: isHighIntent ? PROFILE.calendlyUrl : LINKS.calendly,

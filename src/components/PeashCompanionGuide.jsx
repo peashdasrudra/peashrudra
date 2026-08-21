@@ -575,7 +575,7 @@ export default function PeashCompanionGuide() {
                           <span className="n-bar b2" />
                           <span className="n-bar b3" />
                         </div>
-                        <span>Synthesizing Strategy via Groq 120B Neural Core...</span>
+                        <span>Summoning caffeinated strategy goblins... one sec 😄</span>
                       </div>
                     </div>
                   )}
