@@ -26,6 +26,8 @@ function ProjectCard({ project, index, isMobile }) {
           e.currentTarget.style.setProperty("--my", e.clientY - r.top + "px");
         }}
       >
+        {!isMobile && <div className="proj-card-beam" />}
+
         {/* Header */}
         <div className="proj-header">
           <div className="proj-top-row">

@@ -92,6 +92,19 @@
 .achievement-icon-reveal.type-certification { color: #14b8a6; }
 .achievement-icon-reveal.type-language { color: #38bdf8; }
 
+/* ─── Desktop Interactive Physics ─── */
+@media (hover: hover) and (min-width: 901px) {
+  .achievement-row:hover .achievement-title {
+    transform: translateX(10px) scale(1.02);
+    color: var(--white);
+  }
+
+  .achievement-row:hover .achievement-icon-reveal {
+    transform: scale(1.15) rotate(-6deg);
+    filter: drop-shadow(0 0 24px currentColor);
+  }
+}
+
 /* ─── Responsive ─── */
 @media (max-width: 800px) {
   .achievement-title {

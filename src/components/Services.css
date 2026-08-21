@@ -141,6 +141,24 @@
   margin-top: 2px;
 }
 
+/* ─── Desktop Interactive Physics ─── */
+@media (hover: hover) and (min-width: 901px) {
+  .service-row:hover {
+    transform: translateX(6px);
+    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.25), 0 0 25px rgba(30, 215, 96, 0.08);
+  }
+
+  .service-row:hover .service-row-icon {
+    transform: scale(1.08) rotate(-4deg);
+    color: var(--green-text);
+    border-color: var(--green-border);
+  }
+
+  .service-row.active:hover {
+    transform: translateX(6px);
+  }
+}
+
 /* ─── Responsive ─── */
 @media (max-width: 980px) {
   .service-row-header {
