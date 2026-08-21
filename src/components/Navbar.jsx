@@ -90,22 +90,19 @@ export default function Navbar() {
           <motion.div
             className="mobile-menu"
             id="mobile-menu"
-            initial={{ opacity: 0, y: -8, scale: 0.98 }}
-            animate={{ opacity: 1, y: 0, scale: 1 }}
-            exit={{ opacity: 0, y: -8, scale: 0.98 }}
-            transition={{ duration: 0.2, ease: [0.16, 1, 0.3, 1] }}
+            initial={{ opacity: 0, y: -6 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -6 }}
+            transition={{ duration: 0.15, ease: "easeOut" }}
           >
-            {NAV_LINKS.map((link, i) => (
-              <motion.a
+            {NAV_LINKS.map((link) => (
+              <a
                 key={link.href}
                 href={link.href}
                 onClick={handleLinkClick}
-                initial={{ opacity: 0, x: -12 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: i * 0.05 }}
               >
                 {link.label}
-              </motion.a>
+              </a>
             ))}
             <a href="#contact" className="mobile-cta" onClick={handleLinkClick}>
               let's talk
