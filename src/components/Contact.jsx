@@ -49,17 +49,19 @@ export default function Contact() {
               whileTap={{ scale: 0.95 }}
             >
               <Calendar size={15} />
-              Book a meeting
+              <span>Book 30-Min Strategy Call</span>
               <ArrowRight size={14} />
             </motion.a>
 
             <motion.a
-              href={`mailto:${PROFILE.email}`}
-              className="btn-outline contact-btn"
+              href="https://wa.me/8801533679773"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="btn-outline contact-btn whatsapp-cta"
               whileTap={{ scale: 0.95 }}
             >
-              <Mail size={15} />
-              Send me an email
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.711 2.598 2.669-.699c.969.57 1.961.88 2.791.88 3.182 0 5.767-2.587 5.768-5.766.001-3.187-2.575-5.77-5.768-5.771zm3.392 8.244c-.144.405-.837.774-1.17.824-.312.045-.694.073-2.146-.527-1.728-.715-2.833-2.483-2.919-2.598-.086-.115-.693-.923-.693-1.761 0-.837.44-1.25.596-1.423.157-.173.342-.217.456-.217.114 0 .228.001.328.005.105.004.246-.04.385.294.144.346.491 1.196.534 1.282.043.086.071.187.014.3-.057.115-.086.187-.171.288-.086.1-.181.224-.258.3-.086.086-.176.18-.076.353.1.173.444.733.953 1.186.656.584 1.209.765 1.382.852.173.086.275.072.376-.043.101-.115.434-.506.549-.679.115-.173.231-.144.389-.086.158.058 1.002.472 1.175.559.173.086.289.13.332.202.043.072.043.418-.101.823z"/></svg>
+              <span>WhatsApp Direct</span>
             </motion.a>
 
             <motion.button
@@ -68,7 +70,7 @@ export default function Contact() {
               whileTap={{ scale: 0.95 }}
             >
               {copied ? <Check size={15} /> : <Copy size={15} />}
-              {copied ? "Email copied!" : "Copy email"}
+              <span>{copied ? "Email copied!" : "Copy email"}</span>
             </motion.button>
           </div>
 
