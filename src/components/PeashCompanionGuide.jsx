@@ -308,15 +308,23 @@ export default function PeashCompanionGuide() {
     }
   }, [chatMessages, isThinking]);
 
-  // Handle Opening Copilot & Starting Song
-  const handleOpenCopilot = () => {
+  // Handle Opening Copilot & Starting Song (Bulletproof on Mobile & Desktop)
+  const handleOpenCopilot = (e) => {
+    if (e && e.stopPropagation) e.stopPropagation();
     setIsCopilotOpen(true);
     setIsNeonHighlighted(false);
-    playTechBlip(isMuted, 650);
-    // Start music on click if not already playing
-    if (!isMusicPlaying) {
-      startMusic();
-    }
+    setIsOpen(false);
+
+    // Safely trigger audio in isolated try-catch so it NEVER blocks modal opening
+    try {
+      playTechBlip(isMuted, 650);
+    } catch (err) {}
+
+    try {
+      if (!isMusicPlaying) {
+        startMusic();
+      }
+    } catch (err) {}
   };
 
   const handleAskQuestion = (userQuery) => {
@@ -379,6 +387,9 @@ export default function PeashCompanionGuide() {
               exit={{ opacity: 0, y: 15, scale: 0.92 }}
               transition={{ duration: 0.25, ease: [0.16, 1, 0.3, 1] }}
               onClick={handleOpenCopilot}
+              onTouchEnd={handleOpenCopilot}
+              onPointerUp={handleOpenCopilot}
+              style={{ cursor: "pointer", pointerEvents: "auto", touchAction: "manipulation" }}
             >
               {/* Balloon Header */}
               <div className="speech-balloon-header">
@@ -386,7 +397,7 @@ export default function PeashCompanionGuide() {
                   <Sparkles size={11} className="text-green" />
                   <span>{currentMsg.tag}</span>
                 </div>
-                <div className="speech-actions" onClick={(e) => e.stopPropagation()}>
+                <div className="speech-actions" onClick={(e) => e.stopPropagation()} onTouchEnd={(e) => e.stopPropagation()}>
                   <button
                     className="speech-icon-btn"
                     onClick={() => setIsMuted(!isMuted)}
@@ -423,19 +434,14 @@ export default function PeashCompanionGuide() {
         {/* Interactive Spider-Man Cyber Agent Icon Capsule */}
         <motion.div
           className={`peash-avatar-capsule ${isSpeaking ? "speaking" : ""} ${isNeonHighlighted ? "neon-active" : ""} ${isMusicPlaying ? "singing-active" : ""}`}
-          onClick={(e) => {
-            e.stopPropagation();
-            handleOpenCopilot();
-          }}
-          onPointerDown={(e) => {
-            e.stopPropagation();
-            handleOpenCopilot();
-          }}
+          onClick={handleOpenCopilot}
+          onTouchEnd={handleOpenCopilot}
+          onPointerUp={handleOpenCopilot}
           whileHover={{ scale: 1.12 }}
           whileTap={{ scale: 0.92 }}
           role="button"
           tabIndex={0}
-          style={{ cursor: "pointer", pointerEvents: "auto" }}
+          style={{ cursor: "pointer", pointerEvents: "auto", touchAction: "manipulation" }}
           title={isMusicPlaying ? "Spider-Man AI Copilot — Singing to Soundtrack! (Click to Chat)" : "Peash AI Copilot — Click to Explore & Play Music"}
         >
           <div className="peash-avatar-inner" style={{ pointerEvents: "none" }}>
