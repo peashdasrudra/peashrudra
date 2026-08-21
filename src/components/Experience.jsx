@@ -52,7 +52,21 @@ function ExperienceCard({ exp, index }) {
             </div>
             <div className="exp-titles">
               <h3 className="exp-role-title">{exp.role}</h3>
-              <span className="exp-company-name">{exp.company}</span>
+              <div className="exp-company-row">
+                <span className="exp-company-name">{exp.company}</span>
+                <span className="exp-company-sep">·</span>
+                {exp.highlightLocation ? (
+                  <span className="exp-loc-pill highlight">
+                    <span className="loc-flag">🇬🇧</span>
+                    <span className="loc-text">{exp.location}</span>
+                  </span>
+                ) : (
+                  <span className="exp-loc-pill standard">
+                    <MapPin size={11} className="loc-icon" />
+                    <span className="loc-text">{exp.location}</span>
+                  </span>
+                )}
+              </div>
             </div>
           </div>
           
@@ -61,10 +75,11 @@ function ExperienceCard({ exp, index }) {
               <Calendar size={12} />
               <span>{exp.period}</span>
             </div>
-            <div className="exp-meta-pill">
-              <MapPin size={12} />
-              <span>{exp.location}</span>
-            </div>
+            {exp.type && (
+              <div className="exp-meta-pill type-pill">
+                <span>{exp.type}</span>
+              </div>
+            )}
           </div>
         </div>
 

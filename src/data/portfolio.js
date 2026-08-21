@@ -87,7 +87,9 @@ export const EXPERIENCE = [
   {
     role: "CRM & Business Automation Specialist",
     company: "Clickless",
-    location: "UK, Remote",
+    location: "Mildenhall, UK",
+    locationDetail: "Mildenhall, UK · Remote",
+    highlightLocation: true,
     period: "Feb 2026 – May 2026 (Internship)",
     type: "Full-time · Remote",
     bullets: [
@@ -102,7 +104,9 @@ export const EXPERIENCE = [
   {
     role: "Junior Software Developer",
     company: "Appstick",
-    location: "Khulna, Onsite",
+    location: "Khulna, Bangladesh",
+    locationDetail: "Khulna · Onsite",
+    highlightLocation: false,
     period: "Oct 2025 – Dec 2025",
     type: "Full-time · Onsite",
     bullets: [

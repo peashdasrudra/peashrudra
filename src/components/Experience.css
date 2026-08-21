@@ -183,11 +183,61 @@
   letter-spacing: -0.5px;
 }
 
+.exp-company-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
 .exp-company-name {
   font-family: var(--font-mono);
   font-size: 14px;
   color: var(--silver);
+  font-weight: 600;
+}
+
+.exp-company-sep {
+  color: var(--dim);
+  font-size: 14px;
+}
+
+.exp-loc-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  border-radius: var(--radius-full);
+  padding: 3px 10px;
+  transition: all 0.3s ease;
+}
+
+/* Highlighted UK location badge */
+.exp-loc-pill.highlight {
+  background: rgba(249, 115, 22, 0.14);
+  border: 1px solid rgba(249, 115, 22, 0.45);
+  color: #ff9a76;
+  font-weight: 600;
+  box-shadow: 0 0 14px rgba(249, 115, 22, 0.22), inset 0 0 8px rgba(249, 115, 22, 0.1);
+  letter-spacing: 0.2px;
+}
+
+.exp-loc-pill.highlight .loc-flag {
+  font-size: 12px;
+  line-height: 1;
+}
+
+/* Standard non-highlighted location badge (e.g. Khulna) */
+.exp-loc-pill.standard {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  color: var(--dim);
   font-weight: 500;
+}
+
+.exp-loc-pill.standard .loc-icon {
+  color: var(--dim);
 }
 
 .exp-meta {
@@ -208,6 +258,11 @@
   background: rgba(0, 0, 0, 0.3);
   border-radius: var(--radius-full);
   border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.exp-meta-pill.type-pill {
+  background: transparent;
+  border-color: rgba(255, 255, 255, 0.04);
 }
 
 /* ─── Card Body ─── */
@@ -316,4 +371,33 @@
   background: #f1f5f9;
   border-color: #e2e8f0;
   color: #334155;
+}
+
+[data-theme="light"] .exp-loc-pill.highlight {
+  background: rgba(234, 88, 12, 0.08);
+  border-color: rgba(234, 88, 12, 0.35);
+  color: #c2410c;
+  box-shadow: 0 2px 8px rgba(234, 88, 12, 0.12);
+}
+
+[data-theme="light"] .exp-loc-pill.standard {
+  background: #f1f5f9;
+  border-color: #e2e8f0;
+  color: #64748b;
+}
+
+[data-theme="light"] .exp-loc-pill.standard .loc-icon {
+  color: #64748b;
+}
+
+[data-theme="light"] .exp-meta-pill {
+  background: #f8fafc;
+  border-color: #e2e8f0;
+  color: #475569;
+}
+
+[data-theme="light"] .exp-company-logo {
+  background: #f8fafc;
+  border-color: #e2e8f0;
+  color: #0f172a;
 }
