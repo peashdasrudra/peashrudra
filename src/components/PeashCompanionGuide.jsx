@@ -3,7 +3,7 @@ import {
   Sparkles, X, Bot, Send, Compass, Zap, Award, Calendar, 
   ArrowRight, Play, Pause, SkipForward, Disc3, ExternalLink,
   HelpCircle, ArrowUpRight, Volume2, Square, Menu, ChevronRight, 
-  Radio, MessageCircle, Mail, FileText
+  Radio, MessageCircle, Mail, FileText, Key, Check, ShieldCheck
 } from "lucide-react";
 import { PROFILE } from "../data/portfolio";
 import { LINKS } from "../data/links";
@@ -137,6 +137,44 @@ export default function PeashCompanionGuide() {
   const [isThinking, setIsThinking] = useState(false);
   const chatScrollRef = useRef(null);
 
+  // OpenAI API Key Management State
+  const [hasApiKey, setHasApiKey] = useState(false);
+  const [customApiKeyInput, setCustomApiKeyInput] = useState("");
+  const [showKeyForm, setShowKeyForm] = useState(false);
+  const [keySaveSuccess, setKeySaveSuccess] = useState(false);
+
+  useEffect(() => {
+    const envKey = import.meta.env.VITE_OPENAI_API_KEY;
+    const localKey = typeof window !== "undefined" ? localStorage.getItem("peash_openai_api_key") : null;
+    const active = (envKey && envKey.startsWith("sk-")) || (localKey && localKey.startsWith("sk-"));
+    setHasApiKey(Boolean(active));
+  }, []);
+
+  const handleSaveApiKey = () => {
+    if (!customApiKeyInput.trim()) return;
+    const key = customApiKeyInput.trim();
+    if (typeof window !== "undefined") {
+      localStorage.setItem("peash_openai_api_key", key);
+      window.__PEASH_OPENAI_KEY__ = key;
+    }
+    setHasApiKey(true);
+    setKeySaveSuccess(true);
+    setTimeout(() => {
+      setKeySaveSuccess(false);
+      setShowKeyForm(false);
+      setCustomApiKeyInput("");
+    }, 1600);
+  };
+
+  const handleClearApiKey = () => {
+    if (typeof window !== "undefined") {
+      localStorage.removeItem("peash_openai_api_key");
+      delete window.__PEASH_OPENAI_KEY__;
+    }
+    const envKey = import.meta.env.VITE_OPENAI_API_KEY;
+    setHasApiKey(Boolean(envKey && envKey.startsWith("sk-")));
+  };
+
   // 5-Second Initial Greeting Balloon
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -162,6 +200,7 @@ export default function PeashCompanionGuide() {
       stopSpeechText();
       setSpeakingMsgIndex(null);
       setIsMenuDrawerOpen(false);
+      setShowKeyForm(false);
     }
   }, [isOpen]);
 
@@ -180,6 +219,7 @@ export default function PeashCompanionGuide() {
     stopSpeechText();
     setSpeakingMsgIndex(null);
     setIsMenuDrawerOpen(false);
+    setShowKeyForm(false);
   };
 
   const handleAsk = async (queryText) => {
@@ -341,13 +381,60 @@ export default function PeashCompanionGuide() {
               </div>
             )}
 
-            {/* ─── 3. COLLAPSIBLE TOPICS MENU DRAWER ─── */}
+            {/* ─── 3. COLLAPSIBLE TOPICS & API KEY MENU DRAWER ─── */}
             {isMenuDrawerOpen && (
               <div className="clean-menu-drawer">
                 <div className="drawer-header">
                   <span>Explore More Topics:</span>
                   <button onClick={() => setIsMenuDrawerOpen(false)}><X size={14} /></button>
                 </div>
+
+                {/* 🔑 OpenAI API Key Quick Connector */}
+                <div className="api-key-manager-card">
+                  <div className="api-key-header-row">
+                    <div className="api-status-info">
+                      <span className={`api-status-dot ${hasApiKey ? "online" : "offline"}`} />
+                      <span className="api-status-text">
+                        {hasApiKey ? "OpenAI GPT-4o-mini Neural Engine Active" : "Deterministic Engine (Paste key to unlock GPT-4o)"}
+                      </span>
+                    </div>
+
+                    <button
+                      className="btn-toggle-key-input"
+                      onClick={() => setShowKeyForm(!showKeyForm)}
+                    >
+                      <Key size={13} />
+                      <span>{hasApiKey ? "Change Key" : "Paste Key"}</span>
+                    </button>
+                  </div>
+
+                  {showKeyForm && (
+                    <div className="api-key-input-block">
+                      <div className="api-input-wrap">
+                        <input
+                          type="password"
+                          placeholder="Paste OpenAI API Key (sk-...)"
+                          value={customApiKeyInput}
+                          onChange={(e) => setCustomApiKeyInput(e.target.value)}
+                          className="api-key-text-input"
+                        />
+                        <button
+                          onClick={handleSaveApiKey}
+                          className="btn-save-key-action"
+                          disabled={!customApiKeyInput.trim()}
+                        >
+                          {keySaveSuccess ? <Check size={14} /> : "Save & Connect"}
+                        </button>
+                      </div>
+                      {hasApiKey && (
+                        <button onClick={handleClearApiKey} className="btn-clear-key">
+                          Disconnect Custom Key
+                        </button>
+                      )}
+                    </div>
+                  )}
+                </div>
+
                 <div className="drawer-items-list">
                   {MENU_TOPICS.map((item, mIdx) => (
                     <button
