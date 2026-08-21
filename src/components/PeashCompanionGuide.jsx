@@ -3,7 +3,7 @@ import {
   Sparkles, X, Bot, Send, Compass, Zap, Award, Calendar, 
   ArrowRight, Play, Pause, SkipForward, Disc3, ExternalLink,
   HelpCircle, ArrowUpRight, Volume2, Square, Menu, ChevronRight, 
-  Radio, MessageCircle, Mail, FileText, CheckCircle2
+  Radio, MessageCircle, Mail, FileText
 } from "lucide-react";
 import { PROFILE } from "../data/portfolio";
 import { LINKS } from "../data/links";
@@ -70,24 +70,21 @@ function stopSpeechText() {
   }
 }
 
-/* ─── Compact, Animated High-End Spider-Man Mascot ─── */
-function SpiderManCompactMascot({ isSinging }) {
+/* ─── Ultra-Sleek Spider-Man Mascot ─── */
+function SpiderManSleekMascot({ isSinging }) {
   return (
-    <div className={`spidey-compact-icon ${isSinging ? "singing" : ""}`}>
-      {/* Animated Orbit Ring */}
-      <div className="compact-orbit-ring" />
-
+    <div className={`spidey-sleek-icon ${isSinging ? "singing" : ""}`}>
       {/* Floating Singing Notes */}
       {isSinging && (
-        <div className="compact-singing-notes">
-          <span className="c-note n1">♪</span>
-          <span className="c-note n2">♫</span>
+        <div className="sleek-singing-notes">
+          <span className="s-note n1">♪</span>
+          <span className="s-note n2">♫</span>
         </div>
       )}
 
       {/* High-Resolution Mask SVG */}
-      <div className="compact-mask-holder">
-        <svg viewBox="0 0 100 100" className="compact-mask-svg" xmlns="http://www.w3.org/2000/svg">
+      <div className="sleek-mask-holder">
+        <svg viewBox="0 0 100 100" className="sleek-mask-svg" xmlns="http://www.w3.org/2000/svg">
           <defs>
             <radialGradient id="spideyMaskShade" cx="40%" cy="30%" r="65%">
               <stop offset="0%" stopColor="#f43f5e" />
@@ -234,7 +231,7 @@ export default function PeashCompanionGuide() {
 
   return (
     <>
-      {/* ─── FLOATING COMPACT CIRCULAR SPIDER-MAN BOT TRIGGER ─── */}
+      {/* ─── SLEEK, MINIMAL FLOATING SPIDER-MAN BOT TRIGGER ─── */}
       <div className="peash-clean-trigger-dock">
         {isBalloonVisible && !isOpen && (
           <div className="clean-guide-balloon" onClick={handleOpen}>
@@ -255,22 +252,14 @@ export default function PeashCompanionGuide() {
         )}
 
         <button 
-          className={`compact-bot-circle ${isMusicPlaying ? "singing" : ""}`}
+          className={`sleek-bot-capsule ${isMusicPlaying ? "singing-active" : ""}`}
           onClick={handleOpen}
           aria-label="Open AI Copilot"
         >
-          <SpiderManCompactMascot isSinging={isMusicPlaying} />
+          <SpiderManSleekMascot isSinging={isMusicPlaying} />
           
-          {/* Live Dynamic Equalizer Bars */}
-          {isMusicPlaying ? (
-            <div className="compact-eq-pill">
-              <span className="c-bar b1" />
-              <span className="c-bar b2" />
-              <span className="c-bar b3" />
-            </div>
-          ) : (
-            <span className="compact-status-dot" />
-          )}
+          {/* Subtle Cyber Status Dot */}
+          <span className={`sleek-status-dot ${isMusicPlaying ? "live-green" : "active-red"}`} />
         </button>
       </div>
 
@@ -285,7 +274,7 @@ export default function PeashCompanionGuide() {
             {/* ─── 1. TOP HEADER (BRAND + MENU + CLOSE) ─── */}
             <div className="clean-modal-header">
               <div className="header-brand-box">
-                <SpiderManCompactMascot isSinging={isMusicPlaying} />
+                <SpiderManSleekMascot isSinging={isMusicPlaying} />
                 <div className="brand-meta">
                   <div className="brand-title-line">
                     <h4>Peash Copilot</h4>
@@ -315,29 +304,20 @@ export default function PeashCompanionGuide() {
               </div>
             </div>
 
-            {/* ─── 2. COOL CYBERPUNK / SPIDER-VERSE SOUNDTRACK HUD ─── */}
+            {/* ─── 2. SLEEK SPIDER-VERSE SOUNDTRACK HUD ─── */}
             {currentTrack && (
               <div className={`cyber-soundtrack-hud ${isMusicPlaying ? "active-groove" : ""}`}>
                 <div className="hud-left-track">
                   <div className="cyber-disc-container">
-                    <Disc3 size={20} className={`cyber-vinyl ${isMusicPlaying ? "spinning" : ""}`} />
-                    <span className="vinyl-spider-core" />
+                    <Disc3 size={19} className={`cyber-vinyl ${isMusicPlaying ? "spinning" : ""}`} />
                   </div>
                   <div className="hud-track-meta">
                     <div className="hud-live-tag">
-                      <Radio size={10} className="pulse-radio" />
-                      <span>{isMusicPlaying ? "PLAYING SOUNDTRACK" : "SOUNDTRACK PAUSED"}</span>
+                      <Radio size={10} className={isMusicPlaying ? "pulse-radio text-green" : ""} />
+                      <span>{isMusicPlaying ? "SOUNDTRACK PLAYING" : "PAUSED"}</span>
                     </div>
                     <span className="hud-song-name">{currentTrack.title}</span>
                   </div>
-                </div>
-
-                {/* Multi-Color Live Equalizer Frequency Wave */}
-                <div className="hud-multi-eq">
-                  <span className={`wave-bar cyan ${isMusicPlaying ? "active" : ""}`} />
-                  <span className={`wave-bar red ${isMusicPlaying ? "active" : ""}`} />
-                  <span className={`wave-bar green ${isMusicPlaying ? "active" : ""}`} />
-                  <span className={`wave-bar yellow ${isMusicPlaying ? "active" : ""}`} />
                 </div>
 
                 <div className="hud-controls-group">
@@ -346,7 +326,7 @@ export default function PeashCompanionGuide() {
                     className="btn-cyber-play"
                     title={isMusicPlaying ? "Pause Soundtrack" : "Play Soundtrack"}
                   >
-                    {isMusicPlaying ? <Pause size={15} /> : <Play size={15} />}
+                    {isMusicPlaying ? <Pause size={14} /> : <Play size={14} />}
                     <span>{isMusicPlaying ? "PAUSE" : "PLAY"}</span>
                   </button>
 
@@ -355,7 +335,7 @@ export default function PeashCompanionGuide() {
                     className="btn-cyber-skip"
                     title="Next Song"
                   >
-                    <SkipForward size={16} />
+                    <SkipForward size={15} />
                   </button>
                 </div>
               </div>

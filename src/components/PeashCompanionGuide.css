@@ -1,5 +1,5 @@
 /* ═══════════════════════════════════════════════
-   FAST, COMPACT & COOL CYBERPUNK SPIDER-MAN COPILOT CSS
+   ULTRA-SLEEK, CYBER SPIDER-MAN COPILOT CSS
    ═══════════════════════════════════════════════ */
 
 /* ─── Floating Trigger Dock ─── */
@@ -60,147 +60,122 @@
   margin: 0;
 }
 
-/* ─── Compact Circular Animated Bot Capsule (52px) ─── */
-.compact-bot-circle {
+/* ─── Ultra-Sleek Bot Capsule (48px Titanium Rim) ─── */
+.sleek-bot-capsule {
   position: relative;
-  width: 52px;
-  height: 52px;
+  width: 48px;
+  height: 48px;
   border-radius: 50%;
-  background: radial-gradient(circle at 35% 35%, #1e1322 0%, #0d0914 100%);
-  border: 2px solid #ef4444;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.7), 0 0 18px rgba(239, 68, 68, 0.45);
+  background: radial-gradient(circle at 35% 35%, #181c2e 0%, #0c0e18 100%);
+  border: 1.5px solid rgba(239, 68, 68, 0.55);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.7), 0 0 14px rgba(239, 68, 68, 0.35);
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: transform 0.18s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.18s ease;
+  transition: transform 0.18s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.18s ease, border-color 0.18s ease;
   touch-action: manipulation;
   -webkit-tap-highlight-color: transparent;
 }
 
-.compact-bot-circle:active {
+.sleek-bot-capsule:active {
   transform: scale(0.92);
 }
 
-.compact-bot-circle:hover {
+.sleek-bot-capsule:hover {
   transform: scale(1.08);
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.85), 0 0 26px rgba(239, 68, 68, 0.7);
+  border-color: #ef4444;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.85), 0 0 22px rgba(239, 68, 68, 0.6);
 }
 
-.compact-bot-circle.singing {
-  border-color: #38bdf8;
-  box-shadow: 0 0 26px rgba(56, 189, 248, 0.75), 0 0 45px rgba(239, 68, 68, 0.4);
+.sleek-bot-capsule.singing-active {
+  border-color: #ef4444;
+  box-shadow: 0 0 20px rgba(239, 68, 68, 0.6), 0 0 35px rgba(56, 189, 248, 0.25);
+  animation: sleekGlowPulse 2.5s infinite alternate;
 }
 
-/* Glowing Neon Orbit Ring */
-.compact-orbit-ring {
-  position: absolute;
-  inset: -4px;
-  border-radius: 50%;
-  border: 1.5px solid transparent;
-  border-top-color: #38bdf8;
-  border-bottom-color: #ef4444;
-  animation: cyberRingRotate 3.5s linear infinite;
-  pointer-events: none;
+@keyframes sleekGlowPulse {
+  0% { box-shadow: 0 0 16px rgba(239, 68, 68, 0.5), 0 0 24px rgba(56, 189, 248, 0.2); }
+  100% { box-shadow: 0 0 24px rgba(239, 68, 68, 0.75), 0 0 38px rgba(56, 189, 248, 0.4); }
 }
 
-@keyframes cyberRingRotate {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
-}
-
-.spidey-compact-icon {
-  width: 34px;
-  height: 34px;
+.spidey-sleek-icon {
+  width: 30px;
+  height: 30px;
   display: flex;
   align-items: center;
   justify-content: center;
   position: relative;
 }
 
-.compact-mask-holder {
+.sleek-mask-holder {
   width: 100%;
   height: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: transform 0.15s ease;
 }
 
-.spidey-compact-icon.singing .compact-mask-holder {
-  animation: compactBop 1.3s ease-in-out infinite alternate;
+.spidey-sleek-icon.singing .sleek-mask-holder {
+  animation: sleekBop 1.3s ease-in-out infinite alternate;
 }
 
-@keyframes compactBop {
-  0% { transform: translateY(0) rotate(-4deg); }
-  100% { transform: translateY(-2.5px) rotate(4deg); }
+@keyframes sleekBop {
+  0% { transform: translateY(0) rotate(-3deg); }
+  100% { transform: translateY(-2px) rotate(3deg); }
 }
 
-.compact-mask-svg {
+.sleek-mask-svg {
   width: 100%;
   height: 100%;
 }
 
 /* Floating Music Notes */
-.compact-singing-notes {
+.sleek-singing-notes {
   position: absolute;
-  top: -12px;
-  right: -6px;
+  top: -10px;
+  left: -4px;
   display: flex;
   gap: 2px;
   font-family: var(--font-mono);
-  font-size: 13px;
+  font-size: 12px;
   font-weight: 800;
   pointer-events: none;
 }
 
-.c-note.n1 { color: #38bdf8; animation: floatNoteClean 1.4s ease-in-out infinite; }
-.c-note.n2 { color: #ef4444; animation: floatNoteClean 1.7s ease-in-out infinite 0.35s; }
+.s-note.n1 { color: #38bdf8; animation: floatNoteClean 1.4s ease-in-out infinite; }
+.s-note.n2 { color: #ef4444; animation: floatNoteClean 1.7s ease-in-out infinite 0.35s; }
 
 @keyframes floatNoteClean {
   0% { transform: translateY(0) scale(0.6); opacity: 0; }
   50% { opacity: 1; }
-  100% { transform: translateY(-16px) scale(0.85); opacity: 0; }
+  100% { transform: translateY(-15px) scale(0.85); opacity: 0; }
 }
 
-.compact-eq-pill {
+/* Sleek Cyber Status Dot */
+.sleek-status-dot {
   position: absolute;
-  top: -2px;
-  right: -2px;
-  display: flex;
-  align-items: flex-end;
-  gap: 2px;
-  height: 13px;
-  background: #0f121d;
-  border: 1px solid #38bdf8;
-  padding: 1px 3px;
-  border-radius: 4px;
-}
-
-.compact-eq-pill .c-bar {
-  width: 2.5px;
-  background: #38bdf8;
-  border-radius: 1px;
-}
-
-.compact-eq-pill .b1 { height: 5px; animation: eqAnim 0.5s infinite alternate; }
-.compact-eq-pill .b2 { height: 10px; animation: eqAnim 0.7s infinite alternate 0.15s; }
-.compact-eq-pill .b3 { height: 4px; animation: eqAnim 0.6s infinite alternate 0.3s; }
-
-@keyframes eqAnim {
-  0% { height: 3px; }
-  100% { height: 11px; }
-}
-
-.compact-status-dot {
-  position: absolute;
-  top: 1px;
-  right: 1px;
-  width: 11px;
-  height: 11px;
+  top: 2px;
+  right: 2px;
+  width: 8px;
+  height: 8px;
   border-radius: 50%;
-  background: #38bdf8;
-  border: 2px solid #131724;
+  border: 1.5px solid #0c0e18;
+}
+
+.sleek-status-dot.active-red {
+  background: #ef4444;
+}
+
+.sleek-status-dot.live-green {
+  background: #1ed760;
+  box-shadow: 0 0 8px #1ed760;
+  animation: pulseGreen 1.4s infinite alternate;
+}
+
+@keyframes pulseGreen {
+  0% { transform: scale(0.9); opacity: 0.8; }
+  100% { transform: scale(1.15); opacity: 1; }
 }
 
 /* ─── Modal Backdrop (Zero-Blink Solid) ─── */
@@ -333,21 +308,20 @@
   color: #ef4444;
 }
 
-/* ─── 2. Cool Cyberpunk / Spider-Verse Soundtrack HUD ─── */
+/* ─── 2. Sleek Spider-Verse Soundtrack HUD ─── */
 .cyber-soundtrack-hud {
   display: flex;
   align-items: center;
   justify-content: space-between;
   padding: 10px 18px;
-  background: linear-gradient(135deg, #101424 0%, #161124 100%);
-  border-bottom: 1.5px solid rgba(239, 68, 68, 0.35);
+  background: #111526;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
   gap: 10px;
 }
 
 .cyber-soundtrack-hud.active-groove {
-  background: linear-gradient(135deg, #13172c 0%, #1a122e 100%);
-  border-color: #38bdf8;
-  box-shadow: inset 0 0 20px rgba(56, 189, 248, 0.08);
+  background: #13182e;
+  border-bottom-color: rgba(239, 68, 68, 0.4);
 }
 
 .hud-left-track {
@@ -358,16 +332,9 @@
 }
 
 .cyber-disc-container {
-  position: relative;
-  width: 28px;
-  height: 28px;
+  color: #ef4444;
   display: flex;
   align-items: center;
-  justify-content: center;
-}
-
-.cyber-vinyl {
-  color: #38bdf8;
 }
 
 .cyber-vinyl.spinning {
@@ -377,14 +344,6 @@
 @keyframes vinylSpin {
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
-}
-
-.vinyl-spider-core {
-  position: absolute;
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background: #ef4444;
 }
 
 .hud-track-meta {
@@ -400,8 +359,12 @@
   font-family: var(--font-mono);
   font-size: 8.5px;
   font-weight: 800;
-  color: #38bdf8;
+  color: #94a3b8;
   letter-spacing: 0.5px;
+}
+
+.text-green {
+  color: #1ed760;
 }
 
 .pulse-radio {
@@ -423,35 +386,6 @@
   text-overflow: ellipsis;
 }
 
-/* Multi-Color Live Equalizer Frequency Wave */
-.hud-multi-eq {
-  display: flex;
-  align-items: flex-end;
-  gap: 2.5px;
-  height: 14px;
-}
-
-.wave-bar {
-  width: 2.5px;
-  border-radius: 1px;
-  height: 3px;
-}
-
-.wave-bar.cyan { background: #38bdf8; }
-.wave-bar.red { background: #ef4444; }
-.wave-bar.green { background: #1ed760; }
-.wave-bar.yellow { background: #f59e0b; }
-
-.wave-bar.active.cyan { animation: eqWave 0.5s infinite alternate; }
-.wave-bar.active.red { animation: eqWave 0.7s infinite alternate 0.15s; }
-.wave-bar.active.green { animation: eqWave 0.6s infinite alternate 0.3s; }
-.wave-bar.active.yellow { animation: eqWave 0.8s infinite alternate 0.45s; }
-
-@keyframes eqWave {
-  0% { height: 3px; }
-  100% { height: 13px; }
-}
-
 .hud-controls-group {
   display: flex;
   align-items: center;
@@ -463,16 +397,16 @@
   display: inline-flex;
   align-items: center;
   gap: 5px;
-  background: linear-gradient(135deg, #38bdf8 0%, #0284c7 100%);
+  background: #ef4444;
   border: none;
-  color: #03141f;
+  color: #ffffff;
   padding: 7px 13px;
   border-radius: var(--radius-full);
   font-family: var(--font-mono);
   font-size: 11.5px;
   font-weight: 800;
   cursor: pointer;
-  box-shadow: 0 4px 14px rgba(56, 189, 248, 0.35);
+  box-shadow: 0 4px 14px rgba(239, 68, 68, 0.35);
   transition: transform 0.15s ease;
 }
 
@@ -495,7 +429,7 @@
 
 .btn-cyber-skip:hover {
   background: rgba(255, 255, 255, 0.2);
-  color: #38bdf8;
+  color: #ef4444;
 }
 
 /* ─── 3. Topics Menu Drawer ─── */
