@@ -671,7 +671,7 @@ html[data-theme="light"] .hubspot-text-path {
 
 @media (max-width: 600px) {
   .hero {
-    padding: 72px 0 24px;
+    padding: 68px 0 24px;
     /* Increased gap between navbar and HubSpot certified badge */
   }
 
