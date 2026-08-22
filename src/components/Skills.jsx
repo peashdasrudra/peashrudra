@@ -1147,28 +1147,24 @@ export default function Skills() {
 
           {/* Category Filter Matrix Tabs (Only shown in Card Matrix mode) */}
           {viewMode === "grid" && (
-            <div className="spider-cat-tabs" style={{ marginTop: '20px' }}>
-              {categories.map((cat) => {
-                const isActive = activeCategory === cat;
-                return (
-                  <button
-                    key={cat}
-                    className={`spider-cat-tab ${isActive ? "active" : ""}`}
-                    onClick={() => setActiveCategory(cat)}
-                  >
-                    {isActive && (
-                      <motion.div
-                        className="spider-cat-pill-bg"
-                        layoutId="activeSpiderCatPill"
-                        transition={{ type: "spring", stiffness: 400, damping: 30 }}
-                      />
-                    )}
-                    <span className="spider-cat-label">
-                      {cat === "ALL" ? `⚡ All Skills (${totalSkillsCount})` : cat}
-                    </span>
-                  </button>
-                );
-              })}
+            <div className="spider-fluid-legend" style={{ marginTop: '20px', marginBottom: '28px', flexWrap: 'wrap', justifyContent: 'center' }}>
+              <div 
+                className={`spider-legend-pill ${activeCategory === "ALL" ? "active" : "dimmed"}`}
+                onClick={() => setActiveCategory("ALL")}
+              >
+                <span className="spider-legend-dot" style={{ backgroundColor: "#ffffff" }} />
+                <span>⚡ All Skills ({totalSkillsCount})</span>
+              </div>
+              {CATEGORIES.map((cat) => (
+                <div 
+                  key={cat.id} 
+                  className={`spider-legend-pill ${activeCategory === cat.title ? "active" : (activeCategory === "ALL" ? "active" : "dimmed")}`}
+                  onClick={() => setActiveCategory(cat.title)}
+                >
+                  <span className="spider-legend-dot" style={{ backgroundColor: cat.color }} />
+                  <span>{cat.title}</span>
+                </div>
+              ))}
             </div>
           )}
         </motion.div>
@@ -1205,19 +1201,7 @@ export default function Skills() {
               />
             )}
 
-            {/* Category Color Legend */}
-            <div className="spider-fluid-legend">
-              {CATEGORIES.map((cat) => (
-                <div 
-                  key={cat.id} 
-                  className={`spider-legend-pill ${activeCategory === cat.title || activeCategory === "ALL" ? "active" : "dimmed"}`}
-                  onClick={() => setActiveCategory(cat.title)}
-                >
-                  <span className="spider-legend-dot" style={{ backgroundColor: cat.color }} />
-                  <span>{cat.title}</span>
-                </div>
-              ))}
-            </div>
+
           </motion.div>
         )}
 
