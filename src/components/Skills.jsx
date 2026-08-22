@@ -1073,24 +1073,15 @@ function SpiderGridPill({ skillName, color }) {
    ═══════════════════════════════════════════════════════════════ */
 export default function Skills() {
   const isMobile = useIsMobile();
-  // Default to AI & Agentic Systems on mobile for focused high-impact presentation
-  const [activeCategory, setActiveCategory] = useState(
-    typeof window !== "undefined" && window.innerWidth <= 768 ? "AI & Agentic Systems" : "ALL"
-  );
+  // Default to ALL categories on both desktop and mobile as requested
+  const [activeCategory, setActiveCategory] = useState("ALL");
   const [hoveredSkill, setHoveredSkill] = useState(null);
-  const [viewMode, setViewMode] = useState("playground"); // 'playground' | 'grid'
+  const [viewMode, setViewMode] = useState("grid"); // 'playground' | 'grid'
   const [mousePos, setMousePos] = useState({ x: -1000, y: -1000, active: false });
   const [shockwaves, setShockwaves] = useState([]);
   const [gameActiveTrigger, setGameActiveTrigger] = useState(0); // Increments to start game
   const [gameEndData, setGameEndData] = useState(null); // Holds final score data when game over
   const sectionRef = useRef(null);
-
-  // Sync mobile category on resize
-  useEffect(() => {
-    if (isMobile && activeCategory === "ALL") {
-      setActiveCategory("AI & Agentic Systems");
-    }
-  }, [isMobile]);
 
   const totalSkillsCount = useMemo(() => {
     return SKILLS.reduce((acc, g) => acc + g.items.length, 0);
@@ -1141,16 +1132,15 @@ export default function Skills() {
                 <span>⚡ Card Matrix</span>
               </button>
               <button
-                className={`spider-toggle-btn ${viewMode === "playground" ? "active" : ""}`}
+                className={`spider-toggle-btn spider-playground-btn-highlight ${viewMode === "playground" ? "active" : ""}`}
                 onClick={() => {
                   setViewMode("playground");
                   setGameActiveTrigger(prev => prev + 1);
                 }}
-                title="Play Rogue Tech Catch!"
-                style={{ backgroundColor: "rgba(225, 29, 72, 0.15)", borderColor: "rgba(225, 29, 72, 0.4)", color: "#ff3366" }}
+                title="Play Spider Playground!"
               >
                 <Crosshair size={13} />
-                <span>🎯 WEB-SHOOTER TRAINING</span>
+                <span>🎯 SPIDER PLAYGROUND</span>
               </button>
             </div>
           </div>
