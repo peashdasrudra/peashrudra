@@ -3,7 +3,7 @@ import "./InteractiveCursorGlow.css";
 
 export default function InteractiveCursorGlow() {
   const canvasRef = useRef(null);
-  const [mousePos, setMousePos] = useState({ x: -100, y: -100 });
+  const cursorRef = useRef(null);
   const [hoverLabel, setHoverLabel] = useState(null); // 'CLICK' | 'EXPLORE' | 'CHAT' | 'VIEW'
   const [isHovered, setIsHovered] = useState(false);
   const [isClicking, setIsClicking] = useState(false);
@@ -41,7 +41,9 @@ export default function InteractiveCursorGlow() {
         speed,
       };
 
-      setMousePos({ x, y });
+      if (cursorRef.current) {
+        cursorRef.current.style.transform = `translate3d(${x}px, ${y}px, 0)`;
+      }
 
       // Spawn glowing star-dust particles along movement path
       if (speed > 1.5) {
@@ -102,36 +104,21 @@ export default function InteractiveCursorGlow() {
 
     const handleMouseUp = () => setIsClicking(false);
 
-    // Mobile Touch Particles
-    const handleTouchMove = (e) => {
-      if (e.touches.length > 0) {
-        const touch = e.touches[0];
-        const x = touch.clientX;
-        const y = touch.clientY;
-        setMousePos({ x, y });
-
-        particlesRef.current.push({
-          x,
-          y,
-          vx: (Math.random() - 0.5) * 2,
-          vy: (Math.random() - 0.5) * 2,
-          size: Math.random() * 3 + 1.5,
-          alpha: 0.75,
-          hue: 142,
-          life: 1.0,
-          decay: 0.04,
-        });
-      }
-    };
-
     window.addEventListener("mousemove", handleMouseMove, { passive: true });
     window.addEventListener("mousedown", handleMouseDown);
     window.addEventListener("mouseup", handleMouseUp);
-    window.addEventListener("touchmove", handleTouchMove, { passive: true });
-    window.addEventListener("touchstart", handleTouchMove, { passive: true });
+    
+    // Touch listeners removed to optimize mobile rendering and scrolling
 
     // ─── 60FPS High-Precision Render Loop ───
     const renderLoop = () => {
+      // Early exit if nothing to render to save CPU
+      if (particlesRef.current.length === 0 && shockwavesRef.current.length === 0) {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        animationFrameRef.current = requestAnimationFrame(renderLoop);
+        return;
+      }
+
       ctx.clearRect(0, 0, canvas.width, canvas.height);
 
       // 1. Render & Update Stardust Particles
@@ -189,8 +176,6 @@ export default function InteractiveCursorGlow() {
       window.removeEventListener("mousemove", handleMouseMove);
       window.removeEventListener("mousedown", handleMouseDown);
       window.removeEventListener("mouseup", handleMouseUp);
-      window.removeEventListener("touchmove", handleTouchMove);
-      window.removeEventListener("touchstart", handleTouchMove);
       if (animationFrameRef.current) cancelAnimationFrame(animationFrameRef.current);
     };
   }, []);
@@ -202,9 +187,10 @@ export default function InteractiveCursorGlow() {
 
       {/* Cyber HUD Magnetic Reticle Cursor (Desktop) */}
       <div
+        ref={cursorRef}
         className={`wow-cursor-hud ${isHovered ? "hovered" : ""} ${isClicking ? "clicking" : ""}`}
         style={{
-          transform: `translate3d(${mousePos.x}px, ${mousePos.y}px, 0)`,
+          transform: `translate3d(-100px, -100px, 0)`,
         }}
       >
         {/* Glowing Center Photon Core */}

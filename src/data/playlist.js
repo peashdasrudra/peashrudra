@@ -19,6 +19,11 @@
  *    }
  */
 
+export const MUSIC_SETTINGS = {
+  defaultVolume: 65, // Volume from 0 to 100
+  shuffleOnStart: true, // Set to true to start on a random song, false to start from the beginning
+};
+
 export const PLAYLIST = [
   {
     id: "sunflower",
@@ -45,12 +50,12 @@ export const PLAYLIST = [
     color: "#06b6d4",
   },
   // Template to add more songs:
-  // {
-  //   id: "starboy",
-  //   title: "Starboy",
-  //   artist: "The Weeknd ft. Daft Punk",
-  //   tag: "Cyber Synth",
-  //   youtubeId: "34Na4j8AVgA",
-  //   color: "#ef4444",
-  // },
+  {
+    id: "starboy",
+    title: "Starboy",
+    artist: "The Weeknd ft. Daft Punk",
+    tag: "Cyber Synth",
+    youtubeId: "34Na4j8AVgA",
+    color: "#ef4444",
+  },
 ];

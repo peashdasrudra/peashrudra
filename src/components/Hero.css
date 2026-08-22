@@ -683,7 +683,7 @@ html[data-theme="light"] .hubspot-text-path {
 /* ─── Hero Bottom Terminal ─── */
 .hero-bottom-full {
   width: 100%;
-  margin-top: 80px;
+  margin-top: 24px;
   display: flex;
   justify-content: center;
   position: relative;
@@ -1074,10 +1074,10 @@ html[data-theme="light"] .hubspot-text-path {
     align-items: flex-end;
     flex-wrap: nowrap;
     overflow: visible;
-    margin-left: -10px !important;
-    /* Don't clip the glowing borders */
+    width: 0;
+    margin-left: auto !important;
+    margin-right: auto !important;
     gap: 0;
-    width: 100%;
   }
 
 
@@ -1239,6 +1239,30 @@ html[data-theme="light"] .hubspot-text-path {
 
   .hero-typed {
     font-size: 12px;
+  }
+}
+
+@media (max-width: 360px) {
+  .hero-badges {
+    transform: scale(0.65) !important;
+    margin-top: 10px;
+  }
+  .hero-title {
+    font-size: 23px;
+  }
+  .hero-ctas .btn-primary,
+  .hero-ctas .btn-outline {
+    font-size: 13px;
+    padding: 12px 14px;
+  }
+}
+
+@media (max-width: 320px) {
+  .hero-badges {
+    transform: scale(0.55) !important;
+  }
+  .hero-title {
+    font-size: 21px;
   }
 }
 

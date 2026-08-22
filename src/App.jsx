@@ -44,7 +44,7 @@ function DynamicGlowOrb() {
   }, [mouseX, mouseY]);
 
   return (
-    <motion.div 
+    <motion.div
       className="dynamic-glow-orb"
       style={{
         x: smoothX,
@@ -86,14 +86,14 @@ export default function App() {
       <ScrollProgress />
 
       {/* Navigation */}
-      <Navbar 
+      <Navbar
         onOpenCmd={() => setIsCmdOpen(true)}
         theme={theme}
         toggleTheme={toggleTheme}
       />
 
       {/* Command Palette HUD */}
-      <CommandPalette 
+      <CommandPalette
         isOpen={isCmdOpen}
         setIsOpen={setIsCmdOpen}
         theme={theme}
@@ -106,7 +106,7 @@ export default function App() {
           <Hero />
           <Stats />
         </div>
-        <RecruiterConfidence />
+
         <Experience />
         <HubSpotCertified />
         <Projects />
@@ -114,6 +114,7 @@ export default function App() {
         <Services />
         <Skills />
         <FiverrGigs />
+        <RecruiterConfidence />
         <Certifications />
         <Achievements />
         <Gallery />

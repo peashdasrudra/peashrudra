@@ -327,14 +327,12 @@ export default function Hero() {
 
           <motion.div className="hero-ctas" variants={item}>
             <motion.a
-              href={PROFILE.calendlyUrl}
-              target="_blank"
-              rel="noopener noreferrer"
+              href="#contact"
               className="btn-primary hero-main-cta"
               whileTap={{ scale: 0.95 }}
             >
               <Zap size={15} />
-              <span>Book Strategy Call</span>
+              <span>Connect Me</span>
               <ArrowRight size={14} />
             </motion.a>
             <motion.a
@@ -344,15 +342,7 @@ export default function Hero() {
             >
               <ArrowRight size={14} /> <span>See Live Case Studies</span>
             </motion.a>
-            <motion.a
-              href={PROFILE.resumeUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="btn-outline hero-sec-cta"
-              whileTap={{ scale: 0.95 }}
-            >
-              <FileText size={14} /> <span>Connect Linkedin</span>
-            </motion.a>
+
           </motion.div>
 
           {/* Live High-End Telemetry HUD Bar */}
@@ -389,10 +379,8 @@ export default function Hero() {
               return (
                 <motion.a 
                   key={badge.title || `hs-badge-${i}`}
-                  href={badge.badgeUrl || LINKS.hubspot.revOps}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  title={`Verify ${badge.title} on HubSpot Academy`}
+                  href="#hubspot-certified"
+                  title={`View ${badge.title} section`}
                   className={`hero-custom-badge ${isMiddle ? 'badge-featured' : ''}`}
                   variants={item}
                 >

@@ -318,38 +318,43 @@ export default function PeashCompanionGuide() {
               </div>
             </div>
 
-            {/* ─── 2. SLEEK SPIDER-VERSE SOUNDTRACK HUD ─── */}
+            {/* ─── 2. PREMIUM APPLE MUSIC STYLE SOUNDTRACK HUD ─── */}
             {currentTrack && (
-              <div className={`cyber-soundtrack-hud ${isMusicPlaying ? "active-groove" : ""}`}>
-                <div className="hud-left-track">
-                  <div className="cyber-disc-container">
-                    <Disc3 size={19} className={`cyber-vinyl ${isMusicPlaying ? "spinning" : ""}`} />
-                  </div>
-                  <div className="hud-track-meta">
-                    <div className="hud-live-tag">
-                      <Radio size={10} className={isMusicPlaying ? "pulse-radio text-green" : ""} />
-                      <span>{isMusicPlaying ? "SOUNDTRACK PLAYING" : "PAUSED"}</span>
+              <div className="premium-music-player">
+                <div className="music-player-left">
+                  <div className={`album-art-box ${isMusicPlaying ? 'playing' : ''}`} style={{ '--accent': currentTrack.color || '#ef4444' }}>
+                    <div className="music-eq-overlay">
+                      {isMusicPlaying ? (
+                        <div className="mini-eq">
+                          <span className="eq-bar bar-1"></span>
+                          <span className="eq-bar bar-2"></span>
+                          <span className="eq-bar bar-3"></span>
+                        </div>
+                      ) : (
+                        <Disc3 size={16} color="#ffffff" />
+                      )}
                     </div>
-                    <span className="hud-song-name">{currentTrack.title}</span>
+                  </div>
+                  <div className="music-track-info">
+                    <span className="music-title">{currentTrack.title}</span>
+                    <span className="music-artist">{currentTrack.artist} • {currentTrack.tag}</span>
                   </div>
                 </div>
 
-                <div className="hud-controls-group">
+                <div className="music-controls">
                   <button 
                     onClick={toggleMusic} 
-                    className="btn-cyber-play"
+                    className="btn-music-play"
                     title={isMusicPlaying ? "Pause Soundtrack" : "Play Soundtrack"}
                   >
-                    {isMusicPlaying ? <Pause size={14} /> : <Play size={14} />}
-                    <span>{isMusicPlaying ? "PAUSE" : "PLAY"}</span>
+                    {isMusicPlaying ? <Pause size={18} fill="currentColor" /> : <Play size={18} fill="currentColor" />}
                   </button>
-
                   <button 
                     onClick={nextMusicTrack} 
-                    className="btn-cyber-skip"
+                    className="btn-music-skip"
                     title="Next Song"
                   >
-                    <SkipForward size={15} />
+                    <SkipForward size={18} fill="currentColor" />
                   </button>
                 </div>
               </div>
@@ -389,59 +394,12 @@ export default function PeashCompanionGuide() {
                   <div className="clean-headline-card">
                     <div className="headline-badge">
                       <Sparkles size={13} />
-                      <span>Autonomous AI Sales Gatekeeper</span>
+                      <span>Autonomous AI Gatekeeper</span>
                     </div>
                     <h3>How can I help you evaluate Peash?</h3>
-                    <p>Ask about RevOps ROI, case studies, or grab a direct strategy call.</p>
+                    <p>Ask about RevOps ROI, case studies, or connect directly.</p>
                   </div>
 
-                  {/* ⚡ High-Conversion Inbound Quick Links Hub */}
-                  <div className="inbound-quick-hub">
-                    <span className="inbound-hub-label">⚡ Direct Hiring & Inbound Paths:</span>
-                    <div className="inbound-pills-row">
-                      <a
-                        href={LINKS.calendly}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="inbound-pill-btn primary"
-                      >
-                        <Calendar size={13} />
-                        <span>Book Zoom Call</span>
-                        <ArrowUpRight size={12} />
-                      </a>
-
-                      <a
-                        href={LINKS.whatsapp}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="inbound-pill-btn whatsapp"
-                      >
-                        <MessageCircle size={13} />
-                        <span>WhatsApp Direct</span>
-                        <ArrowUpRight size={12} />
-                      </a>
-
-                      <a
-                        href={`mailto:${LINKS.email}`}
-                        className="inbound-pill-btn email"
-                      >
-                        <Mail size={13} />
-                        <span>Email Inbound</span>
-                        <ArrowUpRight size={12} />
-                      </a>
-
-                      <a
-                        href={LINKS.resumePdf}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="inbound-pill-btn resume"
-                      >
-                        <FileText size={13} />
-                        <span>Resume (PDF)</span>
-                        <ArrowUpRight size={12} />
-                      </a>
-                    </div>
-                  </div>
 
                   {/* 3 Prominent Minimal Clean FAQ Cards */}
                   <div className="clean-faq-cards-stack">
@@ -477,7 +435,10 @@ export default function PeashCompanionGuide() {
                         <div className="msg-markdown-content">
                           {msg.text.split("\n").map((paragraph, pIdx) => {
                             if (!paragraph.trim()) return <div key={pIdx} className="msg-spacing" />;
-                            return <p key={pIdx}>{paragraph}</p>;
+                            let htmlContent = paragraph.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+                            htmlContent = htmlContent.replace(/\[(.*?)\]\((.*?)\)/g, '<a href="$2" target="_blank" rel="noopener noreferrer" style="color: #ff3366; text-decoration: underline;">$1</a>');
+                            htmlContent = htmlContent.replace(/\*/g, '');
+                            return <p key={pIdx} dangerouslySetInnerHTML={{ __html: htmlContent }} />;
                           })}
                         </div>
 
@@ -638,14 +599,13 @@ export default function PeashCompanionGuide() {
                 </a>
 
                 <a
-                  href={LINKS.calendly}
-                  target="_blank"
-                  rel="noopener noreferrer"
+                  href="#contact"
                   className="btn-large-strategy-call"
-                  title="Schedule 30-Minute Discovery Strategy Call"
+                  title="Connect Me"
+                  onClick={() => setIsExpanded(false)}
                 >
                   <Calendar size={15} />
-                  <span>Book 30-Min Call</span>
+                  <span>Connect Me</span>
                   <ArrowUpRight size={14} />
                 </a>
               </div>

@@ -625,6 +625,30 @@
   color: #334155;
 }
 
+[data-theme="light"] .case-col-card {
+  background: rgba(255, 255, 255, 0.95);
+  border-color: rgba(0, 0, 0, 0.08);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
+}
+
+[data-theme="light"] .case-col-card:hover {
+  border-color: rgba(0, 0, 0, 0.15);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+}
+
+[data-theme="light"] .case-col-header h4 {
+  color: #0f172a;
+}
+
+[data-theme="light"] .case-step-num {
+  color: #64748b;
+}
+
+[data-theme="light"] .case-col-body,
+[data-theme="light"] .impact-col-list li {
+  color: #334155;
+}
+
 /* ─── Mobile Optimizations ─── */
 @media (max-width: 768px) {
   .proj-wrapper {

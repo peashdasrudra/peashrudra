@@ -199,10 +199,12 @@
   width: 100%;
   max-width: 580px;
   max-height: 88vh;
-  background: #0f121e;
-  border: 1.5px solid rgba(239, 68, 68, 0.45);
+  background: rgba(10, 12, 16, 0.85);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid rgba(239, 68, 68, 0.25);
   border-radius: 22px;
-  box-shadow: 0 24px 65px rgba(0, 0, 0, 0.95);
+  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.95), inset 0 0 40px rgba(239, 68, 68, 0.05);
   display: flex;
   flex-direction: column;
   overflow: hidden;
@@ -219,8 +221,8 @@
   align-items: center;
   justify-content: space-between;
   padding: 12px 18px;
-  background: #141826;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  background: transparent;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
 }
 
 .header-brand-box {
@@ -312,134 +314,137 @@
   color: #ef4444;
 }
 
-/* ─── 2. Sleek Spider-Verse Soundtrack HUD ─── */
-.cyber-soundtrack-hud {
+/* ─── 2. PREMIUM MUSIC PLAYER HUD ─── */
+.premium-music-player {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 10px 18px;
-  background: #111526;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-  gap: 10px;
+  padding: 12px 18px;
+  background: rgba(255, 255, 255, 0.02);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  backdrop-filter: blur(12px);
+  gap: 12px;
 }
 
-.cyber-soundtrack-hud.active-groove {
-  background: #13182e;
-  border-bottom-color: rgba(239, 68, 68, 0.4);
-}
-
-.hud-left-track {
+.music-player-left {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 12px;
   min-width: 0;
 }
 
-.cyber-disc-container {
-  color: #ef4444;
+.album-art-box {
+  width: 38px;
+  height: 38px;
+  border-radius: 8px;
+  background: linear-gradient(135deg, rgba(255,255,255,0.1), rgba(255,255,255,0.02));
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.4), inset 0 0 10px var(--accent);
   display: flex;
   align-items: center;
+  justify-content: center;
+  position: relative;
+  flex-shrink: 0;
+  overflow: hidden;
+  transition: all 0.3s ease;
 }
 
-.cyber-vinyl.spinning {
-  animation: vinylSpin 3s linear infinite;
+.album-art-box.playing {
+  box-shadow: 0 4px 16px var(--accent), inset 0 0 15px var(--accent);
 }
 
-@keyframes vinylSpin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
+.music-eq-overlay {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.15);
 }
 
-.hud-track-meta {
+.mini-eq {
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  gap: 3px;
+  height: 14px;
+}
+
+.mini-eq .eq-bar {
+  width: 3px;
+  background: #ffffff;
+  border-radius: 2px;
+  animation: eqBounce 0.8s ease-in-out infinite alternate;
+}
+
+.mini-eq .bar-1 { height: 6px; animation-delay: 0.1s; }
+.mini-eq .bar-2 { height: 14px; animation-delay: 0.3s; }
+.mini-eq .bar-3 { height: 9px; animation-delay: 0.2s; }
+
+@keyframes eqBounce {
+  0% { height: 4px; }
+  100% { height: 14px; }
+}
+
+.music-track-info {
   display: flex;
   flex-direction: column;
+  justify-content: center;
   min-width: 0;
 }
 
-.hud-live-tag {
-  display: flex;
-  align-items: center;
-  gap: 4px;
-  font-family: var(--font-mono);
-  font-size: 8.5px;
-  font-weight: 800;
-  color: #94a3b8;
-  letter-spacing: 0.5px;
-}
-
-.text-green {
-  color: #1ed760;
-}
-
-.pulse-radio {
-  animation: pulseDot 1s infinite alternate;
-}
-
-@keyframes pulseDot {
-  from { opacity: 0.4; }
-  to { opacity: 1; }
-}
-
-.hud-song-name {
+.music-title {
   font-family: var(--font-display);
-  font-size: 13px;
+  font-size: 13.5px;
   font-weight: 800;
   color: var(--white);
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  margin-bottom: 3px;
 }
 
-.hud-controls-group {
+.music-artist {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 700;
+  color: #94a3b8;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.music-controls {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 12px;
   flex-shrink: 0;
 }
 
-.btn-cyber-play {
-  display: inline-flex;
-  align-items: center;
-  gap: 5px;
-  background: #ef4444;
+.btn-music-play, .btn-music-skip {
+  background: transparent;
   border: none;
-  color: #ffffff;
-  padding: 7px 13px;
-  border-radius: var(--radius-full);
-  font-family: var(--font-mono);
-  font-size: 11.5px;
-  font-weight: 800;
+  color: #94a3b8;
   cursor: pointer;
-  box-shadow: 0 4px 14px rgba(239, 68, 68, 0.35);
-  transition: transform 0.15s ease;
-}
-
-.btn-cyber-play:hover {
-  transform: scale(1.04);
-}
-
-.btn-cyber-skip {
-  width: 34px;
-  height: 34px;
-  border-radius: 50%;
-  background: rgba(255, 255, 255, 0.08);
-  border: 1px solid rgba(255, 255, 255, 0.15);
-  color: #f1f5f9;
   display: flex;
   align-items: center;
   justify-content: center;
-  cursor: pointer;
+  padding: 6px;
+  border-radius: 50%;
+  transition: all 0.2s ease;
 }
 
-.btn-cyber-skip:hover {
-  background: rgba(255, 255, 255, 0.2);
-  color: #ef4444;
+.btn-music-play:hover, .btn-music-skip:hover {
+  color: #ffffff;
+  background: rgba(255, 255, 255, 0.1);
+  transform: scale(1.1);
 }
 
 /* ─── 3. Topics Menu Drawer ─── */
 .clean-menu-drawer {
-  background: #151928;
-  border-bottom: 1.5px solid #ef4444;
+  background: rgba(15, 18, 25, 0.95);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid rgba(239, 68, 68, 0.3);
   padding: 14px 18px;
 }
 
@@ -650,19 +655,21 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background: rgba(255, 255, 255, 0.04);
-  border: 1.5px solid rgba(255, 255, 255, 0.08);
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  backdrop-filter: blur(8px);
   padding: 12px 14px;
   border-radius: 14px;
   text-align: left;
   cursor: pointer;
-  transition: all 0.15s ease;
+  transition: all 0.2s ease;
   touch-action: manipulation;
 }
 
 .clean-faq-action-card:hover {
-  background: rgba(239, 68, 68, 0.12);
-  border-color: rgba(239, 68, 68, 0.45);
+  background: rgba(239, 68, 68, 0.08);
+  border-color: rgba(239, 68, 68, 0.3);
+  box-shadow: 0 4px 15px rgba(239, 68, 68, 0.1);
   transform: translateY(-2px);
 }
 
@@ -729,15 +736,16 @@
 }
 
 .msg-bubble-box {
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.06);
   border-radius: 16px;
   padding: 12px 16px;
+  backdrop-filter: blur(10px);
 }
 
 .clean-msg-row.user .msg-bubble-box {
-  background: rgba(239, 68, 68, 0.25);
-  border-color: rgba(239, 68, 68, 0.5);
+  background: linear-gradient(135deg, rgba(239, 68, 68, 0.15), rgba(239, 68, 68, 0.05));
+  border-color: rgba(239, 68, 68, 0.25);
   color: var(--white);
 }
 
@@ -1102,28 +1110,28 @@
   color: #475569;
 }
 
-[data-theme="light"] .cyber-soundtrack-hud {
-  background: #f1f5f9;
+[data-theme="light"] .premium-music-player {
+  background: rgba(255, 255, 255, 0.85);
   border-bottom-color: rgba(0, 0, 0, 0.08);
 }
 
-[data-theme="light"] .cyber-soundtrack-hud.active-groove {
-  background: #f8fafc;
-  border-bottom-color: rgba(239, 68, 68, 0.3);
-}
-
-[data-theme="light"] .hud-song-name {
+[data-theme="light"] .music-title {
   color: #0f172a;
 }
 
-[data-theme="light"] .hud-live-tag {
+[data-theme="light"] .music-artist {
   color: #64748b;
 }
 
-[data-theme="light"] .btn-cyber-skip {
-  background: #e2e8f0;
-  border-color: #cbd5e1;
+[data-theme="light"] .btn-music-play, 
+[data-theme="light"] .btn-music-skip {
   color: #334155;
+}
+
+[data-theme="light"] .btn-music-play:hover, 
+[data-theme="light"] .btn-music-skip:hover {
+  background: rgba(0, 0, 0, 0.05);
+  color: #000000;
 }
 
 [data-theme="light"] .clean-headline-card h3 {
@@ -1310,5 +1318,29 @@
 
   .clean-cta-footer {
     padding: 10px 14px calc(10px + env(safe-area-inset-bottom, 0px)) !important;
+  }
+  
+  .cta-buttons-cluster {
+    gap: 6px !important;
+  }
+  
+  .btn-secondary-inbound-whatsapp,
+  .btn-large-strategy-call {
+    padding: 8px 10px !important;
+    font-size: 10.5px !important;
+  }
+}
+
+/* For extremely small screens (e.g. iPhone SE, 320px) */
+@media (max-width: 380px) {
+  .btn-secondary-inbound-whatsapp span,
+  .btn-large-strategy-call span {
+    font-size: 9.5px !important;
+  }
+  .status-copy {
+    font-size: 7.5px !important;
+  }
+  .clean-headline-card h3 {
+    font-size: 14px !important;
   }
 }

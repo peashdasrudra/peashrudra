@@ -1,14 +1,16 @@
 import { createContext, useContext, useState, useEffect, useRef } from "react";
-import { PLAYLIST } from "../data/playlist";
+import { PLAYLIST, MUSIC_SETTINGS } from "../data/playlist";
 
 const MusicContext = createContext(null);
 
 export function MusicProvider({ children }) {
-  const [currentTrackIndex, setCurrentTrackIndex] = useState(() => Math.floor(Math.random() * PLAYLIST.length));
+  const [currentTrackIndex, setCurrentTrackIndex] = useState(() => 
+    MUSIC_SETTINGS.shuffleOnStart ? Math.floor(Math.random() * PLAYLIST.length) : 0
+  );
   const [isPlaying, setIsPlaying] = useState(false);
   const [isReady, setIsReady] = useState(false);
   const [isMuted, setIsMuted] = useState(false);
-  const [volume, setVolumeState] = useState(65);
+  const [volume, setVolumeState] = useState(MUSIC_SETTINGS.defaultVolume);
   const playerRef = useRef(null);
 
   // Load YouTube IFrame API script once

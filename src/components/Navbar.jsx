@@ -53,10 +53,9 @@ export default function Navbar({ onOpenCmd, theme, toggleTheme }) {
             className="nav-cmd-btn"
             onClick={onOpenCmd}
             aria-label="Open command search"
-            title="Search & Quick Actions (Ctrl + K)"
+            title="Search & Quick Actions"
           >
-            <Search size={12} />
-            <span className="nav-cmd-hint">⌘K</span>
+            <Search size={14} />
           </button>
 
           <motion.button

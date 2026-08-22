@@ -113,11 +113,28 @@ function SpiderManHeroAvatar({ mousePos, isHoveringNode }) {
 /* ═══════════════════════════════════════════════════════════════
    ULTRA-PREMIUM SPIDER PLAYGROUND CANVAS (4K DPI • Celestial Drift)
    ═══════════════════════════════════════════════════════════════ */
-function SpiderPlaygroundCanvas({ activeCategory, hoveredSkill, setHoveredSkill, mousePos, setMousePos, shockwaves, setShockwaves }) {
+function SpiderPlaygroundCanvas({ activeCategory, hoveredSkill, setHoveredSkill, mousePos, setMousePos, shockwaves, setShockwaves, gameActiveTrigger, onGameOver }) {
   const canvasRef = useRef(null);
   const containerRef = useRef(null);
   const isMobile = useIsMobile();
   const draggedNodeRef = useRef(null);
+
+  // Game Engine State
+  const gameState = useRef({
+    mode: 'idle', // idle, playing, won, over
+    score: 0,
+    timeLeft: 60,
+    caughtNodes: new Set(),
+    currentWave: 0,
+    totalWaves: 6,
+    lastTick: 0,
+    combo: 1,
+    lastCatchTime: 0,
+    floatingTexts: [],
+    screenShake: 0,
+    reportedGameOver: false
+  });
+
 
   // Initialize playground nodes with organic celestial velocities
   const playgroundNodes = useMemo(() => {
@@ -158,6 +175,34 @@ function SpiderPlaygroundCanvas({ activeCategory, hoveredSkill, setHoveredSkill,
 
     return nodes;
   }, []);
+
+  // Start game when trigger changes
+  useEffect(() => {
+    if (gameActiveTrigger > 0) {
+      gameState.current = {
+        mode: 'playing',
+        score: 0,
+        timeLeft: 60,
+        caughtNodes: new Set(),
+        currentWave: 0,
+        totalWaves: CATEGORIES.length,
+        lastTick: performance.now(),
+        combo: 1,
+        lastCatchTime: 0,
+        floatingTexts: [],
+        screenShake: 0,
+        reportedGameOver: false
+      };
+      
+      // Give all nodes a chaotic rogue boost, but only for the first wave initially
+      playgroundNodes.forEach(node => {
+        const speedBoost = 4 + Math.random() * 4;
+        const angle = Math.random() * Math.PI * 2;
+        node.vx = Math.cos(angle) * speedBoost;
+        node.vy = Math.sin(angle) * speedBoost;
+      });
+    }
+  }, [gameActiveTrigger, playgroundNodes]);
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -205,6 +250,76 @@ function SpiderPlaygroundCanvas({ activeCategory, hoveredSkill, setHoveredSkill,
       const centerX = width / 2;
       const centerY = height / 2;
       const maxR = Math.max(width, height) * 0.52;
+      const now = performance.now();
+
+      // ─── GAME LOOP LOGIC ───
+      if (gameState.current.mode === 'playing') {
+        const dt = (now - gameState.current.lastTick) / 1000;
+        if (dt >= 1) {
+          gameState.current.timeLeft = Math.max(0, gameState.current.timeLeft - 1);
+          gameState.current.lastTick = now;
+
+          if (gameState.current.timeLeft === 0) {
+            gameState.current.mode = 'over';
+          }
+        }
+        
+        // Reset Combo if taking too long (2.5 seconds)
+        if (now - gameState.current.lastCatchTime > 2500) {
+          gameState.current.combo = 1;
+        }
+        
+        // Decay Screen Shake
+        if (gameState.current.screenShake > 0) {
+          gameState.current.screenShake *= 0.85; // Decay
+          if (gameState.current.screenShake < 0.5) gameState.current.screenShake = 0;
+        }
+
+        // Wave Progression / Win Condition
+        const currentCategoryTitle = CATEGORIES[gameState.current.currentWave]?.title;
+        const currentWaveNodes = playgroundNodes.filter(n => n.category === currentCategoryTitle);
+        const currentWaveCaught = currentWaveNodes.filter(n => gameState.current.caughtNodes.has(n.id));
+
+        if (currentWaveCaught.length === currentWaveNodes.length && currentWaveNodes.length > 0) {
+          if (gameState.current.currentWave < gameState.current.totalWaves - 1) {
+            gameState.current.currentWave++; // Advance wave
+            // Boost new nodes
+            playgroundNodes.filter(n => n.category === CATEGORIES[gameState.current.currentWave]?.title).forEach(node => {
+              const speedBoost = 4 + Math.random() * 4 + (gameState.current.currentWave * 0.5); // Gets faster!
+              const angle = Math.random() * Math.PI * 2;
+              node.vx = Math.cos(angle) * speedBoost;
+              node.vy = Math.sin(angle) * speedBoost;
+            });
+          } else if (gameState.current.mode !== 'won') {
+            gameState.current.mode = 'won';
+            const timeBonus = gameState.current.timeLeft * 1000;
+            gameState.current.score += timeBonus;
+          }
+        }
+
+        // Report Game Over
+        if ((gameState.current.mode === 'won' || gameState.current.mode === 'over') && !gameState.current.reportedGameOver) {
+          gameState.current.reportedGameOver = true;
+          if (onGameOver) {
+             const timeBonus = gameState.current.mode === 'won' ? gameState.current.timeLeft * 1000 : 0;
+             const baseScore = gameState.current.score - timeBonus;
+             onGameOver({
+                status: gameState.current.mode,
+                baseScore,
+                timeBonus,
+                totalScore: gameState.current.score,
+                timeRemaining: gameState.current.timeLeft
+             });
+          }
+        }
+      }
+
+      ctx.save(); // Save master context for Screen Shake
+      if (gameState.current.screenShake > 0) {
+        const sx = (Math.random() - 0.5) * gameState.current.screenShake;
+        const sy = (Math.random() - 0.5) * gameState.current.screenShake;
+        ctx.translate(sx, sy);
+      }
 
       // ─── 1. Draw High-Tech Spider Web Constellation Rings ───
       ctx.save();
@@ -285,12 +400,18 @@ function SpiderPlaygroundCanvas({ activeCategory, hoveredSkill, setHoveredSkill,
       ctx.fillStyle = isLight ? "#16a34a" : "#1ed760";
       ctx.fillText("CORE", centerX, centerY + 8);
 
-      ctx.restore();
+        ctx.restore(); // Restore master context
 
       // ─── 2. Physics & Fluid Celestial Orbital Update ───
-      const filtered = playgroundNodes.filter(
-        (n) => activeCategory === "ALL" || n.category === activeCategory
-      );
+      let filtered = [];
+      if (gameState.current.mode === 'playing') {
+        const currentCategoryTitle = CATEGORIES[gameState.current.currentWave]?.title;
+        filtered = playgroundNodes.filter(n => n.category === currentCategoryTitle && !gameState.current.caughtNodes.has(n.id));
+      } else {
+        filtered = playgroundNodes.filter(
+          (n) => activeCategory === "ALL" || n.category === activeCategory
+        );
+      }
 
       for (let i = 0; i < filtered.length; i++) {
         const n1 = filtered[i];
@@ -309,10 +430,27 @@ function SpiderPlaygroundCanvas({ activeCategory, hoveredSkill, setHoveredSkill,
         const cdx = centerX - n1.x;
         const cdy = centerY - n1.y;
         const cdist = Math.sqrt(cdx * cdx + cdy * cdy);
-        if (cdist > 250) {
-          const pull = (cdist - 250) * 0.00018;
-          n1.vx += (cdx / cdist) * pull;
-          n1.vy += (cdy / cdist) * pull;
+        
+        if (gameState.current.mode === 'playing') {
+          // Rogue mode: Weaker gravity, faster nodes
+          if (cdist > 350) {
+            const pull = (cdist - 350) * 0.0001;
+            n1.vx += (cdx / cdist) * pull;
+            n1.vy += (cdy / cdist) * pull;
+          }
+          // Maintain high speed
+          const currentSpeed = Math.sqrt(n1.vx * n1.vx + n1.vy * n1.vy);
+          if (currentSpeed < 2) {
+             n1.vx *= 1.05;
+             n1.vy *= 1.05;
+          }
+        } else {
+          // Normal mode gravity
+          if (cdist > 250) {
+            const pull = (cdist - 250) * 0.00018;
+            n1.vx += (cdx / cdist) * pull;
+            n1.vy += (cdy / cdist) * pull;
+          }
         }
 
         // Wave flutter
@@ -548,6 +686,91 @@ function SpiderPlaygroundCanvas({ activeCategory, hoveredSkill, setHoveredSkill,
         }
       });
 
+      // ─── 7. Floating Combat Texts ───
+      ctx.save();
+      for (let i = gameState.current.floatingTexts.length - 1; i >= 0; i--) {
+        const ft = gameState.current.floatingTexts[i];
+        ft.y -= 1.5; // Float upwards
+        ft.life -= 0.02; // Fade out
+        
+        if (ft.life <= 0) {
+          gameState.current.floatingTexts.splice(i, 1);
+          continue;
+        }
+        
+        ctx.font = "900 18px monospace";
+        ctx.fillStyle = `rgba(${ft.isCombo ? '255, 215, 0' : '30, 215, 96'}, ${ft.life})`;
+        ctx.textAlign = "center";
+        
+        if (ft.isCombo) {
+          ctx.shadowBlur = 10;
+          ctx.shadowColor = `rgba(255, 215, 0, ${ft.life})`;
+        }
+        
+        ctx.fillText(ft.text, ft.x, ft.y);
+      }
+      ctx.restore();
+
+      // ─── 8. Game HUD & Overlay ───
+      if (gameState.current.mode !== 'idle') {
+        ctx.save();
+        
+        // Wave Banner (Top Center)
+        if (gameState.current.mode === 'playing') {
+          ctx.beginPath();
+          ctx.roundRect(width / 2 - 150, 20, 300, 40, 20);
+          ctx.fillStyle = "rgba(10, 10, 16, 0.85)";
+          ctx.strokeStyle = "rgba(30, 215, 96, 0.6)";
+          ctx.lineWidth = 2;
+          ctx.fill();
+          ctx.stroke();
+
+          ctx.font = "800 14px monospace";
+          ctx.fillStyle = "#1ed760";
+          ctx.textAlign = "center";
+          ctx.textBaseline = "middle";
+          const waveTitle = CATEGORIES[gameState.current.currentWave]?.title || "UNKNOWN";
+          ctx.fillText(`WAVE ${gameState.current.currentWave + 1}/6: ${waveTitle.toUpperCase()}`, width / 2, 40);
+        }
+
+        // HUD Background (Top Right)
+        ctx.beginPath();
+        ctx.roundRect(width - 160, 20, 140, 60, 12);
+        ctx.fillStyle = "rgba(10, 10, 16, 0.85)";
+        ctx.strokeStyle = "rgba(225, 29, 72, 0.4)";
+        ctx.lineWidth = 2;
+        ctx.fill();
+        ctx.stroke();
+        
+        // HUD Text
+        ctx.font = "800 12px monospace";
+        ctx.fillStyle = "#ff3366";
+        ctx.textAlign = "left";
+        ctx.textBaseline = "middle";
+        ctx.fillText(`SCORE: ${gameState.current.score}`, width - 145, 40);
+        ctx.fillStyle = "#1ed760";
+        ctx.fillText(`TIME:  ${gameState.current.timeLeft}s`, width - 145, 60);
+
+        // Combo HUD
+        if (gameState.current.combo > 1) {
+          const comboScale = 1 + (gameState.current.combo * 0.1);
+          ctx.save();
+          ctx.translate(width - 90, 105);
+          ctx.scale(comboScale, comboScale);
+          ctx.font = "900 18px monospace";
+          ctx.fillStyle = "#FFD700";
+          ctx.textAlign = "center";
+          ctx.shadowBlur = 15;
+          ctx.shadowColor = "#FFD700";
+          ctx.fillText(`${gameState.current.combo}x COMBO!`, 0, 0);
+          ctx.restore();
+        }
+        
+        // Overlays handled by React component now.
+        
+        ctx.restore();
+      }
+
       animationFrameId = requestAnimationFrame(render);
     };
 
@@ -568,6 +791,12 @@ function SpiderPlaygroundCanvas({ activeCategory, hoveredSkill, setHoveredSkill,
 
     let found = null;
     playgroundNodes.forEach((node) => {
+      if (gameState.current.mode === 'playing') {
+        if (node.category !== CATEGORIES[gameState.current.currentWave]?.title || gameState.current.caughtNodes.has(node.id)) return;
+      } else if (activeCategory !== "ALL" && node.category !== activeCategory) {
+        return;
+      }
+
       if (
         x >= node.x - node.width / 2 &&
         x <= node.x + node.width / 2 &&
@@ -586,16 +815,59 @@ function SpiderPlaygroundCanvas({ activeCategory, hoveredSkill, setHoveredSkill,
     const x = e.clientX - rect.left;
     const y = e.clientY - rect.top;
 
+    let clickedNode = null;
     playgroundNodes.forEach((node) => {
+      if (gameState.current.mode === 'playing') {
+        if (node.category !== CATEGORIES[gameState.current.currentWave]?.title || gameState.current.caughtNodes.has(node.id)) return;
+      } else if (activeCategory !== "ALL" && node.category !== activeCategory) {
+        return;
+      }
+
       if (
         x >= node.x - node.width / 2 &&
         x <= node.x + node.width / 2 &&
         y >= node.y - node.height / 2 &&
         y <= node.y + node.height / 2
       ) {
-        draggedNodeRef.current = node;
+        clickedNode = node;
       }
     });
+
+    if (clickedNode) {
+      if (gameState.current.mode === 'playing') {
+        // Make sure node is from current wave and uncaught
+        const isCurrentWave = clickedNode.category === CATEGORIES[gameState.current.currentWave]?.title;
+        if (isCurrentWave && !gameState.current.caughtNodes.has(clickedNode.id)) {
+          // Calculate Combo
+          const now = performance.now();
+          if (now - gameState.current.lastCatchTime <= 2500 && gameState.current.lastCatchTime > 0) {
+            gameState.current.combo += 1;
+          } else {
+            gameState.current.combo = 1;
+          }
+          gameState.current.lastCatchTime = now;
+
+          // Screen Shake & Points
+          gameState.current.screenShake = 12 + (gameState.current.combo * 2); // Max shake
+          const points = 100 * gameState.current.combo;
+          gameState.current.score += points;
+          gameState.current.caughtNodes.add(clickedNode.id);
+          
+          // Spawn Floating Text
+          gameState.current.floatingTexts.push({
+            text: `+${points}`,
+            x: clickedNode.x,
+            y: clickedNode.y,
+            life: 1.0,
+            isCombo: gameState.current.combo > 1
+          });
+
+          setShockwaves((prev) => [...prev, { x: clickedNode.x, y: clickedNode.y, radius: 10, maxRadius: 150 }]);
+        }
+      } else {
+        draggedNodeRef.current = clickedNode;
+      }
+    }
   };
 
   const handleMouseUp = () => {
@@ -651,6 +923,122 @@ function SpiderPlaygroundCanvas({ activeCategory, hoveredSkill, setHoveredSkill,
 }
 
 /* ═══════════════════════════════════════════════════════════════
+   GAME LEADERBOARD OVERLAY
+   ═══════════════════════════════════════════════════════════════ */
+function LeaderboardOverlay({ gameData, onPlayAgain }) {
+  const mockLeaderboard = useMemo(() => [
+    { name: "SpiderDev_99", score: 18400 },
+    { name: "WebSlingerX", score: 14200 },
+    { name: "DocOck_Hack", score: 11100 },
+    { name: "GwenStacy", score: 8500 },
+    { name: "MilesM_Code", score: 4200 }
+  ], []);
+
+  const [leaderboard, setLeaderboard] = useState([]);
+  const [percentile, setPercentile] = useState(0);
+
+  useEffect(() => {
+    const combined = [...mockLeaderboard, { name: "YOU", score: gameData.totalScore, isUser: true }];
+    combined.sort((a, b) => b.score - a.score);
+    setLeaderboard(combined);
+    
+    // Percentile logic: Top X% = (Rank / Total Players) * 100
+    // We assume there are 50,000 global players. We estimate percentile.
+    const rank = combined.findIndex(p => p.isUser) + 1;
+    // Simple mock logic:
+    if (gameData.totalScore > 15000) setPercentile(1);
+    else if (gameData.totalScore > 10000) setPercentile(12);
+    else if (gameData.totalScore > 5000) setPercentile(34);
+    else setPercentile(68);
+  }, [gameData, mockLeaderboard]);
+
+  return (
+    <motion.div 
+      className="game-leaderboard-overlay"
+      initial={{ opacity: 0, backdropFilter: "blur(0px)" }}
+      animate={{ opacity: 1, backdropFilter: "blur(12px)" }}
+      style={{
+        position: 'absolute', top: 0, left: 0, width: '100%', height: '100%',
+        backgroundColor: 'rgba(10, 10, 16, 0.75)',
+        display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center',
+        zIndex: 100,
+        borderRadius: '24px'
+      }}
+    >
+      <motion.div 
+        initial={{ scale: 0.9, y: 20 }}
+        animate={{ scale: 1, y: 0 }}
+        style={{
+          background: 'rgba(20, 20, 25, 0.9)',
+          border: `1px solid ${gameData.status === 'won' ? '#1ed760' : '#ff3366'}`,
+          borderRadius: '16px',
+          padding: '2rem',
+          width: '90%', maxWidth: '500px',
+          boxShadow: `0 0 40px ${gameData.status === 'won' ? 'rgba(30,215,96,0.2)' : 'rgba(255,51,102,0.2)'}`
+        }}
+      >
+        <h2 style={{ color: gameData.status === 'won' ? '#1ed760' : '#ff3366', textAlign: 'center', fontSize: '2rem', margin: '0 0 1rem 0' }}>
+          {gameData.status === 'won' ? "MATRIX SECURED" : "TIME EXPIRED"}
+        </h2>
+        
+        <div style={{ background: 'rgba(0,0,0,0.3)', padding: '1rem', borderRadius: '8px', marginBottom: '1.5rem' }}>
+          <div style={{ display: 'flex', justifyContent: 'space-between', color: '#888', marginBottom: '0.5rem' }}>
+            <span>Base Score (Nodes Caught):</span>
+            <span style={{ color: '#fff' }}>{gameData.baseScore}</span>
+          </div>
+          <div style={{ display: 'flex', justifyContent: 'space-between', color: '#888', marginBottom: '0.5rem' }}>
+            <span>Time Bonus ({gameData.timeRemaining}s left x 1000):</span>
+            <span style={{ color: '#1ed760' }}>+{gameData.timeBonus}</span>
+          </div>
+          <div style={{ display: 'flex', justifyContent: 'space-between', color: '#fff', fontSize: '1.2rem', fontWeight: 'bold', marginTop: '1rem', paddingTop: '1rem', borderTop: '1px solid rgba(255,255,255,0.1)' }}>
+            <span>FINAL SCORE:</span>
+            <span>{gameData.totalScore}</span>
+          </div>
+        </div>
+
+        <div style={{ textAlign: 'center', marginBottom: '1.5rem' }}>
+          <span style={{ background: 'linear-gradient(90deg, #FFD700, #FFA500)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', fontWeight: '900', fontSize: '1.5rem' }}>
+            TOP {percentile}% GLOBAL RANK
+          </span>
+        </div>
+
+        <h3 style={{ color: '#fff', fontSize: '1rem', margin: '0 0 1rem 0' }}>GLOBAL LEADERBOARD</h3>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem', marginBottom: '2rem' }}>
+          {leaderboard.map((player, idx) => (
+            <div key={idx} style={{ 
+              display: 'flex', justifyContent: 'space-between', 
+              padding: '0.5rem 1rem', 
+              background: player.isUser ? 'rgba(225, 29, 72, 0.2)' : 'transparent',
+              border: player.isUser ? '1px solid rgba(225, 29, 72, 0.5)' : '1px solid rgba(255,255,255,0.05)',
+              borderRadius: '6px',
+              color: player.isUser ? '#ff3366' : '#aaa',
+              fontWeight: player.isUser ? 'bold' : 'normal'
+            }}>
+              <span>{idx + 1}. {player.name}</span>
+              <span>{player.score}</span>
+            </div>
+          ))}
+        </div>
+
+        <button 
+          onClick={onPlayAgain}
+          style={{
+            width: '100%', padding: '1rem',
+            background: 'rgba(255,255,255,0.1)', color: '#fff',
+            border: 'none', borderRadius: '8px', cursor: 'pointer',
+            fontWeight: 'bold', transition: 'background 0.2s'
+          }}
+          onMouseEnter={e => e.target.style.background = 'rgba(255,255,255,0.2)'}
+          onMouseLeave={e => e.target.style.background = 'rgba(255,255,255,0.1)'}
+        >
+          PLAY AGAIN
+        </button>
+      </motion.div>
+    </motion.div>
+  );
+}
+
+/* ═══════════════════════════════════════════════════════════════
    CARD GRID SKILL PILL (For Card Matrix Tab)
    ═══════════════════════════════════════════════════════════════ */
 function SpiderGridPill({ skillName, color }) {
@@ -693,6 +1081,8 @@ export default function Skills() {
   const [viewMode, setViewMode] = useState("playground"); // 'playground' | 'grid'
   const [mousePos, setMousePos] = useState({ x: -1000, y: -1000, active: false });
   const [shockwaves, setShockwaves] = useState([]);
+  const [gameActiveTrigger, setGameActiveTrigger] = useState(0); // Increments to start game
+  const [gameEndData, setGameEndData] = useState(null); // Holds final score data when game over
   const sectionRef = useRef(null);
 
   // Sync mobile category on resize
@@ -743,14 +1133,6 @@ export default function Skills() {
             {/* View Mode Tabs */}
             <div className="spider-view-toggle">
               <button
-                className={`spider-toggle-btn ${viewMode === "playground" ? "active" : ""}`}
-                onClick={() => setViewMode("playground")}
-                title="Big Borderless Moving Web Playground"
-              >
-                <Compass size={13} />
-                <span>🕸️ Spider Playground</span>
-              </button>
-              <button
                 className={`spider-toggle-btn ${viewMode === "grid" ? "active" : ""}`}
                 onClick={() => setViewMode("grid")}
                 title="Structured Category Cards"
@@ -758,33 +1140,47 @@ export default function Skills() {
                 <Grid size={13} />
                 <span>⚡ Card Matrix</span>
               </button>
+              <button
+                className={`spider-toggle-btn ${viewMode === "playground" ? "active" : ""}`}
+                onClick={() => {
+                  setViewMode("playground");
+                  setGameActiveTrigger(prev => prev + 1);
+                }}
+                title="Play Rogue Tech Catch!"
+                style={{ backgroundColor: "rgba(225, 29, 72, 0.15)", borderColor: "rgba(225, 29, 72, 0.4)", color: "#ff3366" }}
+              >
+                <Crosshair size={13} />
+                <span>🎯 WEB-SHOOTER TRAINING</span>
+              </button>
             </div>
           </div>
 
-          {/* Category Filter Matrix Tabs */}
-          <div className="spider-cat-tabs">
-            {categories.map((cat) => {
-              const isActive = activeCategory === cat;
-              return (
-                <button
-                  key={cat}
-                  className={`spider-cat-tab ${isActive ? "active" : ""}`}
-                  onClick={() => setActiveCategory(cat)}
-                >
-                  {isActive && (
-                    <motion.div
-                      className="spider-cat-pill-bg"
-                      layoutId="activeSpiderCatPill"
-                      transition={{ type: "spring", stiffness: 400, damping: 30 }}
-                    />
-                  )}
-                  <span className="spider-cat-label">
-                    {cat === "ALL" ? `⚡ All Web Stack (${totalSkillsCount})` : cat}
-                  </span>
-                </button>
-              );
-            })}
-          </div>
+          {/* Category Filter Matrix Tabs (Only shown in Card Matrix mode) */}
+          {viewMode === "grid" && (
+            <div className="spider-cat-tabs" style={{ marginTop: '20px' }}>
+              {categories.map((cat) => {
+                const isActive = activeCategory === cat;
+                return (
+                  <button
+                    key={cat}
+                    className={`spider-cat-tab ${isActive ? "active" : ""}`}
+                    onClick={() => setActiveCategory(cat)}
+                  >
+                    {isActive && (
+                      <motion.div
+                        className="spider-cat-pill-bg"
+                        layoutId="activeSpiderCatPill"
+                        transition={{ type: "spring", stiffness: 400, damping: 30 }}
+                      />
+                    )}
+                    <span className="spider-cat-label">
+                      {cat === "ALL" ? `⚡ All Skills (${totalSkillsCount})` : cat}
+                    </span>
+                  </button>
+                );
+              })}
+            </div>
+          )}
         </motion.div>
 
         {/* ─── TAB 1: Big Borderless Moving Web Playground ─── */}
@@ -795,6 +1191,7 @@ export default function Skills() {
             animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.4 }}
+            style={{ position: 'relative' }}
           >
             <SpiderPlaygroundCanvas
               activeCategory={activeCategory}
@@ -804,7 +1201,19 @@ export default function Skills() {
               setMousePos={setMousePos}
               shockwaves={shockwaves}
               setShockwaves={setShockwaves}
+              gameActiveTrigger={gameActiveTrigger}
+              onGameOver={(data) => setGameEndData(data)}
             />
+
+            {gameEndData && (
+              <LeaderboardOverlay 
+                gameData={gameEndData} 
+                onPlayAgain={() => {
+                  setGameEndData(null);
+                  setGameActiveTrigger(prev => prev + 1);
+                }} 
+              />
+            )}
 
             {/* Category Color Legend */}
             <div className="spider-fluid-legend">
